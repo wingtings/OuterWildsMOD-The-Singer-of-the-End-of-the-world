@@ -4,11 +4,28 @@
 
 ## 技术准备
 
-引擎：Unity 3D
+引擎：Unity 3D 并且下载 OuterWilds MOD Manager 以加载进游戏内
 
 OuterWilds MOD官方网站：https://outerwildsmods.com/
 
-游戏资产获取：https://github.com/ow-mods/outer-wilds-unity-wiki/wiki
+Github 游戏组织：https://github.com/ow-mods
+
+游戏资产获取：https://github.com/ow-mods/outer-wilds-unity-wiki/wiki （需要加入 Discord 找管理员要资源）
+
+新建 MOD 流程模版：
+
+- https://owml.outerwildsmods.com/
+
+- https://github.com/ow-mods/ow-mod-template
+
+![](/figs/modder.png)
+
+新建地图需要阅读：
+
+- https://nh.outerwildsmods.com/
+- https://github.com/ow-mods/outer-wilds-unity-wiki/wiki
+
+![](/figs/newhorizons.png)
 
 
 

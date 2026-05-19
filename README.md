@@ -39,7 +39,7 @@
 
 引擎：Unity 3D  下载 OuterWilds MOD Manager 以加载进游戏内
 
-IDE: VS2022/Vscode/etc
+IDE: VS2026/Vscode/etc
 
 OuterWilds MOD官方网站：https://outerwildsmods.com/
 
@@ -70,11 +70,13 @@ Github 游戏组织：https://github.com/ow-mods
 
 1. **安装 .NET SDK**（6.0 或更高版本）
 2. **安装 Outer Wilds Mod Manager**（从 https://outerwildsmods.com/ 下载）
-3. **安装 OWML Mod Template**：
+3. **安装 OWML Mod Template**：（教程位置：https://owml.outerwildsmods.com/guides/getting-started/）
+   
    ```bash
    dotnet new --install Bwc9876.OuterWildsModTemplate
    ```
 4. **创建项目**：
+   
    ```bash
    dotnet new sln --name TheSingerOfTheEnd
    dotnet new OuterWildsMod -n TheSingerOfTheEnd --AuthorName wingtings --usesNH true
@@ -83,7 +85,7 @@ Github 游戏组织：https://github.com/ow-mods
 
 #### 项目文件树
 
-使用 VS2022 从 `ow-mod-template` 建立之后（带 New Horizons 支持），项目文件树如下：
+使用 VS2026 从 `ow-mod-template` 建立之后（带 New Horizons 支持），项目文件树如下：
 
 ```
 TheSingerOfTheEnd/
@@ -95,7 +97,7 @@ TheSingerOfTheEnd/
 │   ├── god_realm.json               # 神明领域（言和的空间）
 │   └── mortal_city.json             # 凡人城市（洛天依所在地）
 ├── systems/                          # 星系配置
-│   └── shimo_system.json            # 世末星系定义
+│   └── outing_system.json            # 鸥停星系定义
 ├── assets/                           # 自定义资产
 │   ├── models/                       # MMD → FBX 转换后的角色模型
 │   │   ├── ling_singer.fbx          # 乐正绫（歌者）
@@ -121,21 +123,23 @@ TheSingerOfTheEnd/
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
   "filename": "TheSingerOfTheEnd.dll",
   "author": "wingtings",
-  "name": "The Singer of the End - 世末歌者",
+  "name": "The Singer Of The End",
   "uniqueName": "wingtings.TheSingerOfTheEnd",
   "version": "0.1.0",
-  "owmlVersion": "2.14.2",
+  "owmlVersion": "2.15.1",
   "dependencies": ["xen.NewHorizons"]
 }
+
 ```
 
 #### 星球配置示例 (planets/singer_world.json)
 
 ```json
 {
-  "name": "世末之城",
+  "name": "鸥停",
   "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
   "starSystem": "shimo",
   "Base": {

@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\Course_Repositories\\computer-graphics\\CG\\OuterWildsMOD-The Singer of the End of the world\\TheSingerOfTheEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8816116F-9F76-482C-A3DF-743EDAB9DDD0}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|d:\\course_repositories\\computer-graphics\\cg\\outerwildsmod-the singer of the end of the world\\thesingeroftheend\\thesingeroftheend\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8816116F-9F76-482C-A3DF-743EDAB9DDD0}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|solutionrelative:thesingeroftheend\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|d:\\course_repositories\\computer-graphics\\cg\\outerwildsmod-the singer of the end of the world\\thesingeroftheend\\thesingeroftheend\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|solutionrelative:thesingeroftheend\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8816116F-9F76-482C-A3DF-743EDAB9DDD0}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|d:\\course_repositories\\computer-graphics\\cg\\outerwildsmod-the singer of the end of the world\\thesingeroftheend\\thesingeroftheend\\translations\\english.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8816116F-9F76-482C-A3DF-743EDAB9DDD0}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|solutionrelative:thesingeroftheend\\translations\\english.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|d:\\course_repositories\\computer-graphics\\cg\\outerwildsmod-the singer of the end of the world\\thesingeroftheend\\thesingeroftheend\\thesingeroftheend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|solutionrelative:thesingeroftheend\\thesingeroftheend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|d:\\course_repositories\\computer-graphics\\cg\\outerwildsmod-the singer of the end of the world\\thesingeroftheend\\thesingeroftheend\\translations\\english.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6C839AC3-28DA-337F-3651-F860D348E271}|TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj|solutionrelative:thesingeroftheend\\translations\\english.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TheSingerOfTheEnd",
+              "DocumentMoniker": "D:\\Course_Repositories\\computer-graphics\\CG\\OuterWildsMOD-The Singer of the End of the world\\TheSingerOfTheEnd\\TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj",
+              "RelativeDocumentMoniker": "TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj",
+              "ToolTip": "D:\\Course_Repositories\\computer-graphics\\CG\\OuterWildsMOD-The Singer of the End of the world\\TheSingerOfTheEnd\\TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj",
+              "RelativeToolTip": "TheSingerOfTheEnd\\TheSingerOfTheEnd.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-19T12:06:00.357Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -35,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "english.json",
               "DocumentMoniker": "D:\\Course_Repositories\\computer-graphics\\CG\\OuterWildsMOD-The Singer of the End of the world\\TheSingerOfTheEnd\\TheSingerOfTheEnd\\translations\\english.json",
               "RelativeDocumentMoniker": "TheSingerOfTheEnd\\translations\\english.json",
@@ -43,8 +60,7 @@
               "RelativeToolTip": "TheSingerOfTheEnd\\translations\\english.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-19T10:47:34.027Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-19T10:47:34.027Z"
             }
           ]
         }

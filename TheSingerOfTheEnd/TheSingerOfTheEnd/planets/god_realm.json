@@ -1,0 +1,50 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "神谕之境",
+    "starSystem": "outing_system",
+    "Base": {
+        "groundSize": 100,
+        "surfaceSize": 101,
+        "surfaceGravity": 8,
+        "hasAmbientLight": true,
+        "ambientLight": 2.0
+    },
+    "Orbit": {
+        "semiMajorAxis": 3000,
+        "primaryBody": "鸥停之星",
+        "isTidallyLocked": true,
+        "siderealPeriod": 200,
+        "inclination": 30
+    },
+    "Atmosphere": {
+        "size": 200,
+        "atmosphereTint": {
+            "r": 220,
+            "g": 200,
+            "b": 255,
+            "a": 255
+        },
+        "atmosphereSunIntensity": 1.5,
+        "fogTint": {
+            "r": 200,
+            "g": 190,
+            "b": 240,
+            "a": 200
+        },
+        "fogSize": 180,
+        "fogDensity": 0.3,
+        "hasOxygen": true
+    },
+    "Props": {
+        "details": [
+            {
+                "path": "QuantumIsland_Body/Sector_QuantumIsland/Sector_QuantumTowerInterior/Sector_QuantumTowerFinalRoom/Interactables_FinalRoom/FinalRoom_QProps/FinalRoom_Shelf/Q_Shelf/Prefab_NOM_Shelf/Strucutre_NOM_Shelf",
+                "position": { "x": 0, "y": 100, "z": 0 },
+                "alignRadial": true
+            }
+        ]
+    },
+    "MapMarker": {
+        "enabled": true
+    }
+}

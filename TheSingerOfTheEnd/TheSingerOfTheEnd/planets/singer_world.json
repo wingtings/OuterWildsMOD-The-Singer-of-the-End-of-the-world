@@ -1,0 +1,115 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "世末之城",
+    "starSystem": "outing_system",
+    "Base": {
+        "groundSize": 300,
+        "surfaceSize": 301,
+        "surfaceGravity": 12,
+        "hasAmbientLight": true,
+        "ambientLight": 1.2
+    },
+    "Orbit": {
+        "semiMajorAxis": 8000,
+        "primaryBody": "鸥停之星",
+        "isTidallyLocked": false,
+        "siderealPeriod": 600,
+        "inclination": 5
+    },
+    "Atmosphere": {
+        "size": 500,
+        "atmosphereTint": {
+            "r": 100,
+            "g": 105,
+            "b": 120,
+            "a": 255
+        },
+        "atmosphereSunIntensity": 0.6,
+        "fogTint": {
+            "r": 80,
+            "g": 90,
+            "b": 100,
+            "a": 255
+        },
+        "fogSize": 450,
+        "fogDensity": 0.55,
+        "hasRain": true,
+        "hasOxygen": true,
+        "clouds": {
+            "tint": {
+                "r": 60,
+                "g": 65,
+                "b": 75,
+                "a": 220
+            },
+            "lightningGradient": {
+                "time": 0.5,
+                "tint": {
+                    "r": 180,
+                    "g": 180,
+                    "b": 220,
+                    "a": 255
+                }
+            },
+            "hasLightning": true,
+            "innerCloudRadius": 380,
+            "outerCloudRadius": 480
+        }
+    },
+    "Props": {
+        "scatter": [
+            {
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Interactables_Village/Geysers/Geyser_Village",
+                "count": 3
+            }
+        ],
+        "details": [
+            {
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_District1/Props_District1/OtherComponentsGroup/Architecture/HangingCity_BuildingIsland_v2 (10)",
+                "position": { "x": 0, "y": 290, "z": 0 },
+                "rotation": { "x": 0, "y": 0, "z": 0 },
+                "scale": 0.8,
+                "alignRadial": true
+            },
+            {
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_District1/Props_District1/OtherComponentsGroup/Architecture/HangingCity_BuildingIsland_v2 (11)",
+                "position": { "x": 50, "y": 285, "z": 30 },
+                "rotation": { "x": 0, "y": 45, "z": 0 },
+                "scale": 0.6,
+                "alignRadial": true
+            }
+        ],
+        "signals": [
+            {
+                "frequency": "歌者频率",
+                "name": "歌者之声",
+                "audio": "planets/audio/singer_signal.ogg",
+                "sourceRadius": 5,
+                "detectionRadius": 500,
+                "identificationRadius": 200,
+                "position": { "x": 0, "y": 300, "z": 0 }
+            }
+        ]
+    },
+    "ShipLog": {
+        "mapMode": {
+            "revealedSprite": "",
+            "outlineSprite": ""
+        }
+    },
+    "MapMarker": {
+        "enabled": true
+    },
+    "Spawn": {
+        "playerSpawn": {
+            "x": 10,
+            "y": 302,
+            "z": 0
+        },
+        "shipSpawn": {
+            "x": 30,
+            "y": 302,
+            "z": 0
+        }
+    }
+}

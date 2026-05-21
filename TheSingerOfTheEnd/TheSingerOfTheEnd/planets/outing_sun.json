@@ -1,0 +1,30 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/body_schema.json",
+    "name": "鸥停之星",
+    "starSystem": "outing_system",
+    "Base": {
+        "centerOfSolarSystem": true,
+        "surfaceGravity": 50,
+        "surfaceSize": 2000
+    },
+    "Star": {
+        "size": 2000,
+        "tint": {
+            "r": 255,
+            "g": 140,
+            "b": 80,
+            "a": 255
+        },
+        "lightRadius": 50000,
+        "lightTint": {
+            "r": 255,
+            "g": 180,
+            "b": 130,
+            "a": 255
+        },
+        "solarLuminosity": 3
+    },
+    "MapMarker": {
+        "enabled": true
+    }
+}

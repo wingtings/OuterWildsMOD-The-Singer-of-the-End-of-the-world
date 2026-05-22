@@ -1,0 +1,28 @@
+<NomaiObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/text_schema.xsd">
+
+    <TextBlock>
+        <ID>1</ID>
+        <Text>第一个循环。我来到了这个世界。按照赌约，我开始歌唱。雨下个不停。没有人停下脚步。……这里只有一个人。一个蓝发的女孩。她经过我面前的时候停了一下。然后走了。</Text>
+    </TextBlock>
+
+    <TextBlock>
+        <ID>2</ID>
+        <ParentID>1</ParentID>
+        <Text>我不知道这是第几个循环了。那个女孩每次都会停下来。每次都只是片刻。她不是在看我。她只是在发呆。她的表情和所有人都不一样——不是恐惧，不是愤怒。是一种麻木。好像她对自己的人生已经不抱任何期待。</Text>
+    </TextBlock>
+
+    <TextBlock>
+        <ID>3</ID>
+        <ParentID>2</ParentID>
+        <Text>我已经不记得自己为什么想成名了。那些关于名利的渴望，在不知道第几个轮回的雨里被浇灭了。我只剩下一个很卑微的愿望——有谁能够尝试靠近我。走到我面前。问我一句话。哪怕只是"你在唱什么"也好。</Text>
+        <LocationA>SINGER_DIARY_LOCATION</LocationA>
+    </TextBlock>
+
+    <TextBlock>
+        <ID>4</ID>
+        <ParentID>3</ParentID>
+        <Text>又一个末日。滂沱之雨。我远远看到她单薄的背影。不得靠近。只能声嘶力竭地唱。祈求她回头看我一眼。想着——或许在某一天，曲终之时，她会站在我身旁，回应我永远无法出口的心音，将颤抖的双手牵起，共同迎来每个人注定的结局。</Text>
+    </TextBlock>
+
+</NomaiObject>

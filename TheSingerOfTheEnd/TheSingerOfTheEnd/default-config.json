@@ -1,4 +1,33 @@
 {
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/config_schema.json",
-  "enabled": true
+  "enabled": true,
+  "settings": {
+    "Fog Density (雾浓度)": {
+      "type": "slider",
+      "value": 0.55,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Rain Enabled (启用雨)": true,
+    "Lightning Enabled (启用闪电)": true,
+    "Sun Intensity (日照强度)": {
+      "type": "slider",
+      "value": 0.6,
+      "min": 0.1,
+      "max": 2.0
+    },
+    "Ambient Light (环境光)": {
+      "type": "slider",
+      "value": 1.2,
+      "min": 0.0,
+      "max": 5.0
+    },
+    "Signal Detection Range (信号探测范围)": {
+      "type": "slider",
+      "value": 800,
+      "min": 100,
+      "max": 2000
+    },
+    "Debug Mode (调试模式)": false
+  }
 }

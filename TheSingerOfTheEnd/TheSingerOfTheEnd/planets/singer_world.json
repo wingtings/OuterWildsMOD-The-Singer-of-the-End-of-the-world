@@ -42,15 +42,6 @@
                 "b": 75,
                 "a": 220
             },
-            "lightningGradient": {
-                "time": 0.5,
-                "tint": {
-                    "r": 180,
-                    "g": 180,
-                    "b": 220,
-                    "a": 255
-                }
-            },
             "hasLightning": true,
             "innerCloudRadius": 380,
             "outerCloudRadius": 480
@@ -83,33 +74,45 @@
             {
                 "frequency": "歌者频率",
                 "name": "歌者之声",
-                "audio": "planets/audio/singer_signal.ogg",
+                "audio": "planets/audio/shimo_singer_bgm.ogg",
                 "sourceRadius": 5,
-                "detectionRadius": 500,
-                "identificationRadius": 200,
+                "detectionRadius": 800,
+                "identificationRadius": 100,
+                "onlyAudibleToScope": false,
                 "position": { "x": 0, "y": 300, "z": 0 }
+            }
+        ],
+        "dialogue": [
+            {
+                "xmlFile": "planets/dialogue/tianyi_dialogue.xml",
+                "position": { "x": 20, "y": 301, "z": 10 },
+                "radius": 2,
+                "range": 5,
+                "alignRadial": true
             }
         ]
     },
     "ShipLog": {
+        "xmlFile": "planets/shiplog/singer_city_log.xml",
         "mapMode": {
-            "revealedSprite": "",
-            "outlineSprite": ""
+            "manualPosition": { "x": -100, "y": 0 }
         }
     },
     "MapMarker": {
         "enabled": true
     },
     "Spawn": {
-        "playerSpawn": {
-            "x": 10,
-            "y": 302,
-            "z": 0
-        },
-        "shipSpawn": {
-            "x": 30,
-            "y": 302,
-            "z": 0
-        }
+        "playerSpawnPoints": [
+            {
+                "position": { "x": 10, "y": 302, "z": 0 },
+                "isDefault": true
+            }
+        ],
+        "shipSpawnPoints": [
+            {
+                "position": { "x": 40, "y": 302, "z": 20 },
+                "isDefault": true
+            }
+        ]
     }
 }

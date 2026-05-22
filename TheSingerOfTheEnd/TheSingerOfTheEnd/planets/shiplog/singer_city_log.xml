@@ -1,0 +1,77 @@
+<AstroObjectEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/shiplog_schema.xsd">
+
+    <ID>SINGER_CITY</ID>
+    <Entry>
+        <ID>SINGER_CITY</ID>
+        <Name>世末之城</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <IsCuriosity />
+        <RumorFact>
+            <ID>SINGER_CITY_RUMOR</ID>
+            <Text>一座被鸥停之雨笼罩的城市。暴雨从不停歇，浓雾弥漫街巷。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>SINGER_CITY_EXPLORE</ID>
+            <Text>我降落在这座城市里。到处都是废墟，空无一人——不，远处好像有个人影。</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>CITY_SQUARE</ID>
+        <Name>雨中广场</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <RumorFact>
+            <ID>SQUARE_RUMOR</ID>
+            <SourceID>SINGER_CITY</SourceID>
+            <Text>城市中心有一个广场，墙壁上刻着奇怪的文字。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>SQUARE_EXPLORE</ID>
+            <Text>广场上站着一个蓝发女孩。她呆呆地望着天空，似乎对暴雨毫不在意。她的表情不是恐惧——而是一种麻木。</Text>
+        </ExploreFact>
+        <ExploreFact>
+            <ID>SINGER_DIARY_FACT</ID>
+            <Text>墙壁上的文字是某人的日记。"我已经不记得自己为什么想成名了……我只剩下一个很卑微的愿望——有谁能够尝试靠近我。"</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>CITY_HALL</ID>
+        <Name>废弃音乐厅</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <RumorFact>
+            <ID>HALL_RUMOR</ID>
+            <SourceID>CITY_SQUARE</SourceID>
+            <Text>那个女孩似乎偶尔能听到什么声音——从广场北侧的方向传来。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>HALL_EXPLORE</ID>
+            <Text>一座废弃的音乐厅。穹顶塌了一半，雨水倾泻而下。舞台上站着一个红发女孩——她在唱歌。但她不会理我。</Text>
+        </ExploreFact>
+        <ExploreFact>
+            <ID>AMPLIFIER_FACT</ID>
+            <Text>舞台后方有一个损坏的扩音装置。似乎缺少两个零件。如果能修好它，歌声也许能传得更远……</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>CITY_TOWER</ID>
+        <Name>高塔观测台</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <RumorFact>
+            <ID>TOWER_RUMOR</ID>
+            <SourceID>SINGER_CITY</SourceID>
+            <Text>城市边缘有一座残破的高塔，顶层似乎有天文仪器。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>TOWER_EXPLORE</ID>
+            <Text>从高塔顶端可以观测到恒星的异常脉动——这就是末日之雨的源头。远处的轨道上还有一颗发光的小星球。</Text>
+        </ExploreFact>
+        <ExploreFact>
+            <ID>TOWER_PART_FACT</ID>
+            <Text>高塔角落里发现了一个精密零件。看起来和音乐厅扩音装置缺少的零件是同一类型。</Text>
+        </ExploreFact>
+    </Entry>
+
+</AstroObjectEntry>

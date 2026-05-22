@@ -1,0 +1,21 @@
+<NomaiObject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/text_schema.xsd">
+
+    <TextBlock>
+        <ID>1</ID>
+        <Text>吾与流浪者立约。汝不可主动与凡人交流。不可言语，不可书写，不可以任何方式传意。唯一被允许之事——歌唱。</Text>
+    </TextBlock>
+
+    <TextBlock>
+        <ID>2</ID>
+        <ParentID>1</ParentID>
+        <Text>在终末降临之时，若有人自愿与歌者共同面对死亡，则世界得赎，轮回终止，歌者之愿得偿。否则，孤独的轮回和死亡永远不会停止。</Text>
+    </TextBlock>
+
+    <TextBlock>
+        <ID>3</ID>
+        <ParentID>2</ParentID>
+        <Text>凡人之选择必出于自愿。此约束缚歌者一人。天地间若有不受约束之第三者，其行止不在此约之列。然——第三者不可代替凡人做出选择。</Text>
+    </TextBlock>
+
+</NomaiObject>

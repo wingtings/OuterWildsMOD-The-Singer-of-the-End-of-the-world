@@ -1,0 +1,34 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+
+    <NameField>蓝发女孩</NameField>
+
+    <DialogueNode>
+        <Name>Start</Name>
+        <EntryCondition>DEFAULT</EntryCondition>
+        <Dialogue>
+            <Page>……</Page>
+            <Page>（她看着天空，似乎没注意到你。）</Page>
+            <Page>……下雨了。一直在下。</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>你有听到远处的歌声吗？</Text>
+                <DialogueTarget>AskAboutSong</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（离开）</Text>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>AskAboutSong</Name>
+        <Dialogue>
+            <Page>……歌声？</Page>
+            <Page>我好像……偶尔能听到什么。大概是雨声吧。</Page>
+        </Dialogue>
+        <SetCondition>TALKED_TO_TIANYI</SetCondition>
+    </DialogueNode>
+
+</DialogueTree>

@@ -1,0 +1,63 @@
+<AstroObjectEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/shiplog_schema.xsd">
+
+    <ID>GOD_REALM</ID>
+    <Entry>
+        <ID>GOD_REALM</ID>
+        <Name>神谕之境</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <IsCuriosity />
+        <RumorFact>
+            <ID>GOD_REALM_RUMOR</ID>
+            <SourceID>CITY_TOWER</SourceID>
+            <Text>从世末之城的高塔上可以看到一颗靠近恒星运行的小星球，散发着淡紫色的光芒。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>GOD_REALM_EXPLORE</ID>
+            <Text>一颗安静得近乎超现实的小星球。没有雨，没有云，只有白色与淡紫色的结晶岩石。</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>BET_STELE</ID>
+        <Name>赌约石碑</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <RumorFact>
+            <ID>STELE_RUMOR</ID>
+            <SourceID>GOD_REALM</SourceID>
+            <Text>星球表面矗立着三块石碑，上面刻着古老的文字。</Text>
+        </RumorFact>
+        <ExploreFact>
+            <ID>STELE_EXPLORE</ID>
+            <Text>石碑记载了一份赌约："歌者不可主动与凡人交流，唯一被允许之事——歌唱。若有人自愿与歌者共同面对死亡，则世界得赎，轮回终止。"</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>GOD_VOICE</ID>
+        <Name>神明之声</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <ExploreFact>
+            <ID>GOD_VOICE_FACT</ID>
+            <SourceID>GOD_REALM</SourceID>
+            <Text>一块悬浮的结晶播放出冷淡的女声："两个孤独的人，需要多少次轮回，才能学会走向彼此？"</Text>
+        </ExploreFact>
+    </Entry>
+
+    <Entry>
+        <ID>THIRD_PARTY</ID>
+        <Name>第三者条款</Name>
+        <Curiosity>OUTING_MYSTERY</Curiosity>
+        <ExploreFact>
+            <ID>THIRD_PARTY_FACT</ID>
+            <SourceID>BET_STELE</SourceID>
+            <Text>第三块石碑上写着："此约束缚歌者一人。天地间若有不受约束之第三者，其行止不在此约之列。然——第三者不可代替凡人做出选择。"这意味着……我可以做些什么。</Text>
+        </ExploreFact>
+        <ExploreFact>
+            <ID>THIRD_PARTY_LINK</ID>
+            <SourceID>CITY_HALL</SourceID>
+            <Text>赌约没有限制第三者帮助歌者传播歌声。如果我能修好音乐厅的扩音装置……</Text>
+        </ExploreFact>
+    </Entry>
+
+</AstroObjectEntry>

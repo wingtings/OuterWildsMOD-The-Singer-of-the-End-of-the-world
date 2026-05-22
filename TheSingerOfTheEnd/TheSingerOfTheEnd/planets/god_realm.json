@@ -44,6 +44,12 @@
             }
         ]
     },
+    "ShipLog": {
+        "xmlFile": "planets/shiplog/god_realm_log.xml",
+        "mapMode": {
+            "manualPosition": { "x": 100, "y": 0 }
+        }
+    },
     "MapMarker": {
         "enabled": true
     }

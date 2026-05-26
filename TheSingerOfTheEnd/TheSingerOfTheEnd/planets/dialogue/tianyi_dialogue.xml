@@ -3,6 +3,33 @@
 
     <NameField>蓝发女孩</NameField>
 
+    <!-- 修复扩音器后的对话(放在最前,优先匹配) -->
+    <DialogueNode>
+        <Name>AfterRepair</Name>
+        <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
+        <Dialogue>
+            <Page>（她站在原地，望着音乐厅的方向。）</Page>
+            <Page>那个声音……不是雨声。是有人在唱歌。</Page>
+            <Page>一直在唱。为什么……听起来这么难过？</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>（什么都不说，只是看着她。）</Text>
+                <DialogueTarget>Hesitate</DialogueTarget>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>Hesitate</Name>
+        <Dialogue>
+            <Page>（她向歌声的方向迈了一步。又停下了。）</Page>
+            <Page>我应该……过去看看吗？</Page>
+        </Dialogue>
+        <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+    </DialogueNode>
+
+    <!-- 默认对话:扩音器未修复 -->
     <DialogueNode>
         <Name>Start</Name>
         <EntryCondition>DEFAULT</EntryCondition>

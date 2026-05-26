@@ -18,4 +18,19 @@
         <Text>凡人之选择必出于自愿。此约束缚歌者一人。天地间若有不受约束之第三者，其行止不在此约之列。然——第三者不可代替凡人做出选择。</Text>
     </TextBlock>
 
+    <ShipLogConditions>
+        <RevealFact>
+            <FactID>STELE_EXPLORE</FactID>
+            <Condition>1,2</Condition>
+        </RevealFact>
+        <RevealFact>
+            <FactID>THIRD_PARTY_FACT</FactID>
+            <Condition>1,2,3</Condition>
+        </RevealFact>
+        <RevealFact>
+            <FactID>THIRD_PARTY_LINK</FactID>
+            <Condition>1,2,3</Condition>
+        </RevealFact>
+    </ShipLogConditions>
+
 </NomaiObject>

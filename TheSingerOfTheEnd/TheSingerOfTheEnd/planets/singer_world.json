@@ -3,14 +3,14 @@
     "name": "世末之城",
     "starSystem": "outing_system",
     "Base": {
-        "groundSize": 300,
+        "groundSize": 298,
         "surfaceSize": 301,
         "surfaceGravity": 12,
         "hasAmbientLight": true,
         "ambientLight": 1.2
     },
     "Orbit": {
-        "semiMajorAxis": 8000,
+        "semiMajorAxis": 15000,
         "primaryBody": "鸥停之星",
         "isTidallyLocked": false,
         "siderealPeriod": 600,
@@ -47,26 +47,220 @@
             "outerCloudRadius": 480
         }
     },
+    "HeightMap": {
+        "comment": "地表材质+轻微起伏(半径约301,起伏±1,与所有 prop 的摆放半径吻合)",
+        "textureMap": "planets/textures/singer_ground.png",
+        "heightMap": "planets/textures/singer_height.png",
+        "minHeight": 300,
+        "maxHeight": 302,
+        "smoothness": 0.1
+    },
     "Props": {
         "scatter": [
             {
-                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Interactables_Village/Geysers/Geyser_Village",
-                "count": 3
+                "comment": "全星球散布·梦境湿地树(DLC·茂密植被,呼应多雨)",
+                "path": "DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1/Props_DreamZone_1/OtherComponentsGroup/Trees_Z1/DreamHouseIsland/Tree_DW_M_Var",
+                "count": 30
+            },
+            {
+                "comment": "低矮灌木丛(地表覆盖)",
+                "path": "QuantumMoon_Body/Sector_QuantumMoon/State_TH/Interactables_THState/Crater_Surface/Surface_AlpineClump_S/Surface_AlpineClump_S/BatchedGroup",
+                "count": 12
+            },
+            {
+                "comment": "枯死的脆壳星灌木(荒凉点缀)",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Props_GravityCannon/OtherComponentsGroup/VisibleFrom_BH/Prefab_Tree_BH_Bristle",
+                "count": 20
+            },
+            {
+                "comment": "废墟陶器碎片",
+                "path": "StatueIsland_Body/Sector_StatueIsland/DetailPatches_StatueIsland/Foliage_StatueIsland_TopBits/Clutter_NOM_Pottery (1)",
+                "count": 25
             }
         ],
         "details": [
             {
-                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_District1/Props_District1/OtherComponentsGroup/Architecture/HangingCity_BuildingIsland_v2 (10)",
-                "position": { "x": 0, "y": 290, "z": 0 },
-                "rotation": { "x": 0, "y": 0, "z": 0 },
-                "scale": 0.8,
+                "comment": "音乐厅·焚毁的滑梯木屋(DLC Stranger·歌者所在的大型建筑)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone2/Sector_SlideBurningHouse_Zone2",
+                "position": { "x": 0, "y": 294, "z": -64 },
+                "rotation": { "x": 0, "y": 180, "z": 0 },
+                "scale": 1.0,
                 "alignRadial": true
             },
             {
-                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_District1/Props_District1/OtherComponentsGroup/Architecture/HangingCity_BuildingIsland_v2 (11)",
-                "position": { "x": 50, "y": 285, "z": 30 },
-                "rotation": { "x": 0, "y": 45, "z": 0 },
-                "scale": 0.6,
+                "comment": "音乐厅旁·神器木屋(DLC Stranger·实心墙)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone1/Sector_ArtifactHouse_Zone1",
+                "position": { "x": -24, "y": 295, "z": -56 },
+                "rotation": { "x": 0, "y": 150, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "音乐厅引桥·Owlk 桥段(DLC)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone2/Sector_ProjectionHouse_Zone2/Geo_ProjectionHouse_Zone2/Bridge_ProjectionHouse_Zone2_Intact",
+                "position": { "x": 18, "y": 296, "z": -46 },
+                "rotation": { "x": 0, "y": 100, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场北·两层 Owlk 木屋(DLC·实心)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone2/Sector_MapHouse_Zone2/Geo_MapHouse_Zone2/MapHouse",
+                "position": { "x": -26, "y": 299, "z": 20 },
+                "rotation": { "x": 0, "y": 40, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场东·梦火木屋(DLC)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone1/Sector_DreamFireHouse_Zone1",
+                "position": { "x": 30, "y": 299, "z": 18 },
+                "rotation": { "x": 0, "y": -60, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场·残破 Owlk 木屋(DLC·移除悬空破灯)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone1/Structures_Zone1/BrokenLanternHouse_Zone1",
+                "removeChildren": [ "Props_BrokenLanternHouse_Zone1/Prefab_IP_BROKENLanternItem (1)" ],
+                "position": { "x": -10, "y": 300, "z": -18 },
+                "rotation": { "x": 0, "y": 220, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "远景天际线·大型投影木屋(DLC)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone1/Sector_ProjectionHouse_Zone1",
+                "position": { "x": 52, "y": 295, "z": -25 },
+                "rotation": { "x": 0, "y": -120, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "远景天际线·超大型投影木屋(DLC)",
+                "path": "RingWorld_Body/Sector_RingInterior/Sector_Zone4/Sector_BlightedShore/Sector_ProjectionHouse_Zone4",
+                "position": { "x": -52, "y": 294, "z": 40 },
+                "rotation": { "x": 0, "y": 70, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "高塔·挪麦重力炮(城市边缘竖向地标)",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_GravityCannon/Geometry_GravityCannon/ControlledByProxy_Arch/Structure_NOM_GravityCannon_HT",
+                "position": { "x": 75, "y": 288, "z": 46 },
+                "rotation": { "x": 0, "y": 0, "z": 0 },
+                "scale": 0.5,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场古迹·空挪麦遗迹(石质·更古老的一层)",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Empty",
+                "position": { "x": 38, "y": 297, "z": 30 },
+                "rotation": { "x": 0, "y": 60, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场古迹·带篝火挪麦遗迹",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Campfire",
+                "position": { "x": -34, "y": 299, "z": -2 },
+                "rotation": { "x": 0, "y": -40, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场发光挪麦门廊",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Lighting_GravityCannon/Prefab_NOM_Doorway",
+                "position": { "x": 18, "y": 300, "z": 2 },
+                "rotation": { "x": 0, "y": -90, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "广场赫斯人蓝灯笼(补光)",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
+                "position": { "x": 8, "y": 301, "z": 8 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场赫斯人蓝灯笼",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
+                "position": { "x": -6, "y": 301, "z": 14 },
+                "alignRadial": true
+            },
+            {
+                "comment": "巷道赫斯人蓝灯笼",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
+                "position": { "x": 16, "y": 300, "z": -10 },
+                "alignRadial": true
+            },
+            {
+                "comment": "通往音乐厅的蓝灯笼",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
+                "position": { "x": -14, "y": 299, "z": -30 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场挪麦立式火炬",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
+                "position": { "x": 12, "y": 301, "z": -2 },
+                "alignRadial": true
+            },
+            {
+                "comment": "音乐厅挪麦立式火炬",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
+                "position": { "x": -8, "y": 297, "z": -48 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场挪麦长桌",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Props_NOM_Table",
+                "position": { "x": 5, "y": 301, "z": 14 },
+                "rotation": { "x": 0, "y": 30, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场挪麦长椅",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_SimpleChair_NoSkeleton (1)",
+                "position": { "x": 9, "y": 300, "z": 17 },
+                "rotation": { "x": 0, "y": -20, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "音乐厅挪麦书架(舞台道具)",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_Shelf (2)/Strucutre_NOM_Shelf",
+                "position": { "x": 5, "y": 295, "z": -60 },
+                "rotation": { "x": 0, "y": 90, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场点景·梦境树",
+                "path": "DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1/Props_DreamZone_1/OtherComponentsGroup/Trees_Z1/DreamHouseIsland/Tree_DW_M_Var",
+                "position": { "x": 24, "y": 300, "z": 6 },
+                "alignRadial": true
+            },
+            {
+                "comment": "广场点景·梦境树",
+                "path": "DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1/Props_DreamZone_1/OtherComponentsGroup/Trees_Z1/DreamHouseIsland/Tree_DW_M_Var",
+                "position": { "x": -20, "y": 299, "z": 30 },
+                "alignRadial": true
+            },
+            {
+                "comment": "[占位] 凡人·天依(索拉努姆站立模型) —— 后续用 MMD 模型替换",
+                "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/ConversationPivot/Character_NOM_Solanum/Nomai_ANIM_SkyWatching_Idle",
+                "rename": "蓝发女孩(天依占位)",
+                "position": { "x": 20, "y": 300, "z": 10 },
+                "rotation": { "x": 0, "y": -90, "z": 0 },
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "[占位] 歌者·阿绫(索拉努姆站立模型) —— 站在音乐厅舞台,后续用 MMD 模型替换",
+                "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/ConversationPivot/Character_NOM_Solanum/Nomai_ANIM_SkyWatching_Idle",
+                "rename": "歌者(阿绫占位)",
+                "position": { "x": 0, "y": 296, "z": -56 },
+                "rotation": { "x": 0, "y": 0, "z": 0 },
+                "scale": 1.0,
                 "alignRadial": true
             }
         ],
@@ -76,27 +270,68 @@
                 "name": "歌者之声",
                 "audio": "planets/audio/shimo_singer_bgm.ogg",
                 "sourceRadius": 5,
-                "detectionRadius": 800,
-                "identificationRadius": 100,
+                "detectionRadius": 1000,
+                "identificationRadius": 120,
                 "onlyAudibleToScope": false,
-                "position": { "x": 0, "y": 300, "z": 0 }
+                "reveals": "HALL_RUMOR",
+                "position": { "x": 0, "y": 296, "z": -56 }
+            }
+        ],
+        "translatorText": [
+            {
+                "xmlFile": "planets/text/singer_diary.xml",
+                "type": "cairn",
+                "position": { "x": 8, "y": 301, "z": 4 },
+                "normal": { "x": 0.027, "y": 0.999, "z": 0.013 },
+                "rotation": { "x": 0, "y": -120, "z": 0 }
             }
         ],
         "dialogue": [
             {
+                "comment": "凡人·天依",
                 "xmlFile": "planets/dialogue/tianyi_dialogue.xml",
-                "position": { "x": 20, "y": 301, "z": 10 },
+                "position": { "x": 20, "y": 300, "z": 10 },
                 "radius": 2,
                 "range": 5,
+                "alignRadial": true
+            },
+            {
+                "comment": "损坏的扩音装置(音乐厅舞台后方)",
+                "xmlFile": "planets/dialogue/amplifier_dialogue.xml",
+                "position": { "x": 3, "y": 295, "z": -60 },
+                "radius": 2,
+                "range": 4,
                 "alignRadial": true
             }
         ]
     },
+    "Volumes": {
+        "revealVolumes": [
+            {
+                "comment": "着陆点/广场:解锁城市与广场、传闻",
+                "position": { "x": 5, "y": 301, "z": 0 },
+                "radius": 25,
+                "revealOn": "enter",
+                "reveals": [ "SINGER_CITY_EXPLORE", "SQUARE_EXPLORE", "SQUARE_RUMOR", "TOWER_RUMOR" ]
+            },
+            {
+                "comment": "音乐厅:解锁音乐厅与扩音装置",
+                "position": { "x": 0, "y": 296, "z": -58 },
+                "radius": 20,
+                "revealOn": "enter",
+                "reveals": [ "HALL_EXPLORE", "AMPLIFIER_FACT" ]
+            },
+            {
+                "comment": "高塔:解锁观测台、零件、神谕之境传闻",
+                "position": { "x": 75, "y": 288, "z": 46 },
+                "radius": 22,
+                "revealOn": "enter",
+                "reveals": [ "TOWER_EXPLORE", "TOWER_PART_FACT", "GOD_REALM_RUMOR" ]
+            }
+        ]
+    },
     "ShipLog": {
-        "xmlFile": "planets/shiplog/singer_city_log.xml",
-        "mapMode": {
-            "manualPosition": { "x": -100, "y": 0 }
-        }
+        "xmlFile": "planets/shiplog/singer_city_log.xml"
     },
     "MapMarker": {
         "enabled": true
@@ -104,13 +339,13 @@
     "Spawn": {
         "playerSpawnPoints": [
             {
-                "position": { "x": 10, "y": 302, "z": 0 },
+                "position": { "x": 10, "y": 305, "z": 0 },
                 "isDefault": true
             }
         ],
         "shipSpawnPoints": [
             {
-                "position": { "x": 40, "y": 302, "z": 20 },
+                "position": { "x": 40, "y": 306, "z": 20 },
                 "isDefault": true
             }
         ]

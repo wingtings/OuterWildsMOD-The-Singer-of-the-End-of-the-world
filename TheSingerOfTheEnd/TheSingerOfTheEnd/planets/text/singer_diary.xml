@@ -25,4 +25,11 @@
         <Text>又一个末日。滂沱之雨。我远远看到她单薄的背影。不得靠近。只能声嘶力竭地唱。祈求她回头看我一眼。想着——或许在某一天，曲终之时，她会站在我身旁，回应我永远无法出口的心音，将颤抖的双手牵起，共同迎来每个人注定的结局。</Text>
     </TextBlock>
 
+    <ShipLogConditions>
+        <RevealFact>
+            <FactID>SINGER_DIARY_FACT</FactID>
+            <Condition>1</Condition>
+        </RevealFact>
+    </ShipLogConditions>
+
 </NomaiObject>

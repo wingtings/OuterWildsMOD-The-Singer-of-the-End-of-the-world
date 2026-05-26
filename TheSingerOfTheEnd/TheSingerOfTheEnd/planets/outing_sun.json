@@ -5,24 +5,24 @@
     "Base": {
         "centerOfSolarSystem": true,
         "surfaceGravity": 50,
-        "surfaceSize": 2000
+        "surfaceSize": 1500
     },
     "Star": {
-        "size": 2000,
+        "size": 1500,
         "tint": {
             "r": 255,
-            "g": 140,
-            "b": 80,
+            "g": 150,
+            "b": 95,
             "a": 255
         },
-        "lightRadius": 50000,
+        "lightRadius": 60000,
         "lightTint": {
             "r": 255,
-            "g": 180,
-            "b": 130,
+            "g": 190,
+            "b": 150,
             "a": 255
         },
-        "solarLuminosity": 3
+        "solarLuminosity": 1.0
     },
     "MapMarker": {
         "enabled": true

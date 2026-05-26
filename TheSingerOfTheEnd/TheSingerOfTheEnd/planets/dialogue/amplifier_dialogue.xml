@@ -1,0 +1,47 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+
+    <NameField>损坏的扩音装置</NameField>
+
+    <!-- 已修复:再次交互只做提示 -->
+    <DialogueNode>
+        <Name>AlreadyFixed</Name>
+        <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
+        <Dialogue>
+            <Page>扩音装置正在运转。歌声回荡在整座城市的雨幕里。</Page>
+        </Dialogue>
+    </DialogueNode>
+
+    <!-- 默认:损坏状态 -->
+    <DialogueNode>
+        <Name>Start</Name>
+        <EntryCondition>DEFAULT</EntryCondition>
+        <Dialogue>
+            <Page>舞台后方的扩音装置已经损坏，缺少零件。</Page>
+            <Page>广场与高塔的废墟里，似乎散落着能用的部件。</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>（嵌入找到的零件，修复扩音装置）</Text>
+                <DialogueTarget>Repair</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（暂时离开）</Text>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>Repair</Name>
+        <Dialogue>
+            <Page>你将零件嵌入装置。线路重新接通，扩音器嗡然启动——</Page>
+            <Page>歌声，第一次，传遍了整座城市。</Page>
+        </Dialogue>
+        <SetCondition>AMPLIFIER_REPAIRED</SetCondition>
+        <SetPersistentCondition>AMPLIFIER_EVER_REPAIRED</SetPersistentCondition>
+        <RevealFacts>
+            <FactID>AMPLIFIER_FIXED</FactID>
+        </RevealFacts>
+    </DialogueNode>
+
+</DialogueTree>

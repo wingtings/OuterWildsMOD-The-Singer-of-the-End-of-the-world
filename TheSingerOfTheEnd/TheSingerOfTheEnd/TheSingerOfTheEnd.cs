@@ -101,6 +101,11 @@ namespace TheSingerOfTheEnd
                 ModHelper.Console.WriteLine("[世末歌者] 神谕之境 found.", MessageType.Success);
             else
                 ModHelper.Console.WriteLine("[世末歌者] WARNING: 神谕之境 not found!", MessageType.Warning);
+
+            // 挂载结局判定器(每个循环随场景重建)
+            var judge = new GameObject("SingerEndingJudge");
+            judge.AddComponent<EndingJudge>();
+            ModHelper.Console.WriteLine("[世末歌者] EndingJudge attached.", MessageType.Success);
         }
 
         public void OnCompleteSceneLoad(OWScene previousScene, OWScene newScene)

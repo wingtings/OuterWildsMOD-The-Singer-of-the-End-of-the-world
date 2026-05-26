@@ -3,14 +3,14 @@
     "name": "神谕之境",
     "starSystem": "outing_system",
     "Base": {
-        "groundSize": 100,
+        "groundSize": 98,
         "surfaceSize": 101,
         "surfaceGravity": 8,
         "hasAmbientLight": true,
         "ambientLight": 2.0
     },
     "Orbit": {
-        "semiMajorAxis": 3000,
+        "semiMajorAxis": 7000,
         "primaryBody": "鸥停之星",
         "isTidallyLocked": true,
         "siderealPeriod": 200,
@@ -35,20 +35,117 @@
         "fogDensity": 0.3,
         "hasOxygen": true
     },
+    "HeightMap": {
+        "comment": "淡紫白结晶地表(半径约101,起伏±1)",
+        "textureMap": "planets/textures/god_ground.png",
+        "heightMap": "planets/textures/god_height.png",
+        "minHeight": 100,
+        "maxHeight": 102,
+        "smoothness": 0.3
+    },
     "Props": {
         "details": [
             {
-                "path": "QuantumIsland_Body/Sector_QuantumIsland/Sector_QuantumTowerInterior/Sector_QuantumTowerFinalRoom/Interactables_FinalRoom/FinalRoom_QProps/FinalRoom_Shelf/Q_Shelf/Prefab_NOM_Shelf/Strucutre_NOM_Shelf",
-                "position": { "x": 0, "y": 100, "z": 0 },
+                "comment": "录音石·神明之声(挪麦录音机)",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_EscapePodCrashSite/Sector_CrashFragment/Interactables_CrashFragment/Prefab_NOM_Recorder/Props_NOM_Recorder",
+                "rename": "录音石",
+                "position": { "x": 24, "y": 98, "z": 0 },
                 "alignRadial": true
+            },
+            {
+                "comment": "石碑前的挪麦路标/基座",
+                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/Prefab_NOM_Sign/Props_NOM_Trailmarker",
+                "position": { "x": 0, "y": 100, "z": 10 },
+                "rotation": { "x": 0, "y": 180, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "录音石侧的第二个路标",
+                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/Prefab_NOM_Sign/Props_NOM_Trailmarker",
+                "position": { "x": 12, "y": 100, "z": 12 },
+                "rotation": { "x": 0, "y": 120, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "石碑两侧挪麦立式火炬",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
+                "position": { "x": 8, "y": 100, "z": 7 },
+                "alignRadial": true
+            },
+            {
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
+                "position": { "x": -8, "y": 100, "z": 7 },
+                "alignRadial": true
+            },
+            {
+                "comment": "装点用挪麦容器",
+                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Container",
+                "position": { "x": -14, "y": 100, "z": -8 },
+                "rotation": { "x": 0, "y": 45, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "挪麦长椅",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_SimpleChair_NoSkeleton (1)",
+                "position": { "x": 10, "y": 100, "z": -6 },
+                "rotation": { "x": 0, "y": -30, "z": 0 },
+                "alignRadial": true
+            },
+            {
+                "comment": "紫色裂纹重力结晶(装饰·不产生引力场)",
+                "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
+                "position": { "x": 16, "y": 99, "z": -12 },
+                "alignRadial": true
+            },
+            {
+                "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
+                "position": { "x": -18, "y": 99, "z": 4 },
+                "alignRadial": true
+            },
+            {
+                "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
+                "position": { "x": 6, "y": 99, "z": 18 },
+                "alignRadial": true
+            },
+            {
+                "comment": "结晶巨岩(超现实地貌)",
+                "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/EYEState_QuantumObjects/EYE_Q_Arch_B/EYE_Q_ArchB/Rocks_EYE_Arch_B",
+                "position": { "x": -22, "y": 98, "z": -14 },
+                "rotation": { "x": 0, "y": 30, "z": 0 },
+                "scale": 0.6,
+                "alignRadial": true
+            }
+        ],
+        "translatorText": [
+            {
+                "xmlFile": "planets/text/bet_stele.xml",
+                "type": "cairn",
+                "position": { "x": 0, "y": 101, "z": 0 },
+                "normal": { "x": 0, "y": 1, "z": 0 },
+                "rotation": { "x": 0, "y": 0, "z": 0 }
+            }
+        ]
+    },
+    "Volumes": {
+        "revealVolumes": [
+            {
+                "comment": "着陆即解锁神谕之境与石碑传闻",
+                "position": { "x": 0, "y": 101, "z": 0 },
+                "radius": 40,
+                "revealOn": "enter",
+                "reveals": [ "GOD_REALM_EXPLORE", "STELE_RUMOR" ]
+            },
+            {
+                "comment": "录音石:神明之声",
+                "position": { "x": 25, "y": 101, "z": 0 },
+                "radius": 8,
+                "revealOn": "enter",
+                "reveals": [ "GOD_VOICE_FACT" ]
             }
         ]
     },
     "ShipLog": {
-        "xmlFile": "planets/shiplog/god_realm_log.xml",
-        "mapMode": {
-            "manualPosition": { "x": 100, "y": 0 }
-        }
+        "xmlFile": "planets/shiplog/god_realm_log.xml"
     },
     "MapMarker": {
         "enabled": true

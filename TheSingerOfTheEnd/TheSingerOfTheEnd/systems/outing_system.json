@@ -3,6 +3,23 @@
     "canEnterViaWarpDrive": false,
     "startHere": true,
     "respawnHere": true,
+    "curiosities": [
+        {
+            "id": "OUTING_MYSTERY",
+            "color": { "r": 80, "g": 40, "b": 140, "a": 255 },
+            "highlightColor": { "r": 140, "g": 80, "b": 220, "a": 255 }
+        }
+    ],
+    "entryPositions": [
+        { "id": "SINGER_CITY", "position": { "x": -350, "y": 250 } },
+        { "id": "CITY_SQUARE", "position": { "x": -500, "y": 50 } },
+        { "id": "CITY_HALL", "position": { "x": -300, "y": -30 } },
+        { "id": "CITY_TOWER", "position": { "x": -120, "y": 120 } },
+        { "id": "GOD_REALM", "position": { "x": 320, "y": 250 } },
+        { "id": "BET_STELE", "position": { "x": 180, "y": 40 } },
+        { "id": "GOD_VOICE", "position": { "x": 480, "y": 40 } },
+        { "id": "THIRD_PARTY", "position": { "x": 350, "y": -120 } }
+    ],
     "skybox": {
         "destroyStarField": false
     },

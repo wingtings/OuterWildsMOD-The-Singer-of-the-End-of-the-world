@@ -15,6 +15,10 @@
             <ID>SINGER_CITY_EXPLORE</ID>
             <Text>我降落在这座城市里。到处都是废墟，空无一人——不，远处好像有个人影。</Text>
         </ExploreFact>
+        <ExploreFact>
+            <ID>TRUE_ENDING_FACT</ID>
+            <Text>当歌声传遍全城，那个蓝发女孩终于走向了舞台。雨停了，云层裂开，阳光穿透乌云。轮回终结，世界得赎。</Text>
+        </ExploreFact>
     </Entry>
 
     <Entry>
@@ -52,6 +56,10 @@
         <ExploreFact>
             <ID>AMPLIFIER_FACT</ID>
             <Text>舞台后方有一个损坏的扩音装置。似乎缺少两个零件。如果能修好它，歌声也许能传得更远……</Text>
+        </ExploreFact>
+        <ExploreFact>
+            <ID>AMPLIFIER_FIXED</ID>
+            <Text>扩音装置已修复！歌声第一次传遍了整座城市。也许……远处的那个人也能听到了。</Text>
         </ExploreFact>
     </Entry>
 

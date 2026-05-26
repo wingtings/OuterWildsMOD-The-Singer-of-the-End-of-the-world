@@ -28,6 +28,8 @@
       "min": 100,
       "max": 2000
     },
-    "Debug Mode (调试模式)": false
+    "Debug Mode (调试模式)": false,
+    "Shader Effects Enabled (启用Shader效果)": true,
+    "Reset Story Progress (重置剧情进度)": false
   }
 }

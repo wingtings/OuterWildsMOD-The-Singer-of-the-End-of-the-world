@@ -40,7 +40,10 @@ namespace TheSingerOfTheEnd
             var shipLog = Locator.GetShipLogManager();
             shipLog?.RevealFact(EndingFact);
 
-            // 屏幕通知(后续可替换为雨停 + God Ray 穿云的完整演出)
+            // 启动时间线演出（雨停 + God Ray 爆发）
+            TimelineManager.Instance?.PlayTrueEnd();
+
+            // 屏幕通知
             if (NotificationManager.SharedInstance != null)
             {
                 var data = new NotificationData(

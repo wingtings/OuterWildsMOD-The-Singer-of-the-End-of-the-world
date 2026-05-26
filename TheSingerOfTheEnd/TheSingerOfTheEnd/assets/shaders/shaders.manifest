@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1476277651
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ac47b5e9d92e5a0d0e87166b784cdcce
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Materials/GodRayMat.mat
+- Assets/Materials/RainMat.mat
+- Assets/Materials/RippleMat.mat
+Dependencies: []

@@ -9,62 +9,78 @@
                 "comment": "录音石·神明之声(挪麦录音机)",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_EscapePodCrashSite/Sector_CrashFragment/Interactables_CrashFragment/Prefab_NOM_Recorder/Props_NOM_Recorder",
                 "rename": "录音石",
-                "position": { "x": 17, "y": 70, "z": 0 },
+                "position":{"x":6.697651,"y":69.16261,"z":17.63373},
+                "rotation": {"x":0.5365602,"y":232.3437,"z":344.6734},
+                "normal":{":x":-0.1686302, "y":0.9643926, "z":0.2037424},
                 "alignRadial": true
             },
             {
                 "comment": "石碑前的挪麦路标",
                 "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/Prefab_NOM_Sign/Props_NOM_Trailmarker",
-                "position": { "x": 0, "y": 72, "z": 7 },
-                "rotation": { "x": 0, "y": 180, "z": 0 },
+                "position": {"x": 0.6976051, "y": 68.55559, "z": 12.93806},
+                "rotation": {"x": 349.5599, "y": 213.3469, "z":358.5238}, 
+                "normal": {"x": 0.07805777, "y": 0.9831187, "z":0.1654842},
                 "alignRadial": true
             },
             {
                 "comment": "录音石侧的第二个路标",
                 "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/Prefab_NOM_Sign/Props_NOM_Trailmarker",
-                "position": { "x": 9, "y": 71, "z": 9 },
-                "rotation": { "x": 0, "y": 120, "z": 0 },
+                "position": {"x": 8.292244, "y": 69.61539, "z": 1.800995},
+                "rotation": {"x":359.2791, "y": 118.2202, "z":1.816395},
+                "normal": {"x":0.003907114, "y": 0.9994186, "z":0.03387582},
                 "alignRadial": true
             },
             {
                 "comment": "石碑两侧挪麦立式火炬",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
-                "position": { "x": 6, "y": 72, "z": 5 },
+                "position": {"x":14.1704, "y":70.17883, "z": -0.1968231}, 
+                "rotation": {"x": 14.73184, "y": 263.6415, "z": 348.5127}, 
+                "normal": {"x": -0.2697243, "y":0.9477542, "z":0.1703262},
                 "alignRadial": true
             },
             {
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
-                "position": { "x": -6, "y": 72, "z": 5 },
+                "position": {"x": 9.413906, "y": 69.64993, "z": -3.100769},
+                 "rotation": {"x": 358.1114, "y":37.8601, "z":359.9338}, 
+                "normal": {"x": -0.01931414, "y":0.9994563, "z":-0.02672899},
                 "alignRadial": true
             },
             {
                 "comment": "装点用挪麦容器",
                 "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Container",
-                "position": { "x": -10, "y": 71, "z": -6 },
-                "rotation": { "x": 0, "y": 45, "z": 0 },
+                "position": {"x": -0.2176914, "y": 69.90012, "z": -3.578056},
+                "rotation": {"x": 355.8264, "y": 358.0674, "z": 0.3425153},
+                "normal": {"x": -0.003520265, "y": 0.9973304, "z": -0.07293755},
                 "alignRadial": true
             },
             {
                 "comment": "挪麦长椅",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_SimpleChair_NoSkeleton (1)",
-                "position": { "x": 7, "y": 72, "z": -4 },
-                "rotation": { "x": 0, "y": -30, "z": 0 },
+                "position": {"x": -3.255983, "y": 69.8538, "z": -2.429718},
+                "rotation": {"x": 357.3687, "y": 38.97102, "z": 0.2183606},
+                "normal": {"x": -0.03183629, "y": 0.9989386, "z": -0.03329563},
                 "alignRadial": true
             },
             {
                 "comment": "紫色裂纹重力结晶×3(神秘地貌装饰)",
                 "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
-                "position": { "x": 11, "y": 71, "z": -9 },
+                "position": {"x": -7.289034, "y": 69.40153, "z": 6.397385},
+                "rotation": {"x": 8.233227, "y": 60.65611, "z": 8.305054},
+                "normal": {"x": 0.0527354, "y": 0.9793146, "z": 0.1953511},
                 "alignRadial": true
             },
             {
                 "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
-                "position": { "x": -13, "y": 71, "z": 3 },
+                "position": {"x": -6.182862, "y": 68.50399, "z": 10.93868},
+                "rotation": {"x": 334.9775, "y": 161.9961, "z": 13.09413},
+                "normal": {"x": 0.08812439, "y": 0.8825814, "z": 0.4618274},
                 "alignRadial": true
             },
             {
                 "path": "BrittleHollow_Body/Sector_BH/Sector Quantum Pole Path/Fragment QuantumPolePath 2/Interactables_QPP2/Prefab_NOM_GravityCrystal_Cracked",
-                "position": { "x": 4, "y": 71, "z": 13 },
+                "position": {"x": -7.063408, "y": 69.09354, "z": 8.655582},
+                "rotation": {"x": 353.3532, "y": 109.181, "z": 4.62959},
+                "normal": {"x": -0.08244671, "y": 0.990038, "z": 0.1141381},
                 "alignRadial": true
             },
             {
@@ -79,8 +95,9 @@
                 "comment": "原版炉星收音机——播放世末歌者的人声(神域之境的歌声信号源)",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Characters_LowerVillage/Kids_PreGame/Props_HEA_Radio",
                 "rename": "歌声收音机",
-                "position": { "x": 13, "y": 72, "z": 3 },
-                "rotation": { "x": 0, "y": -120, "z": 0 },
+                "position": {"x": 12.24651, "y":69.94924, "z":4.29285}, 
+                "rotation": {"x":12.90007, "y": 284.5951, "z":7.103346}, 
+                "normal": {"x": -0.2455495, "y":0.9672794, "z": -0.06384474},
                 "alignRadial": true
             }
         ],
@@ -102,9 +119,9 @@
             {
                 "xmlFile": "planets/text/bet_stele.xml",
                 "type": "cairn",
-                "position": { "x": 0, "y": 74, "z": 0 },
-                "normal": { "x": 0, "y": 1, "z": 0 },
-                "rotation": { "x": 0, "y": 0, "z": 0 }
+                "position": {"x": 4.17831, "y": 69.25896, "z": 9.080414},
+                "rotation": {"x": 350.6703, "y": 143.8429, "z": 1.822162},
+                "normal": {"x": -0.06992699, "y": 0.9862729, "z": 0.1495872}
             }
         ]
     },

@@ -12,22 +12,6 @@
     "Props": {
         "details": [
             {
-                "comment": "北极舞台·歌者平台(挪麦圆形地板)",
-                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/CenterRuin/Structure_NOM_ProbeFloor_StatueIsland",
-                "rename": "北极平台",
-                "position": { "x": 0, "y": 55, "z": -11 },
-                "scale": 1.2,
-                "alignRadial": true
-            },
-            {
-                "comment": "南极·天依平台(挪麦圆形地板)",
-                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/CenterRuin/Structure_NOM_ProbeFloor_StatueIsland",
-                "rename": "南极平台",
-                "position": { "x": 0, "y": -55, "z": 0 },
-                "scale": 1.2,
-                "alignRadial": true
-            },
-            {
                 "comment": "高塔·挪麦重力炮(北极空地边缘竖向地标)",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_GravityCannon/Geometry_GravityCannon/ControlledByProxy_Arch/Structure_NOM_GravityCannon_HT",
                 "position": { "x": 13, "y": 54, "z": 8 },
@@ -37,7 +21,7 @@
             {
                 "comment": "音乐厅遗迹·空挪麦遗迹(歌者身后的石质残墙)",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Empty",
-                "position": { "x": 0, "y": 55, "z": -15 },
+                "position": {"x": -2.382755, "y": -0.9785807, "z": 30.00782},
                 "scale": 0.8,
                 "alignRadial": true
             },
@@ -127,8 +111,7 @@
                 "comment": "[占位] 凡人·天依 —— 南极平台,后续替换为 MMD 模型",
                 "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/ConversationPivot/Character_NOM_Solanum/Nomai_ANIM_SkyWatching_Idle",
                 "rename": "蓝发女孩(天依占位)",
-                "position": { "x": 0, "y": -56.5, "z": 0 },
-                "rotation": { "x": 0, "y": -90, "z": 0 },
+                "position": {"x": 41.15849, "y": 28.24348, "z": -53.61192},
                 "scale": 1.0,
                 "alignRadial": true
             },
@@ -137,8 +120,7 @@
                 "assetBundle": "assets/models/singer",
                 "path": "Assets/Model/Singer.prefab",
                 "rename": "歌者(阿绫)",
-                "position": { "x": 0, "y": 56.5, "z": -11 },
-                "rotation": { "x": 0, "y": 0, "z": 0 },
+                "position": {"x": -5.52638, "y": -7.194386, "z": 29.36535},
                 "scale": 1.0,
                 "alignRadial": true
             }
@@ -147,14 +129,14 @@
             {
                 "comment": "歌者之声·伴奏(城市信号源);人声信号源在神域之境(god_realm.json)",
                 "frequency": "歌者频率",
-                "name": "歌者弦音",
+                "name": "歌者乐音",
                 "audio": "planets/audio/shimo_singer_bgm.ogg",
                 "sourceRadius": 3,
                 "detectionRadius": 600,
                 "identificationRadius": 72,
                 "onlyAudibleToScope": false,
                 "reveals": "HALL_RUMOR",
-                "position": { "x": 0, "y": 56.5, "z": -11 }
+                "position": {"x": -5.52638, "y": -7.194386, "z": 29.36535}
             }
         ],
         "translatorText": [
@@ -170,7 +152,7 @@
             {
                 "comment": "凡人·天依 —— 南极平台",
                 "xmlFile": "planets/dialogue/tianyi_dialogue.xml",
-                "position": { "x": 0, "y": -56.5, "z": 0 },
+                "position": {"x": 41.15849, "y": 28.24348, "z": -53.61192},
                 "radius": 2,
                 "range": 5,
                 "alignRadial": true
@@ -178,7 +160,7 @@
             {
                 "comment": "损坏的扩音装置(音乐厅舞台后方)",
                 "xmlFile": "planets/dialogue/amplifier_dialogue.xml",
-                "position": { "x": 1, "y": 55, "z": -10 },
+                "position": {"x": -2.382755, "y": -0.9785807, "z": 30.00782},
                 "radius": 2,
                 "range": 4,
                 "alignRadial": true

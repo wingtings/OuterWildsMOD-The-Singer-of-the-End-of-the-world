@@ -7,26 +7,44 @@
         "hasOxygen": true
     },
 
+    "comment": "废岩星(Attlerock)·世末之城。地表起伏不平且有陨石坑，道具半径统一抬到 ≈56 以避免陷入地表；歌者在北极平台、天依在南极平台。实际 y 仍需进游戏用 Debug Raycast(P 键)按地形微调。",
+
     "Props": {
         "details": [
             {
+                "comment": "北极舞台·歌者平台(挪麦圆形地板)",
+                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/CenterRuin/Structure_NOM_ProbeFloor_StatueIsland",
+                "rename": "北极平台",
+                "position": { "x": 0, "y": 55, "z": -11 },
+                "scale": 1.2,
+                "alignRadial": true
+            },
+            {
+                "comment": "南极·天依平台(挪麦圆形地板)",
+                "path": "StatueIsland_Body/Sector_StatueIsland/Interactables_StatueIsland/CenterRuin/Structure_NOM_ProbeFloor_StatueIsland",
+                "rename": "南极平台",
+                "position": { "x": 0, "y": -55, "z": 0 },
+                "scale": 1.2,
+                "alignRadial": true
+            },
+            {
                 "comment": "高塔·挪麦重力炮(北极空地边缘竖向地标)",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_GravityCannon/Geometry_GravityCannon/ControlledByProxy_Arch/Structure_NOM_GravityCannon_HT",
-                "position": { "x": 13, "y": 48, "z": 8 },
+                "position": { "x": 13, "y": 54, "z": 8 },
                 "scale": 0.3,
                 "alignRadial": true
             },
             {
                 "comment": "音乐厅遗迹·空挪麦遗迹(歌者身后的石质残墙)",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Empty",
-                "position": { "x": 0, "y": 48, "z": -14 },
+                "position": { "x": 0, "y": 55, "z": -15 },
                 "scale": 0.8,
                 "alignRadial": true
             },
             {
                 "comment": "空地古迹·带篝火挪麦遗迹",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Campfire",
-                "position": { "x": -5, "y": 50, "z": 3 },
+                "position": { "x": -5, "y": 56, "z": 3 },
                 "rotation": { "x": 0, "y": -40, "z": 0 },
                 "scale": 0.8,
                 "alignRadial": true
@@ -34,92 +52,92 @@
             {
                 "comment": "空地发光挪麦门廊",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Lighting_GravityCannon/Prefab_NOM_Doorway",
-                "position": { "x": 3, "y": 50, "z": 0 },
+                "position": { "x": 3, "y": 56, "z": 0 },
                 "rotation": { "x": 0, "y": -90, "z": 0 },
                 "alignRadial": true
             },
             {
                 "comment": "蓝灯笼×4(广场补光)",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": 4, "y": 50, "z": 4 },
+                "position": { "x": 4, "y": 56, "z": 4 },
                 "alignRadial": true
             },
             {
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": -3, "y": 50, "z": 6 },
+                "position": { "x": -3, "y": 56, "z": 6 },
                 "alignRadial": true
             },
             {
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": 6, "y": 50, "z": -4 },
+                "position": { "x": 6, "y": 56, "z": -4 },
                 "alignRadial": true
             },
             {
                 "comment": "通往音乐厅方向的蓝灯笼",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": -4, "y": 50, "z": -9 },
+                "position": { "x": -4, "y": 56, "z": -9 },
                 "alignRadial": true
             },
             {
                 "comment": "广场挪麦立式火炬",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
-                "position": { "x": 2, "y": 50, "z": 0 },
+                "position": { "x": 2, "y": 56, "z": 0 },
                 "alignRadial": true
             },
             {
                 "comment": "音乐厅遗迹挪麦立式火炬",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
-                "position": { "x": -1, "y": 49, "z": -8 },
+                "position": { "x": -1, "y": 55, "z": -8 },
                 "alignRadial": true
             },
             {
                 "comment": "挪麦长桌",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Props_NOM_Table",
-                "position": { "x": 1, "y": 50, "z": 2 },
+                "position": { "x": 1, "y": 56, "z": 2 },
                 "rotation": { "x": 0, "y": 30, "z": 0 },
                 "alignRadial": true
             },
             {
                 "comment": "挪麦长椅",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_SimpleChair_NoSkeleton (1)",
-                "position": { "x": 1, "y": 50, "z": 3 },
+                "position": { "x": 1, "y": 56, "z": 3 },
                 "rotation": { "x": 0, "y": -20, "z": 0 },
                 "alignRadial": true
             },
             {
                 "comment": "音乐厅舞台挪麦书架",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_Shelf (2)/Strucutre_NOM_Shelf",
-                "position": { "x": 1, "y": 49, "z": -10 },
+                "position": { "x": 1, "y": 55, "z": -10 },
                 "rotation": { "x": 0, "y": 90, "z": 0 },
                 "alignRadial": true
             },
             {
-                "comment": "广场点景·脆壳星枯灌木",
-                "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Props_GravityCannon/OtherComponentsGroup/VisibleFrom_BH/Prefab_Tree_BH_Bristle",
-                "position": { "x": 5, "y": 50, "z": -1 },
+                "comment": "南极·天依身侧立式火炬(补光)",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
+                "position": { "x": 3, "y": -56, "z": 0 },
                 "alignRadial": true
             },
             {
-                "comment": "广场点景·梦境树",
-                "path": "DreamWorld_Body/Sector_DreamWorld/Sector_DreamZone_1/Props_DreamZone_1/OtherComponentsGroup/Trees_Z1/DreamHouseIsland/Tree_DW_M_Var",
-                "position": { "x": -4, "y": 50, "z": 5 },
+                "comment": "南极·天依身侧蓝灯笼(补光)",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
+                "position": { "x": -3, "y": -56, "z": 2 },
                 "alignRadial": true
             },
             {
-                "comment": "[占位] 凡人·天依 —— 后续替换为 MMD 模型",
+                "comment": "[占位] 凡人·天依 —— 南极平台,后续替换为 MMD 模型",
                 "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/ConversationPivot/Character_NOM_Solanum/Nomai_ANIM_SkyWatching_Idle",
                 "rename": "蓝发女孩(天依占位)",
-                "position": { "x": 10, "y": 49, "z": 4 },
+                "position": { "x": 0, "y": -56.5, "z": 0 },
                 "rotation": { "x": 0, "y": -90, "z": 0 },
                 "scale": 1.0,
                 "alignRadial": true
             },
             {
-                "comment": "歌者·阿绫(MMD 模型,AssetBundle: assets/models/singer)",
+                "comment": "歌者·阿绫(MMD 模型,AssetBundle: assets/models/singer) —— 北极平台",
                 "assetBundle": "assets/models/singer",
                 "path": "Assets/Model/Singer.prefab",
                 "rename": "歌者(阿绫)",
-                "position": { "x": 0, "y": 49, "z": -11 },
+                "position": { "x": 0, "y": 56.5, "z": -11 },
                 "rotation": { "x": 0, "y": 0, "z": 0 },
                 "scale": 1.0,
                 "alignRadial": true
@@ -127,31 +145,32 @@
         ],
         "signals": [
             {
+                "comment": "歌者之声·伴奏(城市信号源);人声信号源在神域之境(god_realm.json)",
                 "frequency": "歌者频率",
-                "name": "歌者之声",
+                "name": "歌者弦音",
                 "audio": "planets/audio/shimo_singer_bgm.ogg",
                 "sourceRadius": 3,
                 "detectionRadius": 600,
                 "identificationRadius": 72,
                 "onlyAudibleToScope": false,
                 "reveals": "HALL_RUMOR",
-                "position": { "x": 0, "y": 49, "z": -11 }
+                "position": { "x": 0, "y": 56.5, "z": -11 }
             }
         ],
         "translatorText": [
             {
                 "xmlFile": "planets/text/singer_diary.xml",
                 "type": "cairn",
-                "position": { "x": 1, "y": 50, "z": 1 },
+                "position": { "x": 2, "y": 56, "z": 1 },
                 "normal": { "x": 0, "y": 1, "z": 0 },
                 "rotation": { "x": 0, "y": -120, "z": 0 }
             }
         ],
         "dialogue": [
             {
-                "comment": "凡人·天依",
+                "comment": "凡人·天依 —— 南极平台",
                 "xmlFile": "planets/dialogue/tianyi_dialogue.xml",
-                "position": { "x": 10, "y": 49, "z": 4 },
+                "position": { "x": 0, "y": -56.5, "z": 0 },
                 "radius": 2,
                 "range": 5,
                 "alignRadial": true
@@ -159,7 +178,7 @@
             {
                 "comment": "损坏的扩音装置(音乐厅舞台后方)",
                 "xmlFile": "planets/dialogue/amplifier_dialogue.xml",
-                "position": { "x": 1, "y": 49, "z": -10 },
+                "position": { "x": 1, "y": 55, "z": -10 },
                 "radius": 2,
                 "range": 4,
                 "alignRadial": true
@@ -171,21 +190,21 @@
         "revealVolumes": [
             {
                 "comment": "着陆点/广场:解锁城市与广场日志、传闻",
-                "position": { "x": 0, "y": 50, "z": 0 },
+                "position": { "x": 0, "y": 56, "z": 0 },
                 "radius": 12,
                 "revealOn": "enter",
                 "reveals": [ "SINGER_CITY_EXPLORE", "SQUARE_EXPLORE", "SQUARE_RUMOR", "TOWER_RUMOR" ]
             },
             {
-                "comment": "音乐厅遗迹:解锁音乐厅与扩音装置",
-                "position": { "x": 0, "y": 49, "z": -11 },
+                "comment": "音乐厅遗迹/北极舞台:解锁音乐厅与扩音装置",
+                "position": { "x": 0, "y": 55, "z": -11 },
                 "radius": 8,
                 "revealOn": "enter",
                 "reveals": [ "HALL_EXPLORE", "AMPLIFIER_FACT" ]
             },
             {
                 "comment": "高塔:解锁观测台、零件、神谕之境传闻",
-                "position": { "x": 13, "y": 48, "z": 8 },
+                "position": { "x": 13, "y": 54, "z": 8 },
                 "radius": 8,
                 "revealOn": "enter",
                 "reveals": [ "TOWER_EXPLORE", "TOWER_PART_FACT", "GOD_REALM_RUMOR" ]

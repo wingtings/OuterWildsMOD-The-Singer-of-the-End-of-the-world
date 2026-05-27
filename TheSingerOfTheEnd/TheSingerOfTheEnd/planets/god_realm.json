@@ -74,6 +74,28 @@
                 "rotation": { "x": 0, "y": 30, "z": 0 },
                 "scale": 0.6,
                 "alignRadial": true
+            },
+            {
+                "comment": "原版炉星收音机——播放世末歌者的人声(神域之境的歌声信号源)",
+                "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Characters_LowerVillage/Kids_PreGame/Props_HEA_Radio",
+                "rename": "歌声收音机",
+                "position": { "x": 13, "y": 72, "z": 3 },
+                "rotation": { "x": 0, "y": -120, "z": 0 },
+                "alignRadial": true
+            }
+        ],
+        "signals": [
+            {
+                "comment": "歌者吟唱·人声(神域之境信号源);伴奏信号源在世末之城(singer_world.json)。同频率,暗示二者本是同一首歌。",
+                "frequency": "歌者频率",
+                "name": "歌者吟唱",
+                "audio": "planets/audio/singer_echo.ogg",
+                "sourceRadius": 3,
+                "detectionRadius": 600,
+                "identificationRadius": 72,
+                "onlyAudibleToScope": false,
+                "reveals": "GOD_VOICE_FACT",
+                "position": { "x": 13, "y": 72, "z": 3 }
             }
         ],
         "translatorText": [

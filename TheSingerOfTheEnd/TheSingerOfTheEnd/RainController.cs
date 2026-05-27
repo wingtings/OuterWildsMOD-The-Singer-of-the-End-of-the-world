@@ -11,11 +11,11 @@ namespace TheSingerOfTheEnd
         public static RainController Instance { get; private set; }
 
         private ParticleSystem _ps;
-        private Transform _planet;          // Brittle Hollow Transform
+        private Transform _planet;          // Attlerock(废岩星) Transform
         private const float RainRadius = 200f;
 
-        // 故事区域在废岩星局部坐标中的中心(北极方向,表面半径 ≈ 180)
-        private static readonly Vector3 StoryZoneLocal = new Vector3(0f, 180f, 0f);
+        // 故事区域在废岩星(Attlerock)局部坐标中的中心(北极舞台,表面半径 ≈ 56)
+        private static readonly Vector3 StoryZoneLocal = new Vector3(0f, 56f, 0f);
 
         // 供 TimelineManager 控制发射速率
         public void SetEmissionRate(float rate)
@@ -43,10 +43,10 @@ namespace TheSingerOfTheEnd
             }
 
             var player = Locator.GetPlayerTransform();
-            var planet = TheSingerOfTheEnd.Instance.NewHorizons.GetPlanet("Brittle Hollow");
+            var planet = TheSingerOfTheEnd.Instance.NewHorizons.GetPlanet("Attlerock");
             if (player == null || planet == null)
             {
-                Log("玩家或废岩星未就绪,跳过降雨。", MessageType.Warning);
+                Log("玩家或废岩星(Attlerock)未就绪,跳过降雨。", MessageType.Warning);
                 return;
             }
 
@@ -110,12 +110,12 @@ namespace TheSingerOfTheEnd
         {
             if (AssetLoader.Ripple == null) return;
 
-            // 废岩星北极故事区域(地表局部 y≈180),稍微抬高避免与地形 z-fighting
+            // 废岩星(Attlerock)北极舞台地表(局部 y≈56),稍微抬高避免与地形 z-fighting
             Vector3[] spots =
             {
-                new Vector3(6f, 180.3f, 2f),
-                new Vector3(14f, 180.1f, 8f),
-                new Vector3(-4f, 180.2f, -10f)
+                new Vector3(6f, 56.3f, 2f),
+                new Vector3(-4f, 56.2f, -9f),
+                new Vector3(3f, 56.1f, -4f)
             };
             float[] sizes = { 8f, 6f, 7f };
 

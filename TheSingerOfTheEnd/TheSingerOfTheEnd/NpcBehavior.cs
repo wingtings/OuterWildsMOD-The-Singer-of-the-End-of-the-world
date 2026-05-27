@@ -13,8 +13,10 @@ namespace TheSingerOfTheEnd
         public float TurnSpeed = 60f;       // 转向角速度(度/秒)
         public float ActivateRadius = 14f;  // 玩家进入此距离才启动面向逻辑
 
-        // 音乐厅舞台在废岩星局部坐标中的位置（与歌者占位对齐），修复后天依转向此处
-        private static readonly Vector3 HallLocalPos = new Vector3(0f, 177f, -33f);
+        // 音乐厅舞台(北极)在废岩星(Attlerock)局部坐标中的位置（与歌者对齐），修复后天依转向此处。
+        // 注意：天依现位于南极、歌者位于北极，二者近似对蹠点，"转向歌者"在球面上是退化方向，
+        //       目前仅在天依靠近玩家时生效；完整的"走向歌者"团圆演出留待后续。
+        private static readonly Vector3 HallLocalPos = new Vector3(0f, 56f, -11f);
 
         private Transform _playerBody;
         private Animator _anim;
@@ -23,7 +25,7 @@ namespace TheSingerOfTheEnd
         // 由 TheSingerOfTheEnd.SetupGraphics 末尾调用
         public static void Setup(INewHorizons nh)
         {
-            var planet = nh.GetPlanet("Brittle Hollow");
+            var planet = nh.GetPlanet("Attlerock");
             if (planet == null) return;
 
             TryAttach(planet.transform, "蓝发女孩(天依占位)", NpcRole.Tianyi);

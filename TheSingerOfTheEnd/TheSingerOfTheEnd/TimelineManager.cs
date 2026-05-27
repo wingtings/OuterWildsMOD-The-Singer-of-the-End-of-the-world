@@ -65,12 +65,13 @@ namespace TheSingerOfTheEnd
             ApplyNormalTimeline(t);
         }
 
-        // 随时间线性提升 God Ray 强度（0.5 → 0.85）、后半段增大雨量
+        // 随时间线性提升 God Ray 强度（0.2 → 0.4）、后半段增大雨量。
+        // 强度区间已配合 shader 的有界亮源 + Screen 合成下调,避免常驻圣光过亮。
         private void ApplyNormalTimeline(float t)
         {
             EnsureGodRay();
             if (_godRay != null)
-                _godRay.Intensity = Mathf.Lerp(0.5f, 0.85f, t);
+                _godRay.Intensity = Mathf.Lerp(0.2f, 0.4f, t);
 
             // 后半段（t > 0.5）雨量逐渐增大（4000 → 6000 粒/秒）
             if (t > 0.5f && RainController.Instance != null)
@@ -108,20 +109,20 @@ namespace TheSingerOfTheEnd
                 return;
             }
 
-            // 阶段二（3~8 s）：God Ray 强度爆发至 1.5
+            // 阶段二（3~8 s）：God Ray 强度爆发至 0.75（穿云高潮,但 Screen 合成保证不死白）
             float t2 = Mathf.Clamp01((_trueEndTimer - PhaseRainFade) / PhaseRayBurst);
             if (_trueEndTimer <= PhaseRainFade + PhaseRayBurst)
             {
                 if (_godRay != null && _shadersEnabled)
-                    _godRay.Intensity = Mathf.Lerp(_intensityAtTrueEnd, 1.5f, t2);
+                    _godRay.Intensity = Mathf.Lerp(_intensityAtTrueEnd, 0.75f, t2);
                 return;
             }
 
-            // 阶段三（8~13 s）：God Ray 缓降至 1.0
+            // 阶段三（8~13 s）：God Ray 缓降至 0.5
             float t3 = Mathf.Clamp01(
                 (_trueEndTimer - PhaseRainFade - PhaseRayBurst) / PhaseRaySettle);
             if (_godRay != null && _shadersEnabled)
-                _godRay.Intensity = Mathf.Lerp(1.5f, 1.0f, t3);
+                _godRay.Intensity = Mathf.Lerp(0.75f, 0.5f, t3);
         }
 
         private void EnsureGodRay()

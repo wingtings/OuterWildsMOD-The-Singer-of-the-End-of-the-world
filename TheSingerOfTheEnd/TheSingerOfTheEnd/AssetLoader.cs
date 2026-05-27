@@ -16,6 +16,9 @@ namespace TheSingerOfTheEnd
         public static Material GodRay { get; private set; }
         public static Material Rain { get; private set; }
         public static Material Ripple { get; private set; }
+        public static Material AudioWave { get; private set; }
+        public static Material Fog { get; private set; }
+        public static Material Water { get; private set; }
 
         private static AssetBundle Bundle
         {
@@ -43,7 +46,13 @@ namespace TheSingerOfTheEnd
             GodRay = Bundle.LoadAsset<Material>("Assets/Materials/GodRayMat.mat");
             Rain = Bundle.LoadAsset<Material>("Assets/Materials/RainMat.mat");
             Ripple = Bundle.LoadAsset<Material>("Assets/Materials/RippleMat.mat");
-            Log($"材质加载: GodRay={GodRay != null}, Rain={Rain != null}, Ripple={Ripple != null}",
+            // 以下三个材质需在 Unity 工程里新建并打进同一 shaders bundle 后才会非空;
+            // 未打包前为 null,对应控制器会自动跳过,不影响其它效果与编译。
+            AudioWave = Bundle.LoadAsset<Material>("Assets/Materials/AudioWaveMat.mat");
+            Fog = Bundle.LoadAsset<Material>("Assets/Materials/FogMat.mat");
+            Water = Bundle.LoadAsset<Material>("Assets/Materials/WaterMat.mat");
+            Log($"材质加载: GodRay={GodRay != null}, Rain={Rain != null}, Ripple={Ripple != null}, " +
+                $"AudioWave={AudioWave != null}, Fog={Fog != null}, Water={Water != null}",
                 MessageType.Info);
         }
 

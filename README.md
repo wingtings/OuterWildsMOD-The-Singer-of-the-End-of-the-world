@@ -84,38 +84,66 @@ Github 游戏组织：https://github.com/ow-mods
 
 #### 项目文件树
 
-使用 VS2026 从 `ow-mod-template` 建立之后（带 New Horizons 支持），项目文件树如下：
+> 自 `5.26` 星球迁移（自定义星系 → 直接注入原版 `SolarSystem` 的原版星球）后，
+> 实际结构如下（工程嵌套在 `TheSingerOfTheEnd/TheSingerOfTheEnd/`）：
 
 ```
-TheSingerOfTheEnd/
-├── .github/
-│   └── workflows/
-│       └── release.yml              # 自动发布 workflow
-├── planets/                          # 星球配置（JSON）
-│   ├── outing_sun.json              # 鸥停之星（恒星）
-│   ├── singer_world.json            # 世末之城（主场景，歌者+凡人都在此）
-│   └── god_realm.json               # 神谕之境（赌约石碑）
-├── systems/                          # 星系配置
-│   └── outing_system.json            # 鸥停星系定义
-├── assets/                           # 自定义资产
-│   ├── models/                       # MMD → FBX 转换后的角色模型
-│   │   ├── ling_singer.fbx          # 乐正绫（歌者）
-│   │   ├── tianyi_mortal.fbx        # 洛天依（凡人）
-│   │   └── yanhe_god.fbx            # 言和（神明）
-│   ├── textures/                     # 贴图资源
-│   ├── audio/                        # BGM 和音效
-│   │   ├── shimo_singer_bgm.ogg    # 世末歌者主旋律
-│   │   └── rain_ambient.ogg        # 雨声环境音
-│   └── shaders/                      # 自定义着色器
-│       ├── RainDropShader.shader    # 雨滴粒子着色器
-│       ├── VolumetricFog.shader     # 体积雾
-│       └── GodRay.shader            # 神明降临光束
-├── dialogue/                         # 对话树配置
-│   └── translator_text.xml          # Nomai文字翻译文本
-├── TheSingerOfTheEnd.cs             # MOD 主入口
-├── TheSingerOfTheEnd.csproj         # C# 项目文件
-├── manifest.json                     # MOD 元数据
-└── default-config.json              # 用户配置项
+TheSingerOfTheEnd/                          # 解决方案根目录
+├── TheSingerOfTheEnd.slnx                  # VS 解决方案
+└── TheSingerOfTheEnd/                      # MOD 工程目录
+    ├── .github/workflows/release.yml       # 自动发布 workflow
+    ├── planets/                            # 星球内容（合并注入原版星球）
+    │   ├── singer_world.json               # 废岩星(Attlerock)·世末之城：歌者(北极)+天依(南极)
+    │   ├── god_realm.json                  # 量子卫星(Quantum Moon)·神域之境：赌约石碑+神明之声
+    │   ├── audio/                          # 音频素材（OGG）
+    │   │   ├── rain_ambient.ogg            # 雨声环境音
+    │   │   ├── shimo_singer_bgm.ogg        # 世末歌者·伴奏（城市信号源）
+    │   │   └── singer_echo.ogg             # 世末歌者·人声（神域信号源）
+    │   ├── text/                           # 挪麦可翻译文字 XML
+    │   │   ├── singer_diary.xml            # 歌者日记石碑
+    │   │   └── bet_stele.xml               # 赌约石碑
+    │   ├── dialogue/                       # 对话树 XML
+    │   │   ├── tianyi_dialogue.xml         # 凡人·天依
+    │   │   └── amplifier_dialogue.xml      # 扩音装置（修复触发）
+    │   └── shiplog/                        # 飞船日志
+    │       ├── singer_city_log.xml         # 世末之城日志
+    │       ├── god_realm_log.xml           # 神域之境日志
+    │       └── sprites/                    # 日志条目缩略图 PNG（8 张）
+    ├── systems/
+    │   └── SolarSystem.json                # 向原版星系注入好奇心配色 + Entry 坐标
+    ├── translations/
+    │   └── english.json                    # UI/日志/对话 翻译键
+    ├── assets/                             # AssetBundle 与 Shader 源码
+    │   ├── models/
+    │   │   ├── singer                      # 歌者 MMD 模型 bundle（无扩展名）
+    │   │   └── singer.manifest
+    │   └── shaders/
+    │       ├── GodRay.shader               # 神光/丁达尔（屏幕空间后处理）
+    │       ├── VolumetricRain.shader       # 体积雨粒子
+    │       ├── RainRipple.shader           # 地面涟漪水洼
+    │       ├── AudioWave.shader            # 声波可视化（FFT 顶点位移）
+    │       ├── VolumetricFog.shader        # 体积雾（Ray Marching + Beer-Lambert）
+    │       ├── WaterReflection.shader      # 水面反射折射（平面反射）
+    │       ├── shaders                     # 已编译 shader bundle（Unity 产出）
+    │       └── shaders.manifest
+    ├── TheSingerOfTheEnd.cs                # MOD 主入口（加载配置 / 挂载效果）
+    ├── AssetLoader.cs                      # shader bundle 加载与材质缓存
+    ├── GodRayController.cs                 # God Ray 后处理控制器
+    ├── RainController.cs                   # 体积雨 + 涟漪部署
+    ├── AudioVisualizerController.cs        # 声波可视化控制器（FFT）
+    ├── VolumetricFogController.cs          # 体积雾后处理控制器
+    ├── PlanarReflectionController.cs       # 水面反射相机
+    ├── NpcBehavior.cs                      # 歌者/天依 NPC 行为
+    ├── TimelineManager.cs                  # 22 分钟循环时间线 + True End 演出
+    ├── EndingJudge.cs                      # 结局判定
+    ├── INewHorizons.cs                     # NH API 接口声明
+    ├── manifest.json                       # MOD 元数据
+    ├── addon-manifest.json                 # NH addon 元数据
+    ├── default-config.json                # 用户可调配置项
+    ├── title-screen.json                  # 标题画面配置
+    ├── gen_textures.py                     # 程序化贴图生成脚本（不随 MOD 发布）
+    ├── gen_shiplog_sprites.py              # 日志缩略图生成脚本（不随 MOD 发布）
+    └── TheSingerOfTheEnd.csproj            # C# 工程文件
 ```
 
 #### manifest.json 配置

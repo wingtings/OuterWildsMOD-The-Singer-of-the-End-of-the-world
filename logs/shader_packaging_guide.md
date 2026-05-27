@@ -73,6 +73,14 @@ outer-wilds-unity-template/Assets/Shaders/
 | `GodRayMat` | `Custom/GodRays` | 后处理材质,参数后面 C# 也可改 |
 | `RainMat` | `Custom/VolumetricRain` | 给粒子系统用;给 `_MainTex` 放一张白色软圆点/竖条贴图 |
 | `RippleMat` | `Custom/RainRipple` | 给水洼 Quad 用 |
+| `AudioWaveMat` | `Custom/AudioWave` | 声波可视化;C# 端每帧 `SetFloatArray("_Spectrum")`,无需贴图 |
+| `FogMat` | `Custom/VolumetricFog` | 体积雾后处理;C# 端每帧打入相机四角射线 |
+| `WaterMat` | `Custom/WaterReflection` | 水面反射;C# 端每帧 `SetTexture("_ReflectionTex")` 反射图 |
+
+> 后三个(`AudioWaveMat`/`FogMat`/`WaterMat`)是 5.27 新增。它们对应的 C# 控制器
+> (`AudioVisualizerController` / `VolumetricFogController` / `PlanarReflectionController`)已加入工程,
+> 且对「材质为 null」做了跳过保护 —— 在你把这三个材质打进 `shaders` bundle 之前,代码照常编译运行,
+> 只是这三个效果不出现。打包后 `AssetLoader` 会自动取到材质并启用。
 
 > `RainMat` 建议配一张雨滴贴图(一条上下渐隐的白色竖条,或一个软圆点),没有也能跑(默认白)。
 

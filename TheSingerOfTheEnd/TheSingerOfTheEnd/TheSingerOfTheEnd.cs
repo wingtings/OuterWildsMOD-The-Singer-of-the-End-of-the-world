@@ -74,6 +74,9 @@ namespace TheSingerOfTheEnd
             var godRay = FindObjectOfType<GodRayController>();
             if (godRay != null) godRay.enabled = ShadersEnabled;
 
+            var fog = FindObjectOfType<VolumetricFogController>();
+            if (fog != null) fog.enabled = ShadersEnabled;
+
             if (RainController.Instance != null)
             {
                 if (ShadersEnabled) RainController.Instance.EnablePS();
@@ -139,11 +142,11 @@ namespace TheSingerOfTheEnd
 
             ModHelper.Console.WriteLine("[世末歌者] SolarSystem loaded! Setting up...", MessageType.Success);
 
-            var singerCity = NewHorizons.GetPlanet("Brittle Hollow");
+            var singerCity = NewHorizons.GetPlanet("Attlerock");
             if (singerCity != null)
-                ModHelper.Console.WriteLine("[世末歌者] 废岩星(世末之城) found.", MessageType.Success);
+                ModHelper.Console.WriteLine("[世末歌者] 废岩星(世末之城/Attlerock) found.", MessageType.Success);
             else
-                ModHelper.Console.WriteLine("[世末歌者] WARNING: Brittle Hollow not found!", MessageType.Warning);
+                ModHelper.Console.WriteLine("[世末歌者] WARNING: Attlerock not found!", MessageType.Warning);
 
             var godRealm = NewHorizons.GetPlanet("Quantum Moon");
             if (godRealm != null)
@@ -179,7 +182,7 @@ namespace TheSingerOfTheEnd
 
             if (ShadersEnabled)
             {
-                // God Rays 后处理挂在主相机 GameObject 上
+                // 相机后处理(God Rays / 体积雾)挂在主相机 GameObject 上
                 var camGo = owCam.mainCamera.gameObject;
                 if (camGo.GetComponent<GodRayController>() == null)
                 {
@@ -187,6 +190,12 @@ namespace TheSingerOfTheEnd
                     var ctrl = camGo.AddComponent<GodRayController>();
                     ctrl.Init(AssetLoader.GodRay, sun != null ? sun.transform : null);
                     ModHelper.Console.WriteLine("[世末歌者] GodRayController attached.", MessageType.Success);
+                }
+                if (AssetLoader.Fog != null && camGo.GetComponent<VolumetricFogController>() == null)
+                {
+                    var fog = camGo.AddComponent<VolumetricFogController>();
+                    fog.Init(AssetLoader.Fog);
+                    ModHelper.Console.WriteLine("[世末歌者] VolumetricFogController attached.", MessageType.Success);
                 }
             }
             else
@@ -198,7 +207,11 @@ namespace TheSingerOfTheEnd
             while (Locator.GetPlayerTransform() == null) yield return null;
 
             if (ShadersEnabled)
+            {
                 RainController.Setup();
+                AudioVisualizerController.Setup(NewHorizons);   // 声波可视化(材质缺失时自动跳过)
+                PlanarReflectionController.Setup(NewHorizons);  // 水面反射(材质缺失时自动跳过)
+            }
 
             NpcBehavior.Setup(NewHorizons);
             TimelineManager.Setup();

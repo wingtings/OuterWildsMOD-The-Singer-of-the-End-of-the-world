@@ -8,13 +8,13 @@
         }
     ],
     "entryPositions": [
-        { "id": "SINGER_CITY",  "position": { "x": -850, "y": 250 } },
-        { "id": "CITY_SQUARE",  "position": { "x": -1000, "y": 50  } },
-        { "id": "CITY_HALL",    "position": { "x": -800, "y": -30 } },
-        { "id": "CITY_TOWER",   "position": { "x": -620, "y": 120 } },
-        { "id": "GOD_REALM",    "position": { "x": -180,  "y": 250 } },
-        { "id": "BET_STELE",    "position": { "x": -320,  "y": 40  } },
-        { "id": "GOD_VOICE",    "position": { "x": -20,  "y": 40  } },
-        { "id": "THIRD_PARTY",  "position": { "x": -150,  "y": -120} }
+        { "id": "SINGER_CITY",  "position": { "x": -1350, "y": 250 } },
+        { "id": "CITY_SQUARE",  "position": { "x": -1500, "y": 50  } },
+        { "id": "CITY_HALL",    "position": { "x": -1300, "y": -30 } },
+        { "id": "CITY_TOWER",   "position": { "x": -1120, "y": 120 } },
+        { "id": "GOD_REALM",    "position": { "x": -680,  "y": 250 } },
+        { "id": "BET_STELE",    "position": { "x": -820,  "y": 40  } },
+        { "id": "GOD_VOICE",    "position": { "x": -520,  "y": 40  } },
+        { "id": "THIRD_PARTY",  "position": { "x": -650,  "y": -120} }
     ]
 }

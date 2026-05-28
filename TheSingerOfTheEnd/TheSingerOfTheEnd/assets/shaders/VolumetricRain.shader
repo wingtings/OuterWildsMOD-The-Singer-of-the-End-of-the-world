@@ -66,20 +66,14 @@ Shader "Custom/VolumetricRain"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_TRANSFER_INSTANCE_ID(v, o);
 
-                // 粒子中心(局部原点)变换到视图空间
-                float3 centerView = UnityObjectToViewPos(float3(0,0,0));
+                // Billboard 模式下粒子系统已为每个粒子生成"正对相机"的四边形顶点(v.vertex,
+                // 位于粒子系统局部空间)。直接变换即可——逐粒子位置由 v.vertex 携带。
+                // 竖直拖尾改由 C# 端 startSize3D(细而高的 billboard)实现。
+                // 旧实现用 UnityObjectToViewPos(0) 取"原点",会把所有粒子塌缩到系统原点
+                // (玩家脚下)一点,导致整片雨不可见——这是体积雨看不见的根因。
+                o.vertex = UnityObjectToClipPos(v.vertex);
 
-                // 用 uv 把四角偏移量重建在视图空间 → 始终正对相机的 billboard
-                float2 corner = (v.uv - 0.5);
-                float3 offsetView;
-                offsetView.x = corner.x * _Width;
-                // 竖直方向按 _StretchFactor 拉长,形成下落拖尾
-                offsetView.y = corner.y * _StretchFactor;
-                offsetView.z = 0;
-
-                float3 posView = centerView + offsetView;
-                o.vertex = mul(UNITY_MATRIX_P, float4(posView, 1.0));
-
+                float3 posView = UnityObjectToViewPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.color = v.color * _Color;
                 o.viewDir = normalize(-posView);   // 视图空间下指向相机
@@ -92,7 +86,7 @@ Shader "Custom/VolumetricRain"
 
                 // 到竖直中轴的水平距离 → 软化成"雨丝"截面
                 float distToAxis = abs(i.uv.x - 0.5) * 2.0;
-                float line = saturate(1.0 - distToAxis / _Width);
+                float lineAlpha = saturate(1.0 - distToAxis / _Width);
 
                 // 沿运动方向(uv.y)首尾淡出,中段最实 → 拖尾感
                 float headTail = saturate(1.0 - abs(i.uv.y - 0.5) * 2.0 / _Softness);
@@ -103,7 +97,7 @@ Shader "Custom/VolumetricRain"
                 fixed4 tex = tex2D(_MainTex, i.uv);
                 fixed4 col = i.color * tex;
                 col.rgb += fresnel * 0.3;
-                col.a *= line * headTail;
+                col.a *= lineAlpha * headTail;
                 return col;
             }
             ENDCG

@@ -13,8 +13,38 @@ namespace TheSingerOfTheEnd
         public static TheSingerOfTheEnd Instance;
         public INewHorizons NewHorizons;
 
-        // 供各 Controller 读取，避免每帧查 Config
-        public bool ShadersEnabled { get; private set; }
+        // 废岩星(Attlerock)大气层半径(到星心的距离)。体积雾与体积雨只在此半径内生效,
+        // 实现"大气层以内才有雾气和下雨"。应与 singer_world.json 的 Atmosphere.size / Base.surfaceSize 协调。
+        public const float AttlerockAtmosphereRadius = 150f;
+
+        // 七个 shader 各自的开关(供各 Controller 读取，避免每帧查 Config)
+        public bool GodRayEnabled    { get; private set; }
+        public bool RainEnabled      { get; private set; }   // 体积雨粒子
+        public bool RippleEnabled    { get; private set; }   // 地面涟漪水洼
+        public bool AudioWaveEnabled { get; private set; }
+        public bool FogEnabled       { get; private set; }
+        public bool WaterEnabled     { get; private set; }
+        public bool HologramEnabled  { get; private set; }
+
+        // 配置项键名(与 default-config.json 完全一致)
+        private const string K_GodRay   = "God Ray 神光";
+        private const string K_Rain     = "Volumetric Rain 体积雨";
+        private const string K_Ripple   = "Rain Ripple 地面涟漪";
+        private const string K_Audio    = "Audio Wave 声波可视化";
+        private const string K_Fog      = "Volumetric Fog 体积雾";
+        private const string K_Water    = "Water Reflection 水面反射";
+        private const string K_Hologram = "Hologram 全息投影";
+
+        private void ReadShaderToggles(IModConfig config)
+        {
+            GodRayEnabled    = config.GetSettingsValue<bool>(K_GodRay);
+            RainEnabled      = config.GetSettingsValue<bool>(K_Rain);
+            RippleEnabled    = config.GetSettingsValue<bool>(K_Ripple);
+            AudioWaveEnabled = config.GetSettingsValue<bool>(K_Audio);
+            FogEnabled       = config.GetSettingsValue<bool>(K_Fog);
+            WaterEnabled     = config.GetSettingsValue<bool>(K_Water);
+            HologramEnabled  = config.GetSettingsValue<bool>(K_Hologram);
+        }
 
         public void Awake()
         {
@@ -57,7 +87,7 @@ namespace TheSingerOfTheEnd
                 ModHelper.Console.WriteLine($"[世末歌者] Harmony patch warning: {ex.Message}", MessageType.Warning);
             }
 
-            ShadersEnabled = ModHelper.Config.GetSettingsValue<bool>("Shader Effects Enabled (启用Shader效果)");
+            ReadShaderToggles(ModHelper.Config);
 
             NewHorizons.GetStarSystemLoadedEvent().AddListener(OnStarSystemLoaded);
             LoadManager.OnCompleteSceneLoad += OnCompleteSceneLoad;
@@ -68,22 +98,8 @@ namespace TheSingerOfTheEnd
 
         public override void Configure(IModConfig config)
         {
-            ShadersEnabled = config.GetSettingsValue<bool>("Shader Effects Enabled (启用Shader效果)");
-
-            // 立即同步到已存在的控制器
-            var godRay = FindObjectOfType<GodRayController>();
-            if (godRay != null) godRay.enabled = ShadersEnabled;
-
-            var fog = FindObjectOfType<VolumetricFogController>();
-            if (fog != null) fog.enabled = ShadersEnabled;
-
-            if (RainController.Instance != null)
-            {
-                if (ShadersEnabled) RainController.Instance.EnablePS();
-                else                RainController.Instance.DisablePS();
-            }
-
-            TimelineManager.Instance?.OnSettingsChanged();
+            ReadShaderToggles(config);
+            ApplyShaderTogglesLive();
 
             // 一次性剧情重置触发器
             if (config.GetSettingsValue<bool>("Reset Story Progress (重置剧情进度)"))
@@ -100,13 +116,36 @@ namespace TheSingerOfTheEnd
             }
         }
 
+        // 设置变更时即时同步到当前场景里已存在的效果。
+        // 关闭立即生效;若把某个之前关着的效果重新打开,部分可能需重进循环/场景(下次 SetupGraphics 重建)。
+        private void ApplyShaderTogglesLive()
+        {
+            var godRay = FindObjectOfType<GodRayController>();
+            if (godRay != null) godRay.enabled = GodRayEnabled;
+
+            var fog = FindObjectOfType<VolumetricFogController>();
+            if (fog != null) fog.enabled = FogEnabled;
+
+            if (RainController.Instance != null)
+            {
+                if (RainEnabled) RainController.Instance.EnablePS();
+                else             RainController.Instance.DisablePS();
+            }
+            RainController.SetRipplesActive(RippleEnabled);
+
+            AudioVisualizerController.SetActive(AudioWaveEnabled);
+            PlanarReflectionController.SetActive(WaterEnabled);
+            HologramController.SetActive(HologramEnabled);
+        }
+
         // 清除本 MOD 所有对话条件（含持久条件），方便测试时重置剧情
         private void ResetStoryProgress()
         {
             string[] conditions =
             {
                 "TALKED_TO_TIANYI", "AMPLIFIER_REPAIRED", "TIANYI_HEARD_SONG",
-                "AMPLIFIER_EVER_REPAIRED"
+                "AMPLIFIER_EVER_REPAIRED", "HAS_TOWER_PART", "HAS_GODREALM_PART",
+                "AMP_SOCKET_A", "AMP_SOCKET_B", "TALKED_TO_SINGER", "TIANYI_REUNITED"
             };
 
             var mgr = DialogueConditionManager.SharedInstance;
@@ -123,13 +162,10 @@ namespace TheSingerOfTheEnd
 
         private void LogSettings()
         {
-            var fogDensity  = ModHelper.Config.GetSettingsValue<float>("Fog Density (雾浓度)");
-            var rainEnabled = ModHelper.Config.GetSettingsValue<bool>("Rain Enabled (启用雨)");
-            var debugMode   = IsDebug();
-
             ModHelper.Console.WriteLine(
-                $"[世末歌者] Settings: Fog={fogDensity:F2}, Rain={rainEnabled}, " +
-                $"Shaders={ShadersEnabled}, Debug={debugMode}", MessageType.Info);
+                $"[世末歌者] Shader 开关: GodRay={GodRayEnabled}, Rain={RainEnabled}, Ripple={RippleEnabled}, " +
+                $"Audio={AudioWaveEnabled}, Fog={FogEnabled}, Water={WaterEnabled}, Hologram={HologramEnabled}, " +
+                $"Debug={IsDebug()}", MessageType.Info);
         }
 
         public bool IsDebug()
@@ -180,39 +216,33 @@ namespace TheSingerOfTheEnd
                 yield break;
             }
 
-            if (ShadersEnabled)
+            // 相机后处理(God Rays / 体积雾)挂在主相机 GameObject 上。
+            // 始终挂载,用各自开关控制 enabled;材质缺失时控制器内部直接透传。
+            var camGo = owCam.mainCamera.gameObject;
+            if (camGo.GetComponent<GodRayController>() == null)
             {
-                // 相机后处理(God Rays / 体积雾)挂在主相机 GameObject 上
-                var camGo = owCam.mainCamera.gameObject;
-                if (camGo.GetComponent<GodRayController>() == null)
-                {
-                    var sun  = NewHorizons.GetPlanet("Sun");
-                    var ctrl = camGo.AddComponent<GodRayController>();
-                    ctrl.Init(AssetLoader.GodRay, sun != null ? sun.transform : null);
-                    ModHelper.Console.WriteLine("[世末歌者] GodRayController attached.", MessageType.Success);
-                }
-                if (AssetLoader.Fog != null && camGo.GetComponent<VolumetricFogController>() == null)
-                {
-                    var fog = camGo.AddComponent<VolumetricFogController>();
-                    fog.Init(AssetLoader.Fog);
-                    ModHelper.Console.WriteLine("[世末歌者] VolumetricFogController attached.", MessageType.Success);
-                }
+                var sun  = NewHorizons.GetPlanet("Sun");
+                var ctrl = camGo.AddComponent<GodRayController>();
+                ctrl.Init(AssetLoader.GodRay, sun != null ? sun.transform : null);
+                ctrl.enabled = GodRayEnabled;
+                ModHelper.Console.WriteLine("[世末歌者] GodRayController attached.", MessageType.Success);
             }
-            else
+            if (AssetLoader.Fog != null && camGo.GetComponent<VolumetricFogController>() == null)
             {
-                ModHelper.Console.WriteLine("[世末歌者] Shader effects disabled, skipping GodRay.", MessageType.Info);
+                var fog = camGo.AddComponent<VolumetricFogController>();
+                // 体积雾限定在废岩星(Attlerock)附近,避免在太空生效
+                fog.Init(AssetLoader.Fog, NewHorizons.GetPlanet("Attlerock")?.transform);
+                fog.enabled = FogEnabled;
+                ModHelper.Console.WriteLine("[世末歌者] VolumetricFogController attached.", MessageType.Success);
             }
 
-            // 等玩家身体就绪后部署降雨 + 涟漪 + NPC 行为 + 时间线
+            // 等玩家身体就绪后部署降雨 + 涟漪 + 声波 + 水面 + 全息(各控制器内部按开关 SetActive,材质缺失自动跳过)
             while (Locator.GetPlayerTransform() == null) yield return null;
 
-            if (ShadersEnabled)
-            {
-                RainController.Setup();
-                AudioVisualizerController.Setup(NewHorizons);   // 声波可视化(材质缺失时自动跳过)
-                PlanarReflectionController.Setup(NewHorizons);  // 水面反射(材质缺失时自动跳过)
-                HologramController.Setup(NewHorizons);          // 全息投影(材质缺失时自动跳过)
-            }
+            RainController.Setup();
+            AudioVisualizerController.Setup(NewHorizons);
+            PlanarReflectionController.Setup(NewHorizons);
+            HologramController.Setup(NewHorizons);
 
             NpcBehavior.Setup(NewHorizons);
             TimelineManager.Setup();

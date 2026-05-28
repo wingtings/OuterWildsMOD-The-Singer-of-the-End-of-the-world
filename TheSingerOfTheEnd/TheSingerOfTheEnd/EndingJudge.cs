@@ -10,6 +10,10 @@ namespace TheSingerOfTheEnd
         private const string RepairedCondition = "AMPLIFIER_REPAIRED";
         private const string EndingFact = "TRUE_ENDING_FACT";
 
+        // 两个扩音器插槽(singer_world.json 的 itemSockets 写入)。两枚零件都插上 → 扩音器修复。
+        private const string SocketA = "AMP_SOCKET_A";
+        private const string SocketB = "AMP_SOCKET_B";
+
         private bool _ended;
         private float _checkTimer;
 
@@ -24,6 +28,16 @@ namespace TheSingerOfTheEnd
 
             var conditions = DialogueConditionManager.SharedInstance;
             if (conditions == null) return;
+
+            // 两个插槽都插入了对应零件 → 视为扩音器修复(交互式修复路径)。
+            if (!conditions.GetConditionState(RepairedCondition)
+                && conditions.GetConditionState(SocketA)
+                && conditions.GetConditionState(SocketB))
+            {
+                conditions.SetConditionState(RepairedCondition, true);
+                try { PlayerData.SetPersistentCondition("AMPLIFIER_EVER_REPAIRED", true); } catch { }
+                Locator.GetShipLogManager()?.RevealFact("AMPLIFIER_FIXED");
+            }
 
             if (conditions.GetConditionState(RepairedCondition))
                 TriggerTrueEnding();

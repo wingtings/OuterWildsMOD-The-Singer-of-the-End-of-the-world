@@ -16,6 +16,7 @@ namespace TheSingerOfTheEnd
         private readonly float[] _samples = new float[FftSize];
         private readonly float[] _bins = new float[Bins];
         private Material _mat;
+        private static GameObject _root;   // 供设置开关即时启停
 
         // 歌者所在的音乐厅舞台(Attlerock 局部坐标,与 singer_world.json 迁移后的歌者位置对齐)
         private static readonly Vector3 StageLocal = new Vector3(-5.52638f, -7.194386f, 29.36535f);
@@ -35,11 +36,17 @@ namespace TheSingerOfTheEnd
                 return;
             }
 
+            // 中心对齐到歌者的实际位置(歌者可能被重新摆放);找不到再回退到常量。
+            Vector3 stageLocal = StageLocal;
+            var singer = FindDeep(planet.transform, "歌者(阿绫)");
+            if (singer != null)
+                stageLocal = planet.transform.InverseTransformPoint(singer.position);
+
             var go = new GameObject("SingerAudioWave");
             go.transform.SetParent(planet.transform, false);
-            go.transform.localPosition = StageLocal;
+            go.transform.localPosition = stageLocal;
             // 让网格的局部 +Y(法线)对齐到该点的行星径向方向
-            go.transform.localRotation = Quaternion.FromToRotation(Vector3.up, StageLocal.normalized);
+            go.transform.localRotation = Quaternion.FromToRotation(Vector3.up, stageLocal.normalized);
 
             var mf = go.AddComponent<MeshFilter>();
             mf.mesh = BuildRing(64, 8, 1.5f, 11f);
@@ -52,7 +59,16 @@ namespace TheSingerOfTheEnd
             var ctrl = go.AddComponent<AudioVisualizerController>();
             ctrl._mat = mr.material;
 
+            _root = go;
+            go.SetActive(TheSingerOfTheEnd.Instance.AudioWaveEnabled);
+
             Log("声波可视化已部署(歌者音乐厅舞台)。", MessageType.Success);
+        }
+
+        // 供设置开关即时启停(关掉时整块声波网格隐藏)
+        public static void SetActive(bool active)
+        {
+            if (_root != null) _root.SetActive(active);
         }
 
         private void Update()
@@ -120,6 +136,18 @@ namespace TheSingerOfTheEnd
             m.triangles = tris;
             m.RecalculateBounds();
             return m;
+        }
+
+        // 深度优先按名查找子物体(歌者由 NH 的 rename 命名为 "歌者(阿绫)")
+        private static Transform FindDeep(Transform root, string name)
+        {
+            if (root.name == name) return root;
+            foreach (Transform child in root)
+            {
+                var found = FindDeep(child, name);
+                if (found != null) return found;
+            }
+            return null;
         }
 
         private static void Log(string msg, MessageType type) =>

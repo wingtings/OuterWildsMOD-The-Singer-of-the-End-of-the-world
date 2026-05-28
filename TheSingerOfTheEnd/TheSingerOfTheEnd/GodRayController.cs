@@ -2,27 +2,29 @@ using UnityEngine;
 
 namespace TheSingerOfTheEnd
 {
-    // 屏幕空间 God Rays 后处理。必须挂在带 Camera 的 GameObject 上(玩家相机),
-    // 因为 OnRenderImage 只在该相机渲染完成后被调用。
-    // 三个 Pass 由 Custom/GodRays 提供:0=Occlusion(从深度提天空)1=RadialBlur 2=Composite。
+    // 屏幕空间 God Rays（圣光）后处理。挂在玩家相机上(OnRenderImage)。
+    // 三个 Pass 由 Custom/GodRays 提供:0=Occlusion 1=RadialBlur 2=Composite。
+    //
+    // 设计(按用户要求):圣光【只在 True End 演出期间】出现,平时(含面朝太阳)一律不渲染,
+    // 避免胜利前就看到。True End 时由 TimelineManager 打开 ForceRays + 调 Intensity,演出结束后
+    // 自动关闭 ForceRays → 恢复正常(无圣光)。
+    // 强制模式原理:把 shader 的天空阈值 _DepthThreshold 降到 0,使整屏都算亮源,从而在固定屏幕
+    // 位置 ForcedLightPos 合成出一个"人造太阳盘",无论玩家朝哪都能看到光束("阳光穿透乌云")。
     [RequireComponent(typeof(Camera))]
     public class GodRayController : MonoBehaviour
     {
         private Material _mat;
         private Camera _cam;
-        private Transform _sun;
 
-        // 运行时可调:供 TimelineManager / EndingJudge 控制光束强度(True End 拉满)。
-        // 默认值调低(原 0.6 → 0.3),配合 shader 的有界亮源 + Screen 合成,避免"圣光过亮"。
+        // 运行时由 TimelineManager 控制。
         public float Intensity = 0.3f;
+        public bool ForceRays = false;
+        public Vector2 ForcedLightPos = new Vector2(0.5f, 0.72f);
 
-        // 太阳偏离画面多远(视口比例)仍允许光束从屏幕边缘射入。越大可见角度越宽。
-        private const float EdgeFalloff = 0.6f;
-
+        // sun 参数保留以兼容调用方;圣光改为仅 True End 强制出现,不再依赖太阳朝向。
         public void Init(Material godRayMat, Transform sun)
         {
             _mat = godRayMat;
-            _sun = sun;
             _cam = GetComponent<Camera>();
             // Occlusion pass 采样 _CameraDepthTexture,必须显式开启相机深度图。
             _cam.depthTextureMode |= DepthTextureMode.Depth;
@@ -30,49 +32,27 @@ namespace TheSingerOfTheEnd
 
         private void OnRenderImage(RenderTexture src, RenderTexture dst)
         {
-            if (_mat == null || _sun == null || _cam == null)
+            // 仅在 True End 强制模式下渲染圣光;其余情况直接透传(胜利前不出现)。
+            if (_mat == null || _cam == null || !ForceRays || Intensity <= 0.001f)
             {
                 Graphics.Blit(src, dst);
                 return;
             }
 
-            // 恒星屏幕(视口)坐标
-            Vector3 vp = _cam.WorldToViewportPoint(_sun.position);
-
-            // 太阳在相机背后(z <= 0):径向模糊原点会翻折到屏幕中心造成穿帮,且物理上背对太阳本就无丁达尔光 → 直接跳过。
-            if (vp.z <= 0f)
-            {
-                Graphics.Blit(src, dst);
-                return;
-            }
-
-            // 把太阳的视口坐标夹到屏幕范围 [0,1]。太阳偏到画面外时,光束改从最近的屏幕边缘射入,
-            // 从而在"侧对太阳"时仍然可见(拓宽可见角度);偏离越远越淡出。
-            Vector2 lp = new Vector2(vp.x, vp.y);
-            Vector2 clamped = new Vector2(Mathf.Clamp01(lp.x), Mathf.Clamp01(lp.y));
-            float offDist = Vector2.Distance(lp, clamped);          // 在屏幕内时为 0
-            float edgeFade = Mathf.Clamp01(1f - offDist / EdgeFalloff);
-
-            float weight = edgeFade * Intensity;
-            if (weight <= 0.001f)
-            {
-                Graphics.Blit(src, dst);
-                return;
-            }
-
-            // z 传 1 表示"在前方"(shader 用它做 forward 判定);xy 用夹取后的边缘坐标。
-            _mat.SetVector("_LightPos", new Vector4(clamped.x, clamped.y, 1f, 0f));
-            _mat.SetFloat("_Intensity", weight);
+            // 固定屏幕位置当"合成太阳";_DepthThreshold=0 让整屏都算亮源 → ForcedLightPos 处合成光盘。
+            _mat.SetVector("_LightPos", new Vector4(ForcedLightPos.x, ForcedLightPos.y, 1f, 0f));
+            _mat.SetFloat("_Intensity", Intensity);
+            _mat.SetFloat("_DepthThreshold", 0f);
 
             int w = src.width, h = src.height;
             var occ = RenderTexture.GetTemporary(w, h, 0, src.format);
             var blur = RenderTexture.GetTemporary(w, h, 0, src.format);
 
-            Graphics.Blit(src, occ, _mat, 0);    // Occlusion
+            Graphics.Blit(src, occ, _mat, 0);    // Occlusion(合成光盘)
             Graphics.Blit(occ, blur, _mat, 1);   // RadialBlur
             Graphics.Blit(blur, occ, _mat, 1);   // 再来一次,光束更长
             _mat.SetTexture("_SceneTex", src);
-            Graphics.Blit(occ, dst, _mat, 2);    // Composite
+            Graphics.Blit(occ, dst, _mat, 2);    // Composite(Screen 混合)
 
             RenderTexture.ReleaseTemporary(occ);
             RenderTexture.ReleaseTemporary(blur);

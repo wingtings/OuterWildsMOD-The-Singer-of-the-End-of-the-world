@@ -29,6 +29,7 @@ Shader "Custom/RainRipple"
         LOD 200
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
+        Cull Off          // 地面贴片双面可见,避免因正反面判定而整片消失
 
         Pass
         {

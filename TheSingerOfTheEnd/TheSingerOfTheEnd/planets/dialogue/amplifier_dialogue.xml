@@ -3,7 +3,7 @@
 
     <NameField>损坏的扩音装置</NameField>
 
-    <!-- 已修复:再次交互只做提示 -->
+    <!-- 已修复:再次查看只做提示 -->
     <DialogueNode>
         <Name>AlreadyFixed</Name>
         <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
@@ -12,53 +12,15 @@
         </Dialogue>
     </DialogueNode>
 
-    <!-- 默认:损坏状态 -->
+    <!-- 默认:损坏状态。修复改由"把零件插进装置上的两个插槽"完成(交互式),此处仅作说明。 -->
     <DialogueNode>
         <Name>Start</Name>
         <EntryCondition>DEFAULT</EntryCondition>
         <Dialogue>
-            <Page>舞台后方的扩音装置已经损坏，缺少零件。</Page>
-            <Page>广场与高塔的废墟里，似乎散落着能用的部件。</Page>
+            <Page>舞台后方的扩音装置已经损坏，正面露出两个空着的插槽。</Page>
+            <Page>一处插槽的形状像是高塔里那枚精密零件；另一处，则像是能嵌入一枚共鸣核心。</Page>
+            <Page>把两枚零件分别嵌进插槽，也许就能让它重新运转。</Page>
         </Dialogue>
-        <DialogueOptionsList>
-            <!-- 仅在玩家持有零件时出现(HAS_AMPLIFIER_PART 由拾取零件时设置) -->
-            <DialogueOption>
-                <RequiredCondition>HAS_AMPLIFIER_PART</RequiredCondition>
-                <Text>（嵌入找到的精密零件，修复扩音装置）</Text>
-                <DialogueTarget>Repair</DialogueTarget>
-            </DialogueOption>
-            <!-- 未持有零件时的提示分支 -->
-            <DialogueOption>
-                <CancelledCondition>HAS_AMPLIFIER_PART</CancelledCondition>
-                <Text>（装置缺少零件……我得先找到它。）</Text>
-                <DialogueTarget>NeedPart</DialogueTarget>
-            </DialogueOption>
-            <DialogueOption>
-                <Text>（暂时离开）</Text>
-            </DialogueOption>
-        </DialogueOptionsList>
-    </DialogueNode>
-
-    <!-- 未持有零件:指引玩家去高塔寻找 -->
-    <DialogueNode>
-        <Name>NeedPart</Name>
-        <Dialogue>
-            <Page>装置内部的插槽空着，缺少一个精密零件。</Page>
-            <Page>城市边缘那座残破的高塔里，或许还能找到能用的部件。</Page>
-        </Dialogue>
-    </DialogueNode>
-
-    <DialogueNode>
-        <Name>Repair</Name>
-        <Dialogue>
-            <Page>你将零件嵌入装置。线路重新接通，扩音器嗡然启动——</Page>
-            <Page>歌声，第一次，传遍了整座城市。</Page>
-        </Dialogue>
-        <SetCondition>AMPLIFIER_REPAIRED</SetCondition>
-        <SetPersistentCondition>AMPLIFIER_EVER_REPAIRED</SetPersistentCondition>
-        <RevealFacts>
-            <FactID>AMPLIFIER_FIXED</FactID>
-        </RevealFacts>
     </DialogueNode>
 
 </DialogueTree>

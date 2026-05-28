@@ -13,6 +13,7 @@ namespace TheSingerOfTheEnd
         private Camera _reflCam;
         private RenderTexture _rt;
         private static bool _rendering;       // 防止反射相机递归触发自身
+        private static GameObject _root;      // 供设置开关即时启停
 
         // 歌者舞台前的反射水池(Attlerock 局部坐标,贴近迁移后的歌者;最终位置需进游戏 P 键微调)
         private static readonly Vector3 PoolLocal = new Vector3(-2.9f, -5.81f, 30.04f);
@@ -49,7 +50,16 @@ namespace TheSingerOfTheEnd
             var ctrl = go.AddComponent<PlanarReflectionController>();
             ctrl._mat = mr.material;
 
+            _root = go;
+            go.SetActive(TheSingerOfTheEnd.Instance.WaterEnabled);
+
             Log("水面反射已部署(歌者舞台前)。", MessageType.Success);
+        }
+
+        // 供设置开关即时启停(关掉时水池隐藏,反射相机随之不再渲染)
+        public static void SetActive(bool active)
+        {
+            if (_root != null) _root.SetActive(active);
         }
 
         // 每当水面将被某相机渲染前调用 → 用该相机的视角渲染镜像反射

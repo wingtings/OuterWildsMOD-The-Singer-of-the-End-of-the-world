@@ -29,7 +29,13 @@
       "max": 2000
     },
     "Debug Mode (调试模式)": false,
-    "Shader Effects Enabled (启用Shader效果)": true,
+    "God Ray 神光": true,
+    "Volumetric Rain 体积雨": true,
+    "Rain Ripple 地面涟漪": true,
+    "Audio Wave 声波可视化": true,
+    "Volumetric Fog 体积雾": true,
+    "Water Reflection 水面反射": true,
+    "Hologram 全息投影": true,
     "Reset Story Progress (重置剧情进度)": false
   }
 }

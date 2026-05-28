@@ -6,19 +6,29 @@ namespace TheSingerOfTheEnd
     // OnRenderImage 才会在该相机渲染后被调用。Custom/VolumetricFog 做 Ray Marching + Beer-Lambert。
     // 每帧把相机四角的世界空间射线打进 _FrustumCornersWS,供 shader 用深度重建世界位置。
     // 材质缺失时直接透传,不影响其它效果。
+    //
+    // 说明:之前尝试用 CommandBuffer 在 AfterSkybox 合成以避免遮挡 HUD,但在 OW 的相机管线下
+    // 该时机深度/目标不稳定,导致废岩星上完全看不到雾。这里回退到稳定可见的 OnRenderImage 方案。
+    // 雾被限制在废岩星大气层以内(距星心 < AttlerockAtmosphereRadius),离开大气层即透传。
     [RequireComponent(typeof(Camera))]
     public class VolumetricFogController : MonoBehaviour
     {
         private Material _mat;
         private Camera _cam;
+        private Transform _planet;     // 废岩星(Attlerock)根,用于把雾限制在大气层内
 
         // 供 TimelineManager 调节末日临近时的雾密度(可选)
         public float DensityScale = 1f;
         private float _baseDensity = 0.012f;
 
-        public void Init(Material fogMat)
+        // 大气层渐隐:距星心 < FullRadius 满雾,到 FadeRadius 渐隐为 0,更远直接透传。
+        private static readonly float FogFullRadius = TheSingerOfTheEnd.AttlerockAtmosphereRadius * 0.85f;
+        private static readonly float FogFadeRadius = TheSingerOfTheEnd.AttlerockAtmosphereRadius;
+
+        public void Init(Material fogMat, Transform planet)
         {
             _mat = fogMat;
+            _planet = planet;
             _cam = GetComponent<Camera>();
             _cam.depthTextureMode |= DepthTextureMode.Depth;
             if (_mat != null) _baseDensity = _mat.GetFloat("_FogDensity");
@@ -30,6 +40,19 @@ namespace TheSingerOfTheEnd
             {
                 Graphics.Blit(src, dst);
                 return;
+            }
+
+            // 大气层门控:离废岩星星心太远(太空/量子月)→ 不起雾,直接透传。
+            float distFactor = 1f;
+            if (_planet != null)
+            {
+                float dist = Vector3.Distance(_cam.transform.position, _planet.position);
+                distFactor = Mathf.Clamp01((FogFadeRadius - dist) / (FogFadeRadius - FogFullRadius));
+                if (distFactor <= 0.001f)
+                {
+                    Graphics.Blit(src, dst);
+                    return;
+                }
             }
 
             // 相机四角(相机空间)→ 世界空间方向(相机→远平面角射线)
@@ -52,7 +75,7 @@ namespace TheSingerOfTheEnd
 
             _mat.SetMatrix("_FrustumCornersWS", m);
             _mat.SetVector("_CameraWS", _cam.transform.position);
-            _mat.SetFloat("_FogDensity", _baseDensity * DensityScale);
+            _mat.SetFloat("_FogDensity", _baseDensity * DensityScale * distFactor);
 
             Graphics.Blit(src, dst, _mat, 0);
         }

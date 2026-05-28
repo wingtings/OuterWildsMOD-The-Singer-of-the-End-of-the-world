@@ -12,15 +12,17 @@ namespace TheSingerOfTheEnd
 
         private const float LoopDuration = 1320f; // OW 标准循环长度 22 分钟
 
-        // True End 演出三阶段时长（秒）
-        private const float PhaseRainFade   = 3f;
-        private const float PhaseRayBurst   = 5f;
-        private const float PhaseRaySettle  = 5f;
+        // True End 演出阶段时长（秒）。圣光短暂爆发后自动淡出 → 恢复正常(不再常亮)。
+        private const float PhaseRainFade = 3f;   // 雨停 + 雾散 + 圣光升起
+        private const float PhaseRayHold  = 2f;   // 圣光保持峰值
+        private const float PhaseRayFade  = 3f;   // 圣光淡出 → 关闭
+        private const float RayPeak       = 0.9f;
 
         private GodRayController _godRay;
+        private VolumetricFogController _fog;
         private bool _trueEndPlaying;
+        private bool _fogDisabled;
         private float _trueEndTimer;
-        private bool _shadersEnabled;
 
         // 在 True End 开始时快照当前强度，用于平滑插值
         private float _intensityAtTrueEnd;
@@ -37,17 +39,6 @@ namespace TheSingerOfTheEnd
             Instance = this;
         }
 
-        private void Start()
-        {
-            _shadersEnabled = TheSingerOfTheEnd.Instance.ShadersEnabled;
-        }
-
-        // 由 TheSingerOfTheEnd.Configure 调用，立即同步设置值
-        public void OnSettingsChanged()
-        {
-            _shadersEnabled = TheSingerOfTheEnd.Instance.ShadersEnabled;
-        }
-
         private void Update()
         {
             if (_trueEndPlaying)
@@ -56,7 +47,8 @@ namespace TheSingerOfTheEnd
                 return;
             }
 
-            if (!_shadersEnabled) return;
+            // 各子效果由其控制器是否存在(null 检查)决定开关:
+            // 对应 shader 关掉时控制器不创建/被禁用,这里的赋值自然落空。
 
             // 归一化循环进度 t ∈ [0,1]：0=循环开始，1=超新星
             float remaining = TimeLoop.GetSecondsRemaining();
@@ -65,14 +57,9 @@ namespace TheSingerOfTheEnd
             ApplyNormalTimeline(t);
         }
 
-        // 随时间线性提升 God Ray 强度（0.2 → 0.4）、后半段增大雨量。
-        // 强度区间已配合 shader 的有界亮源 + Screen 合成下调,避免常驻圣光过亮。
+        // 平时只随时间增大雨量;圣光不在平时出现(仅 True End 演出期间由 ForceRays 控制)。
         private void ApplyNormalTimeline(float t)
         {
-            EnsureGodRay();
-            if (_godRay != null)
-                _godRay.Intensity = Mathf.Lerp(0.2f, 0.4f, t);
-
             // 后半段（t > 0.5）雨量逐渐增大（4000 → 6000 粒/秒）
             if (t > 0.5f && RainController.Instance != null)
             {
@@ -90,9 +77,18 @@ namespace TheSingerOfTheEnd
             _trueEndTimer = 0f;
 
             EnsureGodRay();
-            _intensityAtTrueEnd = _godRay != null ? _godRay.Intensity : 0.85f;
 
-            Log("True End 时间线启动：雨停 → 光束爆发 → 平静", MessageType.Success);
+            // 强制神光从 0 升起:从固定屏幕位置射出合成阳光,胜利后无论玩家朝哪都能看到("阳光穿透乌云")。
+            if (_godRay != null)
+            {
+                _godRay.ForcedLightPos = new Vector2(0.5f, 0.72f);
+                _godRay.Intensity = 0f;
+                _godRay.ForceRays = true;
+            }
+
+            if (_fog == null) _fog = FindObjectOfType<VolumetricFogController>();
+
+            Log("True End 时间线启动：雨停 + 雾散 → 圣光短暂爆发 → 自动恢复", MessageType.Success);
         }
 
         private void UpdateTrueEnd()
@@ -100,29 +96,46 @@ namespace TheSingerOfTheEnd
             _trueEndTimer += Time.deltaTime;
             EnsureGodRay();
 
-            float t1 = Mathf.Clamp01(_trueEndTimer / PhaseRainFade);
-
-            // 阶段一（0~3 s）：雨粒子逐渐停止
+            // 阶段一（0~3 s）：雨停 + 雾散，圣光从 0 升到峰值（云层裂开、阳光穿透）
             if (_trueEndTimer <= PhaseRainFade)
             {
-                RainController.Instance?.SetEmissionRate(Mathf.Lerp(6000f, 0f, t1));
+                float k = Mathf.Clamp01(_trueEndTimer / PhaseRainFade);
+                RainController.Instance?.SetEmissionRate(Mathf.Lerp(6000f, 0f, k));
+                if (_fog != null) _fog.DensityScale = Mathf.Lerp(1f, 0f, k);
+                if (_godRay != null) _godRay.Intensity = Mathf.Lerp(0f, RayPeak, k);
                 return;
             }
 
-            // 阶段二（3~8 s）：God Ray 强度爆发至 0.75（穿云高潮,但 Screen 合成保证不死白）
-            float t2 = Mathf.Clamp01((_trueEndTimer - PhaseRainFade) / PhaseRayBurst);
-            if (_trueEndTimer <= PhaseRainFade + PhaseRayBurst)
+            // 雾完全散去后彻底关闭,避免其 OnRenderImage 盖住圣光。
+            if (!_fogDisabled && _fog != null)
             {
-                if (_godRay != null && _shadersEnabled)
-                    _godRay.Intensity = Mathf.Lerp(_intensityAtTrueEnd, 0.75f, t2);
+                _fog.DensityScale = 0f;
+                _fog.enabled = false;
+                _fogDisabled = true;
+            }
+
+            // 阶段二（3~5 s）：圣光保持峰值
+            if (_trueEndTimer <= PhaseRainFade + PhaseRayHold)
+            {
+                if (_godRay != null) _godRay.Intensity = RayPeak;
                 return;
             }
 
-            // 阶段三（8~13 s）：God Ray 缓降至 0.5
-            float t3 = Mathf.Clamp01(
-                (_trueEndTimer - PhaseRainFade - PhaseRayBurst) / PhaseRaySettle);
-            if (_godRay != null && _shadersEnabled)
-                _godRay.Intensity = Mathf.Lerp(0.75f, 0.5f, t3);
+            // 阶段三（5~8 s）：圣光淡出至 0
+            float fadeStart = PhaseRainFade + PhaseRayHold;
+            if (_trueEndTimer <= fadeStart + PhaseRayFade)
+            {
+                float k = Mathf.Clamp01((_trueEndTimer - fadeStart) / PhaseRayFade);
+                if (_godRay != null) _godRay.Intensity = Mathf.Lerp(RayPeak, 0f, k);
+                return;
+            }
+
+            // 结束：关闭强制模式,圣光恢复正常(不再常亮)。
+            if (_godRay != null && _godRay.ForceRays)
+            {
+                _godRay.Intensity = 0f;
+                _godRay.ForceRays = false;
+            }
         }
 
         private void EnsureGodRay()

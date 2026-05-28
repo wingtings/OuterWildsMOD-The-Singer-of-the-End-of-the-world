@@ -19,6 +19,7 @@ namespace TheSingerOfTheEnd
         private float _bobPhase;
         private Vector3 _baseLocalPos;
         private Vector3 _upLocal;
+        private static GameObject _root;   // 供设置开关即时启停
 
         public static void Setup(INewHorizons nh)
         {
@@ -58,7 +59,16 @@ namespace TheSingerOfTheEnd
             ctrl._baseLocalPos = PanelLocal;
             ctrl._upLocal = up;
 
+            _root = go;
+            go.SetActive(TheSingerOfTheEnd.Instance.HologramEnabled);
+
             Log("全息投影已部署(神谕之境石碑区)。", MessageType.Success);
+        }
+
+        // 供设置开关即时启停(关掉时全息面板隐藏)
+        public static void SetActive(bool active)
+        {
+            if (_root != null) _root.SetActive(active);
         }
 
         private void Update()

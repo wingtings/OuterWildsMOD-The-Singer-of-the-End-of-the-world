@@ -95,8 +95,8 @@
                 "comment": "原版炉星收音机——播放世末歌者的人声(神域之境的歌声信号源)",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Characters_LowerVillage/Kids_PreGame/Props_HEA_Radio",
                 "rename": "歌声收音机",
-                "position": {"x": 12.24651, "y":69.94924, "z":4.29285}, 
-                "rotation": {"x":12.90007, "y": 284.5951, "z":7.103346}, 
+                "position": {"x": 12.24651, "y":69.94924, "z":4.29285},
+                "rotation": {"x":12.90007, "y": 284.5951, "z":7.103346},
                 "normal": {"x": -0.2455495, "y":0.9672794, "z": -0.06384474},
                 "alignRadial": true
             }

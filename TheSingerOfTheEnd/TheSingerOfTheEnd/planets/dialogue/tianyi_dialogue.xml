@@ -3,30 +3,46 @@
 
     <NameField>蓝发女孩</NameField>
 
-    <!-- 修复扩音器后的对话(放在最前,优先匹配) -->
+    <!-- True End:歌声传遍全城,天依已走到歌者身旁(放在最前,优先匹配) -->
     <DialogueNode>
         <Name>AfterRepair</Name>
         <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
         <Dialogue>
-            <Page>（她站在原地，望着音乐厅的方向。）</Page>
-            <Page>那个声音……不是雨声。是有人在唱歌。</Page>
-            <Page>一直在唱。为什么……听起来这么难过？</Page>
+            <Page>（蓝发的女孩静静站在歌者身旁。不知何时，雨，停了。）</Page>
+            <Page>我终于听清了那首歌……它一直在这里，等着有人愿意听。</Page>
+            <Page>原来我不是一个人。原来她，也一直在等我走过来。</Page>
         </Dialogue>
         <DialogueOptionsList>
             <DialogueOption>
-                <Text>（什么都不说，只是看着她。）</Text>
-                <DialogueTarget>Hesitate</DialogueTarget>
+                <Text>哪怕只剩最后一点时间，你也愿意陪她吗？</Text>
+                <DialogueTarget>Reunion</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（什么都不说，把这一刻留给她们两人。）</Text>
+                <DialogueTarget>Quiet</DialogueTarget>
             </DialogueOption>
         </DialogueOptionsList>
     </DialogueNode>
 
     <DialogueNode>
-        <Name>Hesitate</Name>
+        <Name>Reunion</Name>
         <Dialogue>
-            <Page>（她向歌声的方向迈了一步。又停下了。）</Page>
-            <Page>我应该……过去看看吗？</Page>
+            <Page>（她郑重地点了点头，眼里第一次有了光。）</Page>
+            <Page>嗯。能和她一起，把这首歌听到最后，就已经足够了。</Page>
+            <Page>谢谢你……是你，让我们终于听见了彼此。</Page>
         </Dialogue>
         <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+        <SetCondition>TIANYI_REUNITED</SetCondition>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>Quiet</Name>
+        <Dialogue>
+            <Page>（她向歌者又靠近一步，轻轻握住了对方的手。）</Page>
+            <Page>（雨后的天光落下来，照在两个终于不再孤单的人身上。）</Page>
+        </Dialogue>
+        <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+        <SetCondition>TIANYI_REUNITED</SetCondition>
     </DialogueNode>
 
     <!-- 默认对话:扩音器未修复 -->

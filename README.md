@@ -39,7 +39,7 @@
 
 ### 一些链接指路
 
-引擎：Unity 3D  下载 OuterWilds MOD Manager 以加载进游戏内
+引擎：Unity 3D 2019.4.39f1  下载 OuterWilds MOD Manager 以加载进游戏内
 
 IDE: VS2026/Vscode/etc
 

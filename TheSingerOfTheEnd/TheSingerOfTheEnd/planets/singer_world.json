@@ -3,8 +3,27 @@
     "name": "Attlerock",
     "starSystem": "SolarSystem",
 
+    "Base": {
+        "comment": "为废岩星(世末之城)增加重力,让玩家稳稳站在地面。surfaceSize 应覆盖道具分布(半径≈30~76),surfaceGravity 参考 Timber Hearth=12。这些值会覆盖原版废岩星,需进游戏微调站立手感。",
+        "surfaceGravity": 10.0,
+        "surfaceSize": 80.0,
+        "gravityFallOff": "linear"
+    },
+
     "Atmosphere": {
-        "hasOxygen": true
+        "comment": "大气层(雨/雾的边界)。size=大气层标高;useAtmosphereShader 给出可见的大气壳。体积雾与体积雨由 C# 限制在 AttlerockAtmosphereRadius(≈150)内。",
+        "hasOxygen": true,
+        "size": 130,
+        "atmosphereTint": {"r": 140, "g": 158, "b": 184, "a": 255},
+        "useAtmosphereShader": true,
+        "clouds": {
+            "comment": "云层(复用原版巨深星 GiantsDeep 云资产,染成灰蓝阴云,契合末日暴雨)。云壳半径在地表(surfaceSize 80)之上、大气层(size 130)之内,高于高塔(半径≈76);tint 用 0-255 整数。",
+            "cloudsPrefab": "giantsDeep",
+            "innerCloudRadius": 85,
+            "outerCloudRadius": 105,
+            "tint": {"r": 120, "g": 134, "b": 150, "a": 255},
+            "rotationSpeed": 2.0
+        }
     },
 
     "comment": "废岩星(Attlerock)·世末之城。地表起伏不平且有陨石坑，道具半径统一抬到 ≈56 以避免陷入地表；歌者在北极平台、天依在南极平台。实际 y 仍需进游戏用 Debug Raycast(P 键)按地形微调。",
@@ -22,35 +41,52 @@
                 "comment": "高塔角落的精密零件 —— NH 可拾取物品(collectible item)。拾取后置 HAS_AMPLIFIER_PART 对话条件,解锁扩音器修复选项;丢弃会清除条件(默认),即必须随身携带。位置贴着重力炮,需随高塔最终位置一起用 P 键微调。",
                 "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
                 "rename": "精密零件",
-                "position": {"x": 16.0625, "y": 73.85492, "z": 10.10997},
+                "position": {"x": 12.44731, "y": 79.70683, "z": 11.53563},
                 "scale": 0.6,
                 "alignRadial": true,
                 "item": {
                     "name": "精密零件",
                     "itemType": "AmplifierPart",
                     "interactRange": 3,
-                    "pickupCondition": "HAS_AMPLIFIER_PART",
+                    "droppable": true,
+                    "pickupCondition": "HAS_TOWER_PART",
                     "pickupFact": "TOWER_PART_FACT"
                 }
             },
             {
-                "comment": "音乐厅遗迹·空挪麦遗迹(歌者身后的石质残墙)",
-                "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Empty",
-                "position": {"x": -2.382755, "y": -0.9785807, "z": 30.00782},
+                "comment": "[DEBUG] 共鸣核心 —— 扩音器第二枚零件,暂放在歌者旁边方便测试(正式版可移回神谕之境)。itemType=AmplifierCore 对应音乐厅 B 号插槽。",
+                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "rename": "共鸣核心",
+                "position": {"x": -7.5, "y": -6.0, "z": 29.3},
+                "scale": 0.6,
+                "alignRadial": true,
+                "item": {
+                    "name": "共鸣核心",
+                    "itemType": "AmplifierCore",
+                    "interactRange": 3,
+                    "droppable": true,
+                    "pickupCondition": "HAS_GODREALM_PART",
+                    "pickupFact": "GODREALM_PART_FACT"
+                }
+            },
+            {
+                "comment": "音乐厅·华丽转角挪麦门廊(替换原无碰撞的 Ruin_Empty;此基础游戏挪麦遗迹有实体碰撞)。位置/缩放需进游戏微调。",
+                "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_District2/Interactables_HangingCity_District2/VisibleFrom_HangingCity/Prefab_NOM_Doorway_Fancy_Corner_BOTH",
+                "position": {"x": -8.687466, "y": -0.2092648, "z": 29.27978},
                 "scale": 0.8,
                 "alignRadial": true
             },
             {
-                "comment": "空地古迹·带篝火挪麦遗迹",
-                "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Campfire",
-                "position": {"x": 8.490828, "y": 3.48664, "z": 29.29715},
+                "comment": "广场·挪麦城门(替换原无碰撞的 Ruin_Campfire;此基础游戏挪麦遗迹有实体碰撞)。位置/缩放需进游戏微调。",
+                "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthUnderground/Sector_City/Interactables_City/CityDoors/Prefab_NOM_Gateway",
+                "position": {"x": -4.295834, "y": 8.835799, "z": 28.76964},
                 "scale": 0.8,
                 "alignRadial": true
             },
             {
                 "comment": "空地发光挪麦门廊",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Lighting_GravityCannon/Prefab_NOM_Doorway",
-                "position": {"x": -4.731528, "y": 14.83762, "z": 27.5546},
+                "position": {"x": -2.511976, "y": 22.82399, "z": 24.29943},
                 "alignRadial": true
             },
             {
@@ -102,7 +138,7 @@
             {
                 "comment": "音乐厅舞台挪麦书架",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_Shelf (2)/Strucutre_NOM_Shelf",
-                "position": {"x": -2.597506, "y": -0.6354389, "z": 29.98439},
+                "position": {"x": -2.242406, "y": 1.910927, "z": 29.85},
                 "alignRadial": true
             },
             {
@@ -130,9 +166,36 @@
                 "assetBundle": "assets/models/singer",
                 "path": "Assets/Model/Singer.prefab",
                 "rename": "歌者(阿绫)",
-                "position": {"x": -5.52638, "y": -7.194386, "z": 29.36535},
+                "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
                 "scale": 1.0,
                 "alignRadial": true
+            },
+            {
+                "comment": "扩音器·A 号插槽载体(空对象,itemSocket 是 detail 的字段而非顶层数组)。接受高塔的精密零件 AmplifierPart,插入后置 AMP_SOCKET_A。紧贴扩音器对话点(-2.38,-0.98,30.01)方便测试。",
+                "position": {"x": -2.180819, "y": 1.547531, "z": 30.14622},
+                "alignRadial": true,
+                "itemSocket": {
+                    "itemType": "AmplifierPart",
+                    "isRelativeToParent": true,
+                    "position": {"x": 0, "y": 0, "z": 0},
+                    "interactRange": 3,
+                    "colliderRadius": 0.6,
+                    "insertCondition": "AMP_SOCKET_A",
+                    "insertFact": "AMPLIFIER_FIXED"
+                }
+            },
+            {
+                "comment": "扩音器·B 号插槽载体(空对象)。接受共鸣核心 AmplifierCore,插入后置 AMP_SOCKET_B。紧贴扩音器对话点,与 A 槽相距约 0.25m。",
+                "position": {"x": -2.003346, "y": 0.6702824, "z": 30.21571},
+                "alignRadial": true,
+                "itemSocket": {
+                    "itemType": "AmplifierCore",
+                    "isRelativeToParent": true,
+                    "position": {"x": 0, "y": 0, "z": 0},
+                    "interactRange": 3,
+                    "colliderRadius": 0.6,
+                    "insertCondition": "AMP_SOCKET_B"
+                }
             }
         ],
         "signals": [
@@ -146,7 +209,19 @@
                 "identificationRadius": 72,
                 "onlyAudibleToScope": false,
                 "reveals": "HALL_RUMOR",
-                "position": {"x": -5.52638, "y": -7.194386, "z": 29.36535}
+                "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108}
+            }
+        ],
+        "audioSources": [
+            {
+                "comment": "雨声环境音(README #3)。以故事区(歌者/音乐厅)为中心,覆盖范围贴合体积雨的 RainRadius≈200。track=environment 走环境音轨,会随头盔/室内自动处理。",
+                "audio": "planets/audio/rain_ambient.ogg",
+                "rename": "雨声环境音",
+                "position": {"x": -5.52638, "y": -7.194386, "z": 29.36535},
+                "minDistance": 40,
+                "maxDistance": 220,
+                "volume": 1.0,
+                "track": "environment"
             }
         ],
         "translatorText": [
@@ -173,6 +248,14 @@
                 "radius": 2,
                 "range": 4,
                 "alignRadial": true
+            },
+            {
+                "comment": "歌者·阿绫 —— 交互对话(剧本设定她不能说话,只描写神态/动作)。位置同歌者模型。",
+                "xmlFile": "planets/dialogue/singer_dialogue.xml",
+                "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
+                "radius": 2,
+                "range": 5,
+                "alignRadial": true
             }
         ]
     },
@@ -195,7 +278,7 @@
             },
             {
                 "comment": "高塔(重力炮处,尚未在游戏内重新定位,最终位置需用 P 键微调):解锁观测台与神谕之境传闻。零件事实改由拾取零件时揭示。",
-                "position": {"x": 15.0625, "y": 73.85492, "z": 10.10997},
+                "position": {"x": 12.44731, "y": 79.70683, "z": 11.53563},
                 "radius": 10,
                 "revealOn": "enter",
                 "reveals": [ "TOWER_EXPLORE", "GOD_REALM_RUMOR" ]

@@ -1,0 +1,66 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+
+    <!-- 剧本设定:歌者(阿绫)受赌约束缚不可主动开口说话,只能歌唱。
+         因此对话全部以括号内的"神态/动作描写"呈现,她本人不发一言。 -->
+    <NameField>歌者</NameField>
+
+    <!-- True End 后:歌声已传遍全城,雨停,天依走到身旁 -->
+    <DialogueNode>
+        <Name>AfterSong</Name>
+        <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
+        <Dialogue>
+            <Page>（歌声曾透过扩音器传遍整座城市的雨幕——而此刻，雨已经停了。）</Page>
+            <Page>（她望着终于走到身边的蓝发女孩，唇瓣轻颤，却依旧没有发出声音。）</Page>
+            <Page>（但她的眼泪落了下来。那是赎罪般的、也是解脱般的泪。）</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>（轻声告诉她：有人听见你了。）</Text>
+                <DialogueTarget>SingerHeard</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（静静退后，把舞台留给她们两人。）</Text>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>SingerHeard</Name>
+        <Dialogue>
+            <Page>（她极轻、极郑重地，向你鞠了一躬。）</Page>
+            <Page>（随后转向身旁的女孩，无声地绽出一个释然的微笑。）</Page>
+            <Page>（缚住歌者多年的赌约枷锁，在这一刻，碎了。）</Page>
+        </Dialogue>
+    </DialogueNode>
+
+    <!-- 默认:歌者无法言语 -->
+    <DialogueNode>
+        <Name>Start</Name>
+        <EntryCondition>DEFAULT</EntryCondition>
+        <Dialogue>
+            <Page>（红发的歌者站在塌了一半的穹顶下，雨水顺着脸颊滑落，分不清是雨还是泪。）</Page>
+            <Page>（你试着同她搭话。她的唇瓣微微翕动，却没有发出任何声音——仿佛有无形的约束封住了她的喉咙。）</Page>
+            <Page>（她抬眼看你，眼神里先是惊讶，继而迟疑，最后化作一缕极淡的、近乎恳求的期盼。）</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>（注视她的眼睛，轻轻点头，示意你会留下来听她把歌唱完）</Text>
+                <DialogueTarget>Nod</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（默默离开）</Text>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>Nod</Name>
+        <Dialogue>
+            <Page>（她似乎读懂了你的意思，僵直的肩膀几不可察地松了一瞬。）</Page>
+            <Page>（她重新阖上双眼，固执地、无声地，对着空荡的雨夜继续歌唱。）</Page>
+        </Dialogue>
+        <SetCondition>TALKED_TO_SINGER</SetCondition>
+    </DialogueNode>
+
+</DialogueTree>

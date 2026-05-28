@@ -16,6 +16,10 @@
             <ID>GOD_REALM_EXPLORE</ID>
             <Text>一颗安静得近乎超现实的小星球。没有雨，没有云，只有白色与淡紫色的结晶岩石。</Text>
         </ExploreFact>
+        <ExploreFact>
+            <ID>GODREALM_PART_FACT</ID>
+            <Text>结晶岩石间嵌着一枚泛着微光的共鸣核心。它和音乐厅扩音装置缺少的另一枚零件，似乎正好配成一对。</Text>
+        </ExploreFact>
     </Entry>
 
     <Entry>

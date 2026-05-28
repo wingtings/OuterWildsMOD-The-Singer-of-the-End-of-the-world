@@ -14,8 +14,8 @@ namespace TheSingerOfTheEnd
         private RenderTexture _rt;
         private static bool _rendering;       // 防止反射相机递归触发自身
 
-        // 北极舞台前的反射水池(Attlerock 局部坐标)
-        private static readonly Vector3 PoolLocal = new Vector3(5f, 56.05f, -3f);
+        // 歌者舞台前的反射水池(Attlerock 局部坐标,贴近迁移后的歌者;最终位置需进游戏 P 键微调)
+        private static readonly Vector3 PoolLocal = new Vector3(-2.9f, -5.81f, 30.04f);
 
         public static void Setup(INewHorizons nh)
         {
@@ -49,7 +49,7 @@ namespace TheSingerOfTheEnd
             var ctrl = go.AddComponent<PlanarReflectionController>();
             ctrl._mat = mr.material;
 
-            Log("水面反射已部署(歌者北极舞台前)。", MessageType.Success);
+            Log("水面反射已部署(歌者舞台前)。", MessageType.Success);
         }
 
         // 每当水面将被某相机渲染前调用 → 用该相机的视角渲染镜像反射

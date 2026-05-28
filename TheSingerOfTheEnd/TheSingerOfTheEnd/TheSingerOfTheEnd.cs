@@ -211,6 +211,7 @@ namespace TheSingerOfTheEnd
                 RainController.Setup();
                 AudioVisualizerController.Setup(NewHorizons);   // 声波可视化(材质缺失时自动跳过)
                 PlanarReflectionController.Setup(NewHorizons);  // 水面反射(材质缺失时自动跳过)
+                HologramController.Setup(NewHorizons);          // 全息投影(材质缺失时自动跳过)
             }
 
             NpcBehavior.Setup(NewHorizons);

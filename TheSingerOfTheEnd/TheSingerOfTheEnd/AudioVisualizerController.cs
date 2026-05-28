@@ -17,8 +17,8 @@ namespace TheSingerOfTheEnd
         private readonly float[] _bins = new float[Bins];
         private Material _mat;
 
-        // 歌者北极舞台(Attlerock 局部坐标,与 singer_world.json 的歌者位置对齐)
-        private static readonly Vector3 StageLocal = new Vector3(0f, 57f, -11f);
+        // 歌者所在的音乐厅舞台(Attlerock 局部坐标,与 singer_world.json 迁移后的歌者位置对齐)
+        private static readonly Vector3 StageLocal = new Vector3(-5.52638f, -7.194386f, 29.36535f);
 
         public static void Setup(INewHorizons nh)
         {
@@ -52,7 +52,7 @@ namespace TheSingerOfTheEnd
             var ctrl = go.AddComponent<AudioVisualizerController>();
             ctrl._mat = mr.material;
 
-            Log("声波可视化已部署(歌者北极舞台)。", MessageType.Success);
+            Log("声波可视化已部署(歌者音乐厅舞台)。", MessageType.Success);
         }
 
         private void Update()

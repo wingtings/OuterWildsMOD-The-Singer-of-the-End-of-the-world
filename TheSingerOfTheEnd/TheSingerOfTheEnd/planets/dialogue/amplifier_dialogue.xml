@@ -21,14 +21,31 @@
             <Page>广场与高塔的废墟里，似乎散落着能用的部件。</Page>
         </Dialogue>
         <DialogueOptionsList>
+            <!-- 仅在玩家持有零件时出现(HAS_AMPLIFIER_PART 由拾取零件时设置) -->
             <DialogueOption>
-                <Text>（嵌入找到的零件，修复扩音装置）</Text>
+                <RequiredCondition>HAS_AMPLIFIER_PART</RequiredCondition>
+                <Text>（嵌入找到的精密零件，修复扩音装置）</Text>
                 <DialogueTarget>Repair</DialogueTarget>
+            </DialogueOption>
+            <!-- 未持有零件时的提示分支 -->
+            <DialogueOption>
+                <CancelledCondition>HAS_AMPLIFIER_PART</CancelledCondition>
+                <Text>（装置缺少零件……我得先找到它。）</Text>
+                <DialogueTarget>NeedPart</DialogueTarget>
             </DialogueOption>
             <DialogueOption>
                 <Text>（暂时离开）</Text>
             </DialogueOption>
         </DialogueOptionsList>
+    </DialogueNode>
+
+    <!-- 未持有零件:指引玩家去高塔寻找 -->
+    <DialogueNode>
+        <Name>NeedPart</Name>
+        <Dialogue>
+            <Page>装置内部的插槽空着，缺少一个精密零件。</Page>
+            <Page>城市边缘那座残破的高塔里，或许还能找到能用的部件。</Page>
+        </Dialogue>
     </DialogueNode>
 
     <DialogueNode>

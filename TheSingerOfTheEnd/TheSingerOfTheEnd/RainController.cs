@@ -14,8 +14,8 @@ namespace TheSingerOfTheEnd
         private Transform _planet;          // Attlerock(废岩星) Transform
         private const float RainRadius = 200f;
 
-        // 故事区域在废岩星(Attlerock)局部坐标中的中心(北极舞台,表面半径 ≈ 56)
-        private static readonly Vector3 StoryZoneLocal = new Vector3(0f, 56f, 0f);
+        // 故事区域在废岩星(Attlerock)局部坐标中的中心(迁移后的歌者音乐厅舞台)
+        private static readonly Vector3 StoryZoneLocal = new Vector3(-5.52638f, -7.194386f, 29.36535f);
 
         // 供 TimelineManager 控制发射速率
         public void SetEmissionRate(float rate)
@@ -110,12 +110,13 @@ namespace TheSingerOfTheEnd
         {
             if (AssetLoader.Ripple == null) return;
 
-            // 废岩星(Attlerock)北极舞台地表(局部 y≈56),稍微抬高避免与地形 z-fighting
+            // 歌者音乐厅舞台周围地表(贴近迁移后的歌者,略高于表面半径≈30.7 避免 z-fighting;
+            // 最终位置需进游戏用 P 键微调贴合地形)
             Vector3[] spots =
             {
-                new Vector3(6f, 56.3f, 2f),
-                new Vector3(-4f, 56.2f, -9f),
-                new Vector3(3f, 56.1f, -4f)
+                new Vector3(-4f, -6f, 30.1f),
+                new Vector3(-8f, -6f, 29.4f),
+                new Vector3(-3f, -9f, 29.5f)
             };
             float[] sizes = { 8f, 6f, 7f };
 

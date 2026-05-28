@@ -14,9 +14,24 @@
             {
                 "comment": "高塔·挪麦重力炮(北极空地边缘竖向地标)",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_GravityCannon/Geometry_GravityCannon/ControlledByProxy_Arch/Structure_NOM_GravityCannon_HT",
-                "position": { "x": 13, "y": 54, "z": 8 },
+                "position": {"x": 15.0625, "y": 73.85492, "z": 10.10997},
                 "scale": 0.3,
                 "alignRadial": true
+            },
+            {
+                "comment": "高塔角落的精密零件 —— NH 可拾取物品(collectible item)。拾取后置 HAS_AMPLIFIER_PART 对话条件,解锁扩音器修复选项;丢弃会清除条件(默认),即必须随身携带。位置贴着重力炮,需随高塔最终位置一起用 P 键微调。",
+                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "rename": "精密零件",
+                "position": {"x": 16.0625, "y": 73.85492, "z": 10.10997},
+                "scale": 0.6,
+                "alignRadial": true,
+                "item": {
+                    "name": "精密零件",
+                    "itemType": "AmplifierPart",
+                    "interactRange": 3,
+                    "pickupCondition": "HAS_AMPLIFIER_PART",
+                    "pickupFact": "TOWER_PART_FACT"
+                }
             },
             {
                 "comment": "音乐厅遗迹·空挪麦遗迹(歌者身后的石质残墙)",
@@ -28,32 +43,30 @@
             {
                 "comment": "空地古迹·带篝火挪麦遗迹",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_Crossroads/Geo_Crossroads/OtherComponentsGroup/ControlledByProxy_Buildings/Architecture_Crossroads/Ruin_Campfire",
-                "position": { "x": -5, "y": 56, "z": 3 },
-                "rotation": { "x": 0, "y": -40, "z": 0 },
+                "position": {"x": 8.490828, "y": 3.48664, "z": 29.29715},
                 "scale": 0.8,
                 "alignRadial": true
             },
             {
                 "comment": "空地发光挪麦门廊",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_GravityCannon/Lighting_GravityCannon/Prefab_NOM_Doorway",
-                "position": { "x": 3, "y": 56, "z": 0 },
-                "rotation": { "x": 0, "y": -90, "z": 0 },
+                "position": {"x": -4.731528, "y": 14.83762, "z": 27.5546},
                 "alignRadial": true
             },
             {
                 "comment": "蓝灯笼×4(广场补光)",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": 4, "y": 56, "z": 4 },
+                "position": {"x": -0.5734681, "y": -7.203723, "z": 29.75264},
                 "alignRadial": true
             },
             {
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": -3, "y": 56, "z": 6 },
+                "position": {"x": 3.223129, "y": -1.725687, "z": 30.07432},
                 "alignRadial": true
             },
             {
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": 6, "y": 56, "z": -4 },
+                "position": {"x": -12.47738, "y": -3.836612, "z": 27.66138},
                 "alignRadial": true
             },
             {
@@ -77,34 +90,31 @@
             {
                 "comment": "挪麦长桌",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Props_NOM_Table",
-                "position": { "x": 1, "y": 56, "z": 2 },
-                "rotation": { "x": 0, "y": 30, "z": 0 },
+                "position": {"x": -4.106707, "y": -1.99562, "z": 29.92213},
                 "alignRadial": true
             },
             {
                 "comment": "挪麦长椅",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_SimpleChair_NoSkeleton (1)",
-                "position": { "x": 1, "y": 56, "z": 3 },
-                "rotation": { "x": 0, "y": -20, "z": 0 },
+                "position": {"x": 43.57663, "y": 23.68294, "z": -53.90977},
                 "alignRadial": true
             },
             {
                 "comment": "音乐厅舞台挪麦书架",
                 "path": "BrittleHollow_Body/Sector_BH/Sector_NorthHemisphere/Sector_NorthPole/Sector_HangingCity/Sector_HangingCity_BlackHoleForge/BlackHoleForgePivot/Props_BlackHoleForge/Prefab_NOM_Shelf (2)/Strucutre_NOM_Shelf",
-                "position": { "x": 1, "y": 55, "z": -10 },
-                "rotation": { "x": 0, "y": 90, "z": 0 },
+                "position": {"x": -2.597506, "y": -0.6354389, "z": 29.98439},
                 "alignRadial": true
             },
             {
                 "comment": "南极·天依身侧立式火炬(补光)",
                 "path": "CaveTwin_Body/Sector_CaveTwin/Sector_SouthHemisphere/Sector_SouthSurface/Sector_SouthPole/Lighting_SouthPole/Prefab_NOM_Torch",
-                "position": { "x": 3, "y": -56, "z": 0 },
+                "position": {"x": 37.14735, "y": 30.68649, "z": -55.0419},
                 "alignRadial": true
             },
             {
                 "comment": "南极·天依身侧蓝灯笼(补光)",
                 "path": "TimberHearth_Body/Sector_TH/Sector_Village/Sector_LowerVillage/Lighting_LowerVillage/OtherComponentsGroup/BlueLanterns/Props_HEA_BlueLantern",
-                "position": { "x": -3, "y": -56, "z": 2 },
+                "position": {"x": 43.4357, "y": 32.93956, "z": -48.44093},
                 "alignRadial": true
             },
             {
@@ -141,11 +151,10 @@
         ],
         "translatorText": [
             {
+                "comment": "歌者日记(刻在广场墙上)——随天依迁移到广场。法线≈该点球面外法线;最终位置/朝向需进游戏用 P 键微调。",
                 "xmlFile": "planets/text/singer_diary.xml",
                 "type": "cairn",
-                "position": { "x": 2, "y": 56, "z": 1 },
-                "normal": { "x": 0, "y": 1, "z": 0 },
-                "rotation": { "x": 0, "y": -120, "z": 0 }
+                "position": { "x": 44, "y": 28, "z": -51 }
             }
         ],
         "dialogue": [
@@ -171,25 +180,25 @@
     "Volumes": {
         "revealVolumes": [
             {
-                "comment": "着陆点/广场:解锁城市与广场日志、传闻",
-                "position": { "x": 0, "y": 56, "z": 0 },
+                "comment": "广场(天依所在处):随天依坐标迁移。靠近即解锁城市/广场日志与传闻。",
+                "position": { "x": 41.15849, "y": 28.24348, "z": -53.61192 },
                 "radius": 12,
                 "revealOn": "enter",
                 "reveals": [ "SINGER_CITY_EXPLORE", "SQUARE_EXPLORE", "SQUARE_RUMOR", "TOWER_RUMOR" ]
             },
             {
-                "comment": "音乐厅遗迹/北极舞台:解锁音乐厅与扩音装置",
-                "position": { "x": 0, "y": 55, "z": -11 },
-                "radius": 8,
+                "comment": "音乐厅(歌者+扩音装置所在处):随两者新坐标迁移,中心取二者中点。解锁音乐厅与扩音装置。",
+                "position": {"x": -2.382755, "y": -0.9785807, "z": 30.00782},
+                "radius": 12,
                 "revealOn": "enter",
                 "reveals": [ "HALL_EXPLORE", "AMPLIFIER_FACT" ]
             },
             {
-                "comment": "高塔:解锁观测台、零件、神谕之境传闻",
-                "position": { "x": 13, "y": 54, "z": 8 },
-                "radius": 8,
+                "comment": "高塔(重力炮处,尚未在游戏内重新定位,最终位置需用 P 键微调):解锁观测台与神谕之境传闻。零件事实改由拾取零件时揭示。",
+                "position": {"x": 15.0625, "y": 73.85492, "z": 10.10997},
+                "radius": 10,
                 "revealOn": "enter",
-                "reveals": [ "TOWER_EXPLORE", "TOWER_PART_FACT", "GOD_REALM_RUMOR" ]
+                "reveals": [ "TOWER_EXPLORE", "GOD_REALM_RUMOR" ]
             }
         ]
     },

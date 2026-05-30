@@ -32,7 +32,6 @@
             <Page>谢谢你……是你，让我们终于听见了彼此。</Page>
         </Dialogue>
         <SetCondition>TIANYI_HEARD_SONG</SetCondition>
-        <SetCondition>TIANYI_REUNITED</SetCondition>
     </DialogueNode>
 
     <DialogueNode>
@@ -42,7 +41,6 @@
             <Page>（雨后的天光落下来，照在两个终于不再孤单的人身上。）</Page>
         </Dialogue>
         <SetCondition>TIANYI_HEARD_SONG</SetCondition>
-        <SetCondition>TIANYI_REUNITED</SetCondition>
     </DialogueNode>
 
     <!-- 默认对话:扩音器未修复 -->

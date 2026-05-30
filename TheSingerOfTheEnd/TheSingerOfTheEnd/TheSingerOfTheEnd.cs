@@ -145,7 +145,7 @@ namespace TheSingerOfTheEnd
             {
                 "TALKED_TO_TIANYI", "AMPLIFIER_REPAIRED", "TIANYI_HEARD_SONG",
                 "AMPLIFIER_EVER_REPAIRED", "HAS_TOWER_PART", "HAS_GODREALM_PART",
-                "AMP_SOCKET_A", "AMP_SOCKET_B", "TALKED_TO_SINGER", "TIANYI_REUNITED"
+                "AMP_SOCKET_A", "AMP_SOCKET_B", "TALKED_TO_SINGER"
             };
 
             var mgr = DialogueConditionManager.SharedInstance;

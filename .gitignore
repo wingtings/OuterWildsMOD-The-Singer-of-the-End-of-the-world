@@ -3,3 +3,6 @@
 .vs
 outer-wilds-unity-template/
 UnityChanToonShaderVer2_Project-legacy-2.0.9/
+
+# Large AssetBundle (exceeds GitHub 100MB limit) - kept out of git
+TheSingerOfTheEnd/TheSingerOfTheEnd/assets/models/singer

@@ -44,15 +44,15 @@ namespace TheSingerOfTheEnd
         public static void Preload()
         {
             if (Bundle == null) return;
-            GodRay = Bundle.LoadAsset<Material>("Assets/Materials/GodRayMat.mat");
-            Rain = Bundle.LoadAsset<Material>("Assets/Materials/RainMat.mat");
-            Ripple = Bundle.LoadAsset<Material>("Assets/Materials/RippleMat.mat");
-            // 以下四个材质需在 Unity 工程里新建并打进同一 shaders bundle 后才会非空;
-            // 未打包前为 null,对应控制器会自动跳过,不影响其它效果与编译。
-            AudioWave = Bundle.LoadAsset<Material>("Assets/Materials/AudioWaveMat.mat");
-            Fog = Bundle.LoadAsset<Material>("Assets/Materials/FogMat.mat");
-            Water = Bundle.LoadAsset<Material>("Assets/Materials/WaterMat.mat");
-            Hologram = Bundle.LoadAsset<Material>("Assets/Materials/HologramMat.mat");
+            // 仅用材质名加载(不写文件夹路径),这样在 Unity 工程里移动材质所在文件夹
+            // (例如挪进 Materials/effects/)也不会导致加载失败。材质名需保持唯一。
+            GodRay = Bundle.LoadAsset<Material>("GodRayMat");
+            Rain = Bundle.LoadAsset<Material>("RainMat");
+            Ripple = Bundle.LoadAsset<Material>("RippleMat");
+            AudioWave = Bundle.LoadAsset<Material>("AudioWaveMat");
+            Fog = Bundle.LoadAsset<Material>("FogMat");
+            Water = Bundle.LoadAsset<Material>("WaterMat");
+            Hologram = Bundle.LoadAsset<Material>("HologramMat");
             Log($"材质加载: GodRay={GodRay != null}, Rain={Rain != null}, Ripple={Ripple != null}, " +
                 $"AudioWave={AudioWave != null}, Fog={Fog != null}, Water={Water != null}, " +
                 $"Hologram={Hologram != null}",

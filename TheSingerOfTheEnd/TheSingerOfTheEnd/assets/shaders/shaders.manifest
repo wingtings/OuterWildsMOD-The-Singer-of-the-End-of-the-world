@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3182876219
+CRC: 236517043
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 124741be0aab526c65f1f4f2a656a5c8
+    Hash: 594e5f26ea871ca1e7b78ef23ab94202
   TypeTreeHash:
     serializedVersion: 2
     Hash: 10a6a558690295dadb3dd990eda0821a
@@ -15,11 +15,11 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Materials/GodRayMat.mat
-- Assets/Materials/RainMat.mat
-- Assets/Materials/FogMat.mat
-- Assets/Materials/AudioWaveMat.mat
-- Assets/Materials/HologramMat.mat
-- Assets/Materials/WaterMat.mat
-- Assets/Materials/RippleMat.mat
+- Assets/Materials/effects/GodRayMat.mat
+- Assets/Materials/effects/RainMat.mat
+- Assets/Materials/effects/FogMat.mat
+- Assets/Materials/effects/AudioWaveMat.mat
+- Assets/Materials/effects/HologramMat.mat
+- Assets/Materials/effects/WaterMat.mat
+- Assets/Materials/effects/RippleMat.mat
 Dependencies: []

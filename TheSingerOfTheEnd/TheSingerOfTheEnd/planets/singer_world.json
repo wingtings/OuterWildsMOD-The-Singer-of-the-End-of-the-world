@@ -155,9 +155,10 @@
                 "alignRadial": true
             },
             {
-                "comment": "[占位] 凡人·天依 —— 南极平台,后续替换为 MMD 模型",
-                "path": "QuantumMoon_Body/Sector_QuantumMoon/State_EYE/Interactables_EYEState/ConversationPivot/Character_NOM_Solanum/Nomai_ANIM_SkyWatching_Idle",
-                "rename": "蓝发女孩(天依占位)",
+                "comment": "凡人·天依(MMD 模型,AssetBundle: assets/models/tianyi) —— 南极平台,替换原 Solanum 占位。位置沿用占位坐标;MMD 模型默认朝向多为 +Z/-Z,进游戏若背对玩家需加 rotation 微调。",
+                "assetBundle": "assets/models/tianyi",
+                "path": "Assets/Model/Tianyi.prefab",
+                "rename": "天依",
                 "position": {"x": 41.15849, "y": 28.24348, "z": -53.61192},
                 "scale": 1.0,
                 "alignRadial": true
@@ -167,6 +168,15 @@
                 "assetBundle": "assets/models/singer",
                 "path": "Assets/Model/Singer.prefab",
                 "rename": "歌者(阿绫)",
+                "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "舞台(自制模型,AssetBundle: assets/models/stage) —— 音乐厅,歌者立于其上。prefab 已含 MeshCollider。position/scale/朝向均为初始值,需进游戏用 P 键(Debug Raycast)按地形与歌者位置微调;若舞台过大可调小 scale。",
+                "assetBundle": "assets/models/stage",
+                "path": "Assets/Model/Stage.prefab",
+                "rename": "舞台",
                 "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
                 "scale": 1.0,
                 "alignRadial": true

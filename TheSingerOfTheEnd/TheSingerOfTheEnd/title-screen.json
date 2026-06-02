@@ -1,3 +1,35 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/title_screen_schema.json"
+    "$schema": "https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/title_screen_schema.json",
+    "titleScreens": [
+        {
+            "comment": "歌者的舞台·标题界面。disableNHPlanets 关掉随机 NH 星球;destroyMenuPlanet 移除默认篝火星球(原有产物),舞台/歌者挂到 PlanetPivot 故不会被隐藏并随之缓慢旋转。亮度来自 stage bundle 内已开启的白色点光(强度6/范围60)做整体补光,聚光(强度3)做彩色点缀。position/scale/rotation 为初始值,需进游戏微调。",
+            "disableNHPlanets": true,
+            "shareTitleScreen": false,
+            "music": "planets/audio/shimo_singer_bgm.ogg",
+            "musicVolume": 0.25,
+            "musicFadeInTime": 6.0,
+            "MenuPlanet": {
+                "destroyMenuPlanet": true,
+                "rotationSpeed": 6,
+                "details": [
+                    {
+                        "comment": "歌者舞台。无 parentPath → 挂 PlanetPivot,放在轴心(0,0,0)原地自转。scale 1.5 起步(比之前0.5更大更清晰);太大调小/太小调大;偏出画面调 position;没站正调 rotation。",
+                        "assetBundle": "assets/models/stage",
+                        "path": "Assets/Model/Stage.prefab",
+                        "position": {"x": 0, "y": 0, "z": 0},
+                        "rotation": {"x": 0, "y": 0, "z": 0},
+                        "scale": 1.5
+                    },
+                    {
+                        "comment": "歌者·阿绫,站在舞台上。与舞台同坐标同缩放(游戏内二者也是同坐标),故歌者会立于舞台台面。singer bundle 不含相机/灯光,无需 removeChildren。若歌者背对/位置不对,调本条的 rotation/position;若与舞台大小不匹配,调 scale 与舞台一致。",
+                        "assetBundle": "assets/models/singer",
+                        "path": "Assets/Model/Singer.prefab",
+                        "position": {"x": 0, "y": 0, "z": 0},
+                        "rotation": {"x": 0, "y": 0, "z": 0},
+                        "scale": 1.5
+                    }
+                ]
+            }
+        }
+    ]
 }

@@ -24,9 +24,6 @@ namespace TheSingerOfTheEnd
         private bool _fogDisabled;
         private float _trueEndTimer;
 
-        // 在 True End 开始时快照当前强度，用于平滑插值
-        private float _intensityAtTrueEnd;
-
         public static void Setup()
         {
             if (Instance != null) return;

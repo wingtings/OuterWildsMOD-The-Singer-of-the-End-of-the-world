@@ -103,7 +103,19 @@ namespace TheSingerOfTheEnd
 
         private void Update()
         {
-            if (_ps == null || _planet == null) return;
+            if (_planet == null) return;
+
+            // 把当前星球中心位置喂给每块水洼的 shader (星球在公转/自转, 位置每帧变)
+            Vector3 pc = _planet.position;
+            for (int i = 0; i < _puddles.Count; i++)
+            {
+                var p = _puddles[i];
+                if (p == null || !p.activeInHierarchy) continue;
+                var mat = p.GetComponent<MeshRenderer>().material;
+                mat.SetVector(_PlanetCenterID, pc);
+            }
+
+            if (_ps == null) return;
             var player = Locator.GetPlayerTransform();
             if (player == null) return;
 
@@ -115,9 +127,13 @@ namespace TheSingerOfTheEnd
             if (emission.enabled != inAtmosphere) emission.enabled = inAtmosphere;
         }
 
-        // 已生成的涟漪水洼(供开关即时启停)
+        // 已生成的涟漪水洼 + 每块对应的球面半径(供 shader 弯曲贴星球)
         private static readonly System.Collections.Generic.List<GameObject> _puddles =
             new System.Collections.Generic.List<GameObject>();
+        private static readonly System.Collections.Generic.List<float> _puddleRadii =
+            new System.Collections.Generic.List<float>();
+        private static readonly int _PlanetCenterID = Shader.PropertyToID("_PlanetCenter");
+        private static readonly int _PlanetRadiusID = Shader.PropertyToID("_PlanetRadius");
 
         // 供「地面涟漪」开关即时启停
         public static void SetRipplesActive(bool active)
@@ -130,11 +146,11 @@ namespace TheSingerOfTheEnd
         private static void SpawnPuddles(Transform planet)
         {
             _puddles.Clear();                       // 新场景重建,清掉上一循环的旧引用
+            _puddleRadii.Clear();
             if (AssetLoader.Ripple == null) return;
 
-            // 歌者音乐厅舞台周围地表。BUG 修复:旧实现用固定 Euler(90,0,0) 让 Quad 法线朝局部 -Y,
-            // 但球面上"上方"是径向(指向星心外),两者不一致 → 涟漪平面竖起来"夹住"歌者。
-            // 改为把每块 Quad 摆进该点的切平面(法线 = 局部径向),并投影到舞台所在半径略上方。
+            // 歌者音乐厅舞台周围地表。每块 Plane 摆进该点切平面(法线=局部径向),
+            // 真正的"贴合曲面"由 shader 顶点端按 _PlanetCenter/_PlanetRadius 完成。
             float stageR = StoryZoneLocal.magnitude;        // 舞台地面半径 ≈ 30.7
 
             // 各水洼相对舞台中心(StoryZoneLocal)的方向偏移,贴着舞台四周铺开
@@ -148,20 +164,26 @@ namespace TheSingerOfTheEnd
 
             for (int i = 0; i < offsets.Length; i++)
             {
-                Vector3 spot = StoryZoneLocal + offsets[i];
-                Vector3 radial = spot.normalized;           // 该点球面外法线(局部)
-                Vector3 local  = radial * (stageR + 0.1f);  // 投影回舞台半径,略抬高避免 z-fighting
+                Vector3 spot   = StoryZoneLocal + offsets[i];
+                Vector3 radial = spot.normalized;            // 该点球面外法线(局部)
+                float   radius = stageR + 0.1f;              // 略抬高避免 z-fighting
+                Vector3 local  = radial * radius;
 
-                var q = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                // 用 Plane(10x10 顶点,121 个 vert) 而非 Quad(4 vert);顶点越多球面弯曲越平滑
+                var q = GameObject.CreatePrimitive(PrimitiveType.Plane);
                 q.name = "SingerPuddle_" + i;
                 Object.Destroy(q.GetComponent<Collider>());
                 q.transform.SetParent(planet, false);
                 q.transform.localPosition = local;
-                // Quad 法线(+Z)对齐径向 → 平铺在切平面(地面)上。shader 已加 Cull Off,正反面都可见。
-                q.transform.localRotation = Quaternion.FromToRotation(Vector3.forward, radial);
-                q.transform.localScale = Vector3.one * sizes[i];
-                q.GetComponent<MeshRenderer>().material = AssetLoader.Ripple;
+                // Plane 法线是 +Y → 对齐径向,水洼自然贴在切平面上
+                q.transform.localRotation = Quaternion.FromToRotation(Vector3.up, radial);
+                // Unity 内置 Plane 默认 10m,_size = scale * 10; 我们直接除回去得到米单位
+                q.transform.localScale = Vector3.one * (sizes[i] * 0.1f);
+                // .material 自动实例化材质 → 每块水洼独立 uniform, 互不串扰
+                var mat = q.GetComponent<MeshRenderer>().material;
+                mat.SetFloat(_PlanetRadiusID, radius);       // 静态半径预设一次
                 _puddles.Add(q);
+                _puddleRadii.Add(radius);
             }
         }
 

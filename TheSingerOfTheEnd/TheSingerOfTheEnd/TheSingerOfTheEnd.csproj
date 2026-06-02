@@ -51,4 +51,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <!-- 构建后把输出目录镜像到 OWML Mods 文件夹, 避免 json 改了但部署版还是旧的 -->
+  <Target Name="DeployToOWML" AfterTargets="Build">
+    <PropertyGroup>
+      <OWMLModsDir>$(APPDATA)\OuterWildsModManager\OWML\Mods\wingtings.TheSingerOfTheEnd</OWMLModsDir>
+    </PropertyGroup>
+    <Exec Command="robocopy &quot;$(OutDir.TrimEnd('\'))&quot; &quot;$(OWMLModsDir)&quot; /MIR /XD obj /XF *.pdb &amp; IF %25ERRORLEVEL%25 LEQ 7 EXIT 0"
+          IgnoreExitCode="true" />
+    <Message Text="[DeployToOWML] Mirrored $(OutDir) → $(OWMLModsDir)" Importance="high" />
+  </Target>
 </Project>

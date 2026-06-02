@@ -10,6 +10,7 @@
         "gravityFallOff": "linear"
     },
 
+
     "Atmosphere": {
         "comment": "大气层(雨/雾的边界)。size=大气层标高;useAtmosphereShader 给出可见的大气壳。体积雾与体积雨由 C# 限制在 AttlerockAtmosphereRadius(≈150)内。",
         "hasOxygen": true,

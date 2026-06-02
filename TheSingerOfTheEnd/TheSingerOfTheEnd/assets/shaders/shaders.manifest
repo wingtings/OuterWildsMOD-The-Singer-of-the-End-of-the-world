@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3182876219
+CRC: 1180124697
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 124741be0aab526c65f1f4f2a656a5c8
+    Hash: 4641373e352cfbee7d68a8b5edac6e65
   TypeTreeHash:
     serializedVersion: 2
     Hash: 10a6a558690295dadb3dd990eda0821a
@@ -16,10 +16,17 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Materials/GodRayMat.mat
-- Assets/Materials/RainMat.mat
-- Assets/Materials/FogMat.mat
+- Assets/Shaders/SingerMod/RainRipple.shader
+- Assets/Shaders/SingerMod/VolumetricFog.shader
+- Assets/Shaders/SingerMod/WaterReflection.shader
+- Assets/Materials/WaterMat.mat
+- Assets/Shaders/SingerMod/AudioWave.shader
 - Assets/Materials/AudioWaveMat.mat
 - Assets/Materials/HologramMat.mat
-- Assets/Materials/WaterMat.mat
 - Assets/Materials/RippleMat.mat
+- Assets/Shaders/SingerMod/VolumetricRain.shader
+- Assets/Shaders/SingerMod/Hologram.shader
+- Assets/Materials/FogMat.mat
+- Assets/Materials/RainMat.mat
+- Assets/Shaders/SingerMod/GodRay.shader
 Dependencies: []

@@ -10,7 +10,17 @@
         "gravityFallOff": "linear"
     },
 
-
+    "Spawn": {
+        "comment": "[DEBUG] 出生点改到歌者舞台附近,方便调试 shader 效果。坐标贴近歌者/舞台(≈ -6.7,2.2,29.4)。必须用 playerSpawnPoints 数组(新版 NH 架构)且 isDefault=true:在原版 SolarSystem 中,NH 把木炉星出生点当作默认,优先级不够高的自定义出生点会被忽略,所以这里必须置默认。startWithSuit=true 方便穿宇航服自由飞行查看 shader。正式版可移除此模块,恢复原版飞船出生点。",
+        "playerSpawnPoints": [
+            {
+                "position": {"x": -10.41871, "y": 4.720157, "z": 28.50341},
+                "isDefault": true,
+                "startWithSuit": true
+            }
+        ]
+    },
+    
     "Atmosphere": {
         "comment": "大气层(雨/雾的边界)。size=大气层标高;useAtmosphereShader 给出可见的大气壳。体积雾与体积雨由 C# 限制在 AttlerockAtmosphereRadius(≈150)内。",
         "hasOxygen": true,

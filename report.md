@@ -8,7 +8,7 @@
 
 ## 简介
 
-本项目以游戏 *Outer Wilds*（星际拓荒）为载体，借助 OWML + New Horizons 模组框架，制作了中文 Vocaloid 神话曲《世末歌者》的同人剧情，并在其中实现了一套**自定义图形学着色器系统**。项目共编写了 **7 个自定义着色器**（GLSL/HLSL，运行于 Unity 内置渲染管线），覆盖**屏幕空间后处理**（God Rays 神光、体积雾）、**粒子与程序化材质**（体积雨、地面涟漪）、**程序化网格变形**（FFT 声波可视化）、**平面反射/折射**（水面）以及**程序化纹理**（全息投影）等多类图形学技术。所有效果均可通过游戏内配置面板独立开关，并由一套时间线管理器在剧情高潮（True End）时联动演出。模组内容在 Outer Wilds 的球面星球环境下稳定运行，各效果与"末日轮回"的叙事氛围高度契合。
+我们的大作业以游戏 *Outer Wilds*（星际拓荒）为载体，借助 OWML + New Horizons 模组框架，制作了中文 Vocaloid 神话曲《世末歌者》的同人剧情，并在其中实现了一套**自定义图形学着色器系统**。项目共编写了 **7 个自定义着色器**（ShaderLab，运行于 Unity 内置渲染管线），覆盖**屏幕空间后处理**（God Rays 神光、体积雾）、**粒子与程序化材质**（体积雨、地面涟漪）、**程序化网格变形**（FFT 声波可视化）、**平面反射/折射**（水面）以及**程序化纹理**（全息投影）等多类图形学技术。所有效果均可通过游戏内配置面板独立开关，并由一套时间线管理器在剧情高潮时联动演出。模组内容在 Outer Wilds 的球面星球环境下稳定运行，各效果与"末日轮回"的叙事氛围高度契合。
 
 > 项目仓库：`OuterWildsMOD - The Singer of the End of the world`
 >
@@ -18,16 +18,20 @@
 
 **分工：**
 
-| 成员   | 工作                                                       |
-| ------ | ---------------------------------------------------------- |
-| 武文韬 | 可行性调研，着色器编写、框架搭建、剧情与场景搭建、报告撰写 |
-| 李庥延 | 着色器编写，模型物理动画烘焙，效果测试                     |
+| 成员   | 工作                                                        |
+| ------ | ----------------------------------------------------------- |
+| 武文韬 | 可行性调研，shader 编写、框架搭建、剧情与场景搭建、报告撰写 |
+| 李庥延 | shader 编写，模型动画打包，shader 效果测试                  |
 
 ---
 
 ## 项目背景与选题
 
-《世末歌者》由 B 站 UP 主 COPY 创作，投稿于 2016 年 8 月 25 日，今年正好是这首歌曲投稿十周年。歌曲的背景故事围绕神明言和与流浪歌手阿绫的赌约展开：在不允许阿绫主动与他人交流的前提下，只要在末日世界里有人愿意与她共同面对死亡，世界便得以延续，否则孤独的轮回与死亡永不停止。我们尝试将该故事映射到 Outer Wilds 的世界观，写了一份很简单的剧情大纲：
+![世末歌者](/figs/shimogezhe.webp)
+
+<p style="text-align:center;"><strong>图 2.1：曲绘</strong></p>
+
+《世末歌者》是一首由 B 站 UP 主 COPY 创作、投稿于 2016 年 8 月 25 日的中文 Vocaloid 曲目，由虚拟歌手乐正绫演唱，今年正好是这首歌曲投稿十周年。歌曲的背景故事围绕神明言和与流浪歌手阿绫的赌约展开：在不允许阿绫主动与他人交流的前提下，只要在末日世界里有人愿意与她共同面对死亡，世界便得以延续，否则孤独的轮回与死亡永不停止，而她要寻找的那个凡人就是天依。我们尝试将该故事映射到 Outer Wilds 的世界观，写了一份很简单的剧情大纲：
 
 | 原作角色 | 声库 | MOD 中映射 |
 | -------- | ---- | --------- |
@@ -35,9 +39,19 @@
 | 歌者 | 乐正绫 | 站在音乐厅舞台上的 NPC（不能主动说话） |
 | 凡人 | 洛天依 | 站在广场上的可对话 NPC |
 
-我们设计的剧情可以在飞船日志中找到线索树（花了点时间绘制了吗每个事件的封面缩略图），游戏的核心玩法是通过在星系中探索，逐渐发现世界的真相，并拯救歌者和天依：
+我们设计的剧情可以在飞船日志中找到线索树（花了点时间绘制了每个事件的封面缩略图），游戏的核心玩法是通过在星系中探索，逐渐发现世界的真相，并拯救歌者和天依。我们一开始想过自己设计一个 **Outing System** ，我折腾了一个星期，在一个光秃秃的星球上搭建了一些建筑，绘制了材质贴图和高度贴图，但是最后因为呈现的效果过于差，改为**修改原版星球的废岩星（Attlerock）和量子卫星（Quantum Moon）**，作为我们故事的两个发生地。
+
+![UI界面](/figs/ui.png)
+<p style="text-align:center;"><strong>图 2.2：游戏启动菜单修改</strong></p>
 
 ![飞船日志](/figs/log.png)
+<p style="text-align:center;"><strong>图 2.3：飞船日志线索树</strong></p>
+
+![飞船日志](/figs/attlerock.png)
+<p style="text-align:center;"><strong>图 2.4：魔改之后的 Attlerock </strong></p>
+
+![飞船日志](/figs/hologram.png)
+<p style="text-align:center;"><strong>图 2.5：魔改之后的 Quantum Moon</strong></p>
 
 Outer Wilds 的核心机制与原作天然契合：**22 分钟时间循环** ↔ 末日轮回；**无法直接交流的赌约** ↔ 探索驱动叙事；**超新星爆发** ↔ 滂沱大雨中的世界终结。
 
@@ -66,6 +80,9 @@ Outer Wilds 的核心机制与原作天然契合：**22 分钟时间循环** ↔
 **(3) 跨天文距离的阴影：自定义 Proxy Shadow。** Unity 标准的 shadow cascade 覆盖不了"一颗星球给另一颗星球投影"这种尺度，于是官方实现了一整套代理阴影系统（`ProxyShadowCaster`、`ProxyShadowCascade`、`ProxyShadowLight`、`ProxyShadowCasterGroup`…）来在代理空间里生成远距离阴影。
 
 **(4) 大气雾即图像后处理。** 你环绕每颗星球看到的大气透视，是 `PlanetaryFogRenderer`（`[ImageEffectAllowedInSceneView]`、`[RequireComponent(typeof(OWCamera))]`）这一**逐相机图像特效**做的——基于深度与高度的雾。**这正是我们体积雾(§4.4)与神光(§4.3)走主相机 `OnRenderImage` 的合法性依据**：我们只是在官方已有的图像特效栈上再叠加自己的 Pass。
+
+![大气雾渲染](/figs/rain&fog.png)
+<p style="text-align:center;"><strong>图 3.2：我们自行实现的大气雾渲染方案效果</strong></p>
 
 **(5) 扇区(Sector)流式与 LOD。** 内容按 `Sector` 分区，根据玩家所在扇区启停（`SectorRendererLODGroup`、`SectorProxy`），做剔除与性能管理；星球地表与水/沙等用可细分网格渲染（`TessellatedSphereRenderer`、`TessellatedPlaneRenderer`），量子卫星/黑洞等特殊体则用相机+模板缓冲(Stencil)与专用 shader（`EyeProxyQuantumMoon`、`ProxyQuantumMoon`、`BlackHoleVolume`）。
 
@@ -219,6 +236,9 @@ TheSingerOfTheEnd/                          # 解决方案根目录
     ├── PlanarReflectionController.cs       # ★ 镜像相机平面反射
     ├── HologramController.cs               # ★ 全息面板部署
     ├── NpcBehavior.cs                      # 歌者 / 天依 NPC 行为
+    ├── SingerModelController.cs            # 歌者姿态切换控制器
+    ├── DialogueSwapController.cs           # 对话树切换控制器
+    ├── StageController.cs                  # 舞台控制器
     ├── TimelineManager.cs                  # ★ 22 分钟时间线 + True End 演出
     ├── EndingJudge.cs                      # 结局判定
     ├── manifest.json / addon-manifest.json / default-config.json
@@ -261,7 +281,7 @@ bool inAtmosphere = Vector3.Distance(player.position, _planet.position)
 **效果展示。**
 
 ![体积雨 - 开启](/figs/rain_on.png)
-![体积雨 - 关闭](图片占位：rain_off.png)
+![体积雨 - 关闭](/figs/rain_off.png)
 
 <p style="text-align:center;"><strong>图 4.1：开启 / 关闭体积雨着色器的对比</strong></p>
 ---
@@ -339,9 +359,10 @@ private void OnRenderImage(RenderTexture src, RenderTexture dst) {
 
 **效果展示。**
 
-![神光 True End](图片占位：godray.png)
+![神光 True End](/figs/godray.png)
 
-<p style="text-align:center;"><strong>图 4.3：True End 时"阳光穿透乌云"的神光演出</strong></p>
+<p style="text-align:center;"><strong>图 4.3：True End 时的神光演出</strong></p>
+
 ---
 
 ### 体积雾 Volumetric Fog（Ray Marching + Beer-Lambert 大气散射）
@@ -370,8 +391,8 @@ return fixed4(scene * T + fog, 1.0);
 
 **效果展示：**
 
-![体积雾 - 开启](/figs/fog_on.png)
-![体积雾 - 开启2](/figs/fog_on2.png)
+![体积雾开启](/figs/fog_on.png)
+![体积雾 - 关闭](/figs/rain_off.png)
 
 <p style="text-align:center;"><strong>图 4.4：开启 / 关闭体积雾的大气透视对比</strong></p>
 ---
@@ -403,7 +424,8 @@ float3 p = v.vertex.xyz + normalize(v.normal) * disp;
 
 **效果展示：**
 
-![声波可视化](图片占位：audiowave.png)
+![声波可视化](/figs/audiowave.png)
+![声波可视化2](/figs/audiowave2.png)
 
 <p style="text-align:center;"><strong>图 4.5：随歌声起伏的声波环</strong></p>
 ---
@@ -434,7 +456,9 @@ fixed3 col = lerp(_WaterColor.rgb, refl, saturate(_ReflStrength*(fres+0.15)));
 
 **效果展示。**
 
-![水面反射](图片占位：water.png)
+![水面反射](/figs/water.png)
+![水面反射2](/figs/water2.png)
+![水面反射3](/figs/water3.png)
 
 <p style="text-align:center;"><strong>图 4.6：歌者舞台前反射水池中的倒影</strong></p>
 ---
@@ -464,7 +488,8 @@ col = _HoloColor.rgb * tex.rgb * lerp(1.0, scan, _ScanStrength) + _RimColor.rgb 
 
 ![全息投影](/figs/hologram.png)
 
-<p style="text-align:center;"><strong>图 4.7：神谕之境的全息信息面板</strong></p>
+<p style="text-align:center;"><strong>图 4.7：神谕之境的全息面板</strong></p>
+
 ---
 
 ## 效果联动：时间线与结局演出
@@ -487,9 +512,18 @@ if (_godRay != null) _godRay.Intensity = Mathf.Lerp(0f, RayPeak, k);
 
 > **渲染顺序的工程细节**：体积雾与神光都走主相机 `OnRenderImage`，雾若后执行会盖住神光，故时间线在雾完全散去后显式 `_fog.enabled = false`，确保圣光不被覆盖。
 
-![True End 演出](图片占位：trueend.png)
 
-> *图 4.1：雨停 → 阳光穿透 → 十指相扣的 True End 演出（预留截图）*
+![True End 演出](/figs/fog_de.png)
+
+<p style="text-align:center;"><strong>图 5.1：舞台出现，天依来到歌者身边</strong></p>
+
+![True End 演出2](/figs/godray.png)
+
+<p style="text-align:center;"><strong>图 5.2：雨停，雾散，阳光穿透</strong></p>
+
+![True End 演出3](/figs/true_end.png)
+
+<p style="text-align:center;"><strong>图 5.3：True End 演出</strong></p>
 
 ---
 
@@ -503,7 +537,11 @@ if (_godRay != null) _godRay.Intensity = Mathf.Lerp(0f, RayPeak, k);
 - **舞台模型**：`assets/models/stage`（含 `MeshCollider`），歌者立于其上，呼应"音乐厅舞台上的歌者"设定。
 - **自定义标题界面**（`title-screen.json`）：关闭随机 NH 星球与默认篝火星球，让歌者立于缓慢旋转的舞台之上，并以《世末歌者》伴奏作为菜单 BGM——把图形与叙事氛围从进入游戏前就建立起来。
 
-### 卡通渲染（UTS2，进行中）
+![stage](/figs/stage.png)
+
+<p style="text-align:center;"><strong>图 6.1：舞台模型</strong></p>
+
+### 卡通渲染
 
 MMD 模型默认的 Standard PBR 材质在二次元角色上"发灰发塑料"。本项目在 Unity 2019.4 + 内置渲染管线的硬约束下，调研并选用 **UnityChanToonShaderVer2（UTS2，v2.0.9）** 作为卡通渲染方案（URP 专用的 UTS3 最低要 2020.3，被排除）：
 
@@ -516,16 +554,31 @@ MMD 模型默认的 Standard PBR 材质在二次元角色上"发灰发塑料"。
 
 > 详细选型论证与逐材质方案见 Github 仓库 `logs/5.30_Unity.md`、`logs/5.28_TA.md`。
 
-### 待机动画与 FFT 自发光（规划中）
+### 待机动画
 
-- **待机动画**：为两个 MMD 模型接入循环待机动作（Mixamo Humanoid 重定向 或 MMD 原生 VMD 两条路线），随 prefab 上的 `Animator` 打进同一 bundle，由 NH 实例化后自动循环，无需额外 C#。方案见 `logs/idle_animation_guide.md`。
-- **FFT 自发光联动**：计划把声波可视化（§3.5）的实时 FFT 频谱复用到歌者衣物/耳机的自发光材质——低频驱动"心跳"、整体能量驱动"波形"，配合 Bloom 让角色随歌声呼吸发光，把声波环、神光、角色串成一台完整演出。
+直接把两个人物模型打入游戏，一点动作都不加显然是不合适的，不美观也不好看。所以我们为两个 MMD 模型接入循环待机动作（使用了Mixamo Humanoid 重定向和 MMD 原生 VMD 两条路线），随 prefab 上的 `Animator` 打进同一 bundle，由 NH 实例化后自动循环，无需额外 C#。
+
+> 详细方案见 Github 仓库 `logs/idle_animation_guide.md`。
+
+洛天依的模型使用的是一个从官方模型改过来的精致模型，网格面数、顶点数过大，布料解算非常慢，导入 Blender 之后卡死了俩小时才尝试把物理烘焙了出来，但是放进 Unity 之后很快就卡死了。。。最后我放弃了给天依上精致MMD 动作，在 Unity 里面使用了从 Adobe Mixamo 网站里下载的一个待机动作（这个没穿模，想不穿模还是太难了，这个模型骨骼不兼容太神秘了）。
+
+![ty](/figs/tianyi.png)
+
+<p style="text-align:center;"><strong>图 6.3.1：天依站立动作</strong></p>
+
+乐正绫使用了一个比较神人的弹吉他动作（我翻遍全网就找到这一个坐着弹吉他的 VMD，你不能指望我一点一点 K 帧吧.jpg），配了一个铃芽之旅小板凳坐着，感觉还不赖。
+
+![yzl](/figs/with_guitar.png)
+
+<p style="text-align:center;"><strong>图 6.3.2：乐正绫坐弹吉他动作</strong></p>
+
+因为游戏本体的角色就没搞物理烘焙，再加上我们自己搞炸了，就放弃物理效果了（在太空里面没有重力，反正也衣服也不会真的随重力下垂哈哈）
 
 ## 运行与使用方法
 
-1. 安装 Outer Wilds Mod Manager 与 New Horizons 依赖；
+1. 安装 Outer Wilds Mod Manager 与 New Horizons 依赖，最好也安装中文翻译补丁；
 2. 将本 MOD 放入 OWML Mods 目录（`csproj.user` 配置了 `dotnet build` 自动部署）；
-3. 在 Mod Manager 中启用 *The Singer Of The End*，进入游戏选择 *世末* 星系；
+3. 在 Mod Manager 中启用 *The Singer Of The End*，启动游戏，可以在运行日志里查看各个组件是否正确配置；
 4. 在游戏内 MOD 设置面板中可**逐项开关**七个着色器效果，并支持调试 / 重置剧情进度。
 
 各效果的开关键名：
@@ -542,13 +595,13 @@ MMD 模型默认的 Standard PBR 材质在二次元角色上"发灰发塑料"。
 
 ---
 
-## 总结与展望
+## 总结与致谢
 
-本项目在 Outer Wilds 内置渲染管线下，从零实现了覆盖后处理、粒子、程序化材质、网格变形、平面反射、程序化纹理等多个图形学分支的 **7 个自定义着色器**，并以一套配置/控制器/时间线系统把它们组织成服务于《世末歌者》叙事的整体。在此之上还搭建了一条角色美术管线：双 MMD 角色、自制舞台、自定义标题界面，以及正在落地的 UTS2 卡通渲染。过程中解决了球面星球的雨向、屏幕空间深度获取、平面反射递归、后处理渲染顺序、AssetBundle 变体剥离等一系列工程问题。
+本项目在 Outer Wilds 内置渲染管线下，从零实现了覆盖后处理、粒子、程序化材质、网格变形、平面反射、程序化纹理等多个图形学分支的 **7 个自定义着色器**，并以一套配置/控制器/时间线系统把它们组织成服务于《世末歌者》叙事的整体。在此之上还搭建了一条角色美术管线：双 MMD 角色、自制舞台、自定义标题界面，以及UTS2 卡通渲染、待机动作绑定。过程中解决了球面星球的雨向、屏幕空间深度获取、平面反射递归、后处理渲染顺序、AssetBundle 变体剥离等一系列工程问题。
 
-**进行中 / 可改进方向**：
-- 完成角色 **UTS2 卡通渲染**进游戏验证（防粉红、法线/描边、脸部色阶微调）；
-- 为歌者/天依接入**待机动画**；
+目前的剧情内容量不多，也不够完整，实际开发过程中遇到了巨量的问题，我们两人在这两周的时间里也有非常非常繁重的工作和事务要处理，即使如此也在游戏里调试了 10 小时以上，构建项目、给模型上材质动作、找素材、处理音频等等加起来应该花费了 80 小时以上，真的已经燃尽了。原本我希望可以将这个作品发表在 Outer Wilds Mod 的官方网站上，目前看来它的质量还远远达不到我自己的期望，也切切实实感受到了游戏开发的困难，以及做好内容、做高质量内容的不容易。
+
+感谢 Outer Wilds 项目组，他们绝妙的创意铸就了经典；感谢全世界的游戏爱好者，他们自发组织了模组制作相关的规范，创造了良好的交流环境，留下了宝贵的参考资料和教程网站资源；感谢强大的 AI 工具，没有你们我估计早就从理化十八楼跳了；最后感谢刘立刚老师带我们走进计算机图形学这门精彩的科学，以及三位助教对我们学习的支持，这学期每一份作业的完成都不开你们的努力！看到自己幼稚、不成熟的想法一点一点变得完善、丰满，这种成就感是千金也换不来的！
 
 ___
 
@@ -565,7 +618,10 @@ ___
 借物表：
 
 - 乐正绫-世末歌者配布版：猫妖zhi泪 https://space.bilibili.com/3135576
-- 洛天依V4汉族篇：唯孤君
-
+- 洛天依V4汉族篇：唯孤君/Vsinger官方
 - 吉他：Sega/Ricetans90°
 - 小舞台：林依
+- 喇叭：MarsFly
+- 铃芽之旅凳子
+- 弹吉他动作：绅士黑衣
+- 待机动作：オトカム(Otokam_0510)

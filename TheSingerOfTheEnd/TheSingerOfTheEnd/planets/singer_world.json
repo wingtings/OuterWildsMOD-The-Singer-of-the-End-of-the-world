@@ -15,8 +15,8 @@
         "playerSpawnPoints": [
             {
                 "position": {"x": -10.41871, "y": 4.720157, "z": 28.50341},
-                "isDefault": true,
-                "startWithSuit": true
+                "isDefault": false,
+                "startWithSuit": false
             }
         ]
     },

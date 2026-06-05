@@ -1,3 +1,5 @@
+![世末歌者 The Singer Of The End](/figs/shimogezhe.webp)
+
 # Outer Wilds 世末歌者同人剧情 MOD 开发
 
 > Author：wingtings
@@ -104,6 +106,7 @@ TheSingerOfTheEnd/                          # 解决方案根目录
     │   │   └── bet_stele.xml               # 赌约石碑
     │   ├── dialogue/                       # 对话树 XML
     │   │   ├── tianyi_dialogue.xml         # 凡人·天依
+│   │   ├── singer_dialogue.xml         # 歌者·阿绫（只描写神态，不说话）
     │   │   └── amplifier_dialogue.xml      # 扩音装置（修复触发）
     │   └── shiplog/                        # 飞船日志
     │       ├── singer_city_log.xml         # 世末之城日志
@@ -115,7 +118,9 @@ TheSingerOfTheEnd/                          # 解决方案根目录
     │   └── english.json                    # UI/日志/对话 翻译键
     ├── assets/                             # AssetBundle 与 Shader 源码
     │   ├── models/
-    │   │   ├── singer                      # 歌者 MMD 模型 bundle（无扩展名）
+    │   │   ├── singer                      # 歌者·阿绫 MMD 模型 bundle（无扩展名）
+│   │   ├── tianyi                      # 凡人·天依 MMD 模型 bundle
+│   │   ├── stage                       # 自制舞台模型 bundle（含 MeshCollider）
     │   │   └── singer.manifest
     │   └── shaders/
     │       ├── GodRay.shader               # 神光/丁达尔（屏幕空间后处理）
@@ -375,7 +380,9 @@ TheSingerOfTheEnd/                          # 解决方案根目录
 ## 实现的内容
 
 - **场景**：以 NH 修改器注入原版废岩星（世末之城）与量子月（神谕之境），不需要自建地形
-- **角色**：歌者/天依占位模型（索拉努姆）+ 自定义 NPC 行为（面向玩家、剧情状态联动）
+- **角色**：歌者·阿绫、凡人·天依均为 **MMD 模型**（各自打包成 `singer` / `tianyi` bundle，已替换早期索拉努姆占位）+ 自定义 NPC 行为（面向玩家、剧情状态联动）
+- **舞台**：自制 `stage` 模型（含 MeshCollider），歌者立于其上
+- **标题界面 UI**：自定义 `title-screen.json` —— 歌者立于旋转舞台、播放《世末歌者》伴奏、移除默认菜单星球
 - **核心谜题**：修复扩音装置让歌声传遍废墟 → True End
 - **信号探测器**：追踪"歌者之声"信号频率找到音乐厅
 - **Nomai 翻译器**：歌者日记石碑 + 赌约石碑（可翻译）
@@ -384,29 +391,40 @@ TheSingerOfTheEnd/                          # 解决方案根目录
 - **时间线管理**：22 分钟内 God Ray / 雨量随时间渐变；True End 触发三段演出（雨停→光束爆发→平静）
 - **结局演出**：True End（屏幕通知 + 飞船日志揭示 + 天依转向歌者）
 
+### 进行中（角色 TA 美术优化）
+
+- **卡通渲染（UTS2）**：在 Unity 模板工程中引入 UnityChanToonShaderVer2（v2.0.9），把 MMD 模型的 Standard PBR 材质批量转为卡通三段色阶 + Rim Light + MatCap + 描边（批量脚本 `Assets/Editor/MmdToUTS2.cs`）。详见 `logs/5.30_Unity.md`、`logs/5.28_TA.md`。
+- **待机动画**：为歌者/天依 MMD 模型接入循环待机动作（Mixamo Humanoid 重定向 或 MMD 原生 VMD 两条路线），方案见 `logs/idle_animation_guide.md`。
+- **自发光联动 FFT**：计划把声波 FFT 频谱复用到歌者衣物/耳机的自发光材质，让角色随歌声律动（`EmissivePulseController` 思路见 `logs/5.30_Unity.md` §7）。
+
 ---
 
 ## 开发路线图（两周冲刺）
 
 ### 第 1 周：让世界能跑起来
 
-- [ ] Day 1：编译部署 → 游戏内看到两颗星球
-- [ ] Day 2：调整世末之城大气参数（雨/雾/闪电）
-- [ ] Day 3：用 Unity Explorer 找 Prop，布置广场/音乐厅/高塔
-- [ ] Day 4：配置歌者信号源（信号探测器可追踪）
-- [ ] Day 5：编写 Nomai Text XML（歌者日记 + 赌约石碑）
-- [ ] Day 6：配置 Ship Log XML + revealVolumes
-- [ ] Day 7：配置扩音器谜题（物品拾取 + 插槽）
+- [x] Day 1：编译部署 → 游戏内看到两颗星球
+- [x] Day 2：调整世末之城大气参数（雨/雾/闪电）
+- [x] Day 3：用 Unity Explorer 找 Prop，布置广场/音乐厅/高塔
+- [x] Day 4：配置歌者信号源（信号探测器可追踪）
+- [x] Day 5：编写 Nomai Text XML（歌者日记 + 赌约石碑）
+- [x] Day 6：配置 Ship Log XML + revealVolumes
+- [x] Day 7：配置扩音器谜题（物品拾取 + 插槽）
 
 ### 第 2 周：让故事能讲完
 
-- [ ] Day 8：编写天依对话 XML
-- [ ] Day 9：C# 结局判定逻辑
-- [ ] Day 10：音频素材准备与集成
-- [ ] Day 11：实现图形学效果（体积雨 或 God Ray）
-- [ ] Day 12：实现第 2 个图形学效果
-- [ ] Day 13：全流程测试 + bug 修复
-- [ ] Day 14：录制演示视频 + 整理文档提交
+- [x] Day 8：编写天依对话 XML（+ 歌者 / 扩音装置对话）
+- [x] Day 9：C# 结局判定逻辑
+- [x] Day 10：音频素材准备与集成
+- [x] Day 11：实现图形学效果（体积雨 + 涟漪）
+- [x] Day 12：实现第 2 个图形学效果（God Ray）
+- [x] 追加：体积雾 / 声波可视化 / 水面反射 / 全息投影（共 7 个自定义 shader）
+- [x] 追加：MMD 模型（歌者 + 天依）、自制舞台模型、自定义标题界面
+- [ ] 进行中：UTS2 卡通渲染、待机动画、FFT 自发光联动
+- [ ] 全流程测试 + bug 修复（涟漪朝向、water 反射仍在调）
+- [ ] 录制演示视频 + 整理文档提交
+
+> **当前进度（2026-06-04）**：剧情链路、谜题、7 个自定义着色器、双 MMD 角色、舞台与标题界面均已落地并可在游戏内运行；剩余工作集中在角色卡通渲染（TA 美术）、待机动画与最终调优。
 
 ---
 

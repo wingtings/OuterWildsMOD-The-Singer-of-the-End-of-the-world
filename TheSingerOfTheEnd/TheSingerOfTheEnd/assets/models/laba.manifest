@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2496923743
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f19bcf958ceaf858df85b81144c485ef
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d39f164cba35ed725d70de1c0ba3e20d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Model/laba.prefab
+Dependencies: []

@@ -48,7 +48,7 @@ namespace TheSingerOfTheEnd
             _planetRoot     = planet.transform;
             _singerTransform = FindDeep(planet.transform, "歌者(阿绫)");
 
-            TryAttach(planet.transform, "蓝发女孩(天依占位)", NpcRole.Tianyi);
+            TryAttach(planet.transform, "天依", NpcRole.Tianyi);
             TryAttach(planet.transform, "歌者(阿绫)",         NpcRole.Singer);
         }
 

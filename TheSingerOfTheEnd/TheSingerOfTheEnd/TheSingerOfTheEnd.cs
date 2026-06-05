@@ -245,6 +245,9 @@ namespace TheSingerOfTheEnd
             HologramController.Setup(NewHorizons);
 
             NpcBehavior.Setup(NewHorizons);
+            StageController.Setup(NewHorizons);   // 舞台:真结局前隐藏,达成时由 TimelineManager 触发显现
+            SingerModelController.Setup(NewHorizons); // 歌者模型:真结局前弹吉他模型,达成时由 TimelineManager 切为正常模型
+            DialogueSwapController.Setup(NewHorizons); // 对话:真结局达成时把天依/歌者替换为真结局版对话
             TimelineManager.Setup();
 
             ModHelper.Console.WriteLine("[世末歌者] SetupGraphics complete.", MessageType.Success);

@@ -73,6 +73,15 @@ namespace TheSingerOfTheEnd
             _trueEndPlaying = true;
             _trueEndTimer = 0f;
 
+            // 舞台浮现:真结局达成,世界得赎,歌者立身之台显现。
+            StageController.Instance?.Reveal();
+
+            // 歌者模型切换:真结局达成,歌者放下吉他 → 弹吉他模型切为正常模型。
+            SingerModelController.Instance?.SwitchToNormal();
+
+            // 对话替换:把天依/歌者的对话树整体换成真结局版内容。
+            DialogueSwapController.Instance?.SwapToTrueEnd();
+
             EnsureGodRay();
 
             // 强制神光从 0 升起:从固定屏幕位置射出合成阳光,胜利后无论玩家朝哪都能看到("阳光穿透乌云")。

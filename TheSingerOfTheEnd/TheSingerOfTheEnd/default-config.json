@@ -8,8 +8,6 @@
       "min": 0.0,
       "max": 1.0
     },
-    "Rain Enabled (启用雨)": true,
-    "Lightning Enabled (启用闪电)": true,
     "Sun Intensity (日照强度)": {
       "type": "slider",
       "value": 0.6,

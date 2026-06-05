@@ -1,0 +1,63 @@
+<DialogueTree xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Outer-Wilds-New-Horizons/new-horizons/main/NewHorizons/Schemas/dialogue_schema.xsd">
+
+    <!-- 真结局版对话:扩音装置修复→歌声传遍全城→天依自愿走到歌者身旁,雨停,轮回终止。
+         本文件由 DialogueSwapController 在 TimelineManager.PlayTrueEnd() 时整体替换进天依对话树。
+         此时她已不再是"蓝发女孩",身份揭晓为"天依"。 -->
+    <NameField>天依</NameField>
+
+    <DialogueNode>
+        <Name>Start</Name>
+        <EntryCondition>DEFAULT</EntryCondition>
+        <Dialogue>
+            <Page>（雨停了。蓝发的女孩就静静站在歌者身旁，听见有人走近，她缓缓转过头来——这一次，她的眼里有了光。）</Page>
+            <Page>你来了……谢谢你。是你修好了那台装置，让她的歌，第一次完整地、清晰地传到了我的耳边。</Page>
+            <Page>我在这座城里活了太久，久到忘了自己还在等什么。直到那首歌穿过雨幕落到我心上——我才终于明白，我一直在等的，是有人愿意陪我，也是我愿意去陪着的那个人。</Page>
+        </Dialogue>
+        <DialogueOptionsList>
+            <DialogueOption>
+                <Text>你叫什么名字？</Text>
+                <DialogueTarget>RevealName</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>是你自己决定走到她身边的吗？</Text>
+                <DialogueTarget>OwnChoice</DialogueTarget>
+            </DialogueOption>
+            <DialogueOption>
+                <Text>（什么都不说，把这一刻留给她们两人。）</Text>
+                <DialogueTarget>Quiet</DialogueTarget>
+            </DialogueOption>
+        </DialogueOptionsList>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>RevealName</Name>
+        <Dialogue>
+            <Page>（她轻轻笑了，像是卸下了背负过无数个轮回的重担。）</Page>
+            <Page>天依。我叫天依。已经很久……很久没有人问起过我的名字了。</Page>
+            <Page>能在最后被人记住名字，被人听见——真好。</Page>
+        </Dialogue>
+        <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>OwnChoice</Name>
+        <Dialogue>
+            <Page>嗯。没有人替我做这个决定，是我自己想走过来的。</Page>
+            <Page>那座神域石碑上的约定，我大概猜到了几分——这个选择，必须出于我的自愿，才算数。你可以帮我们，却不能替我选。</Page>
+            <Page>而我从未像现在这样确定过：哪怕只剩下最后一点点时间，我也想和她一起，把这首歌听到最后。</Page>
+        </Dialogue>
+        <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+    </DialogueNode>
+
+    <DialogueNode>
+        <Name>Quiet</Name>
+        <Dialogue>
+            <Page>（她向歌者又靠近一步，轻轻握住了对方一直在颤抖的手。）</Page>
+            <Page>（雨后的天光从裂开的云层间倾泻下来，照在两个终于不再孤单的人身上。）</Page>
+            <Page>（孤独的轮回，到此为止了。）</Page>
+        </Dialogue>
+        <SetCondition>TIANYI_HEARD_SONG</SetCondition>
+    </DialogueNode>
+
+</DialogueTree>

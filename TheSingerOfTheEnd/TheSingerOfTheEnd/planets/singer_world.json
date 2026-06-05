@@ -49,11 +49,12 @@
                 "alignRadial": true
             },
             {
-                "comment": "高塔角落的精密零件 —— NH 可拾取物品(collectible item)。拾取后置 HAS_AMPLIFIER_PART 对话条件,解锁扩音器修复选项;丢弃会清除条件(默认),即必须随身携带。位置贴着重力炮,需随高塔最终位置一起用 P 键微调。",
-                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "comment": "高塔角落的精密零件 —— NH 可拾取物品(collectible item),模型改用自制喇叭(AssetBundle: assets/models/laba)。拾取后置 HAS_AMPLIFIER_PART 对话条件,解锁扩音器修复选项;丢弃会清除条件(默认),即必须随身携带。位置/缩放需进游戏用 P 键微调;若拾取无法瞄准,给 laba.prefab 加一个 Collider 后重新打包。",
+                "assetBundle": "assets/models/laba",
+                "path": "Assets/Model/laba.prefab",
                 "rename": "精密零件",
                 "position": {"x": 12.44731, "y": 79.70683, "z": 11.53563},
-                "scale": 0.6,
+                "scale": 2.0,
                 "alignRadial": true,
                 "item": {
                     "name": "精密零件",
@@ -65,11 +66,12 @@
                 }
             },
             {
-                "comment": "[DEBUG] 共鸣核心 —— 扩音器第二枚零件,暂放在歌者旁边方便测试(正式版可移回神谕之境)。itemType=AmplifierCore 对应音乐厅 B 号插槽。",
-                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "comment": "[DEBUG] 共鸣核心 —— 扩音器第二枚零件,模型改用自制喇叭(AssetBundle: assets/models/laba)。暂放在歌者旁边方便测试(正式版可移回神谕之境)。itemType=AmplifierCore 对应音乐厅 B 号插槽。位置/缩放需进游戏用 P 键微调;若拾取无法瞄准,给 laba.prefab 加一个 Collider 后重新打包。",
+                "assetBundle": "assets/models/laba",
+                "path": "Assets/Model/laba.prefab",
                 "rename": "共鸣核心",
                 "position": {"x": -7.5, "y": -6.0, "z": 29.3},
-                "scale": 0.6,
+                "scale": 2.0,
                 "alignRadial": true,
                 "item": {
                     "name": "共鸣核心",
@@ -174,11 +176,30 @@
                 "alignRadial": true
             },
             {
-                "comment": "歌者·阿绫(MMD 模型,AssetBundle: assets/models/singer) —— 北极平台",
+                "comment": "歌者·阿绫(正常模型,AssetBundle: assets/models/singer) —— 北极平台。真结局达成后显示(世界得赎,歌者放下吉他)。真结局前由 SingerModelController 隐藏。",
                 "assetBundle": "assets/models/singer",
                 "path": "Assets/Model/Singer.prefab",
                 "rename": "歌者(阿绫)",
                 "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "歌者·阿绫(弹吉他模型,AssetBundle: assets/models/singer_with_guitar) —— 与正常模型同一位置。真结局达成前显示(歌者仍在弹奏),达成真结局时由 TimelineManager 切换为正常模型。显隐切换见 SingerModelController。",
+                "assetBundle": "assets/models/singer_with_guitar",
+                "path": "Assets/Model/Singer_with_Guitar.prefab",
+                "rename": "歌者(弹吉他)",
+                "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
+                "scale": 1.0,
+                "alignRadial": true
+            },
+            {
+                "comment": "凳子(自制模型,AssetBundle: assets/models/dengzi) —— 弹吉他的歌者坐的凳子,与歌者同位置。真结局达成前显示,达成时由 SingerModelController 随『歌者(弹吉他)』一起隐藏。position/scale 为初始值,需进游戏用 P 键(Debug Raycast)按歌者坐姿微调。",
+                "assetBundle": "assets/models/dengzi",
+                "path": "Assets/Model/dengzi.prefab",
+                "rename": "凳子",
+                "position": {"x": -6.519388, "y": 2.377597, "z": 29.57108},
+                "rotation": {"x": 0, "y": 90, "z": 0},
                 "scale": 1.0,
                 "alignRadial": true
             },
@@ -192,29 +213,35 @@
                 "alignRadial": true
             },
             {
-                "comment": "扩音器·A 号插槽载体(空对象,itemSocket 是 detail 的字段而非顶层数组)。接受高塔的精密零件 AmplifierPart,插入后置 AMP_SOCKET_A。紧贴扩音器对话点(-2.38,-0.98,30.01)方便测试。",
-                "position": {"x": -2.180819, "y": 1.547531, "z": 30.14622},
+                "comment": "扩音器·A 号插槽。原为不可见空对象,玩家无法瞄准插入 → 改用可见挪麦小盒作载体(自带碰撞体),玩家能看到并对准。接受高塔的精密零件 AmplifierPart,插入后置 AMP_SOCKET_A。注意:itemSocket 的 position 是『插入点相对 detail 的偏移』,不是 detail 本身的位置;detail 位置由顶层 position 决定。零件会显示在 detail 上方 0.3m。",
+                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "rename": "A号插槽",
+                "position": {"x": -4.714604, "y": -2.234051, "z": 30.89454},
+                "scale": 0.35,
                 "alignRadial": true,
                 "itemSocket": {
                     "itemType": "AmplifierPart",
                     "isRelativeToParent": true,
-                    "position": {"x": 0, "y": 0, "z": 0},
+                    "position": {"x": 0, "y": 0.3, "z": 0},
                     "interactRange": 3,
-                    "colliderRadius": 0.6,
+                    "colliderRadius": 0.75,
                     "insertCondition": "AMP_SOCKET_A",
                     "insertFact": "AMPLIFIER_FIXED"
                 }
             },
             {
-                "comment": "扩音器·B 号插槽载体(空对象)。接受共鸣核心 AmplifierCore,插入后置 AMP_SOCKET_B。紧贴扩音器对话点,与 A 槽相距约 0.25m。",
-                "position": {"x": -2.003346, "y": 0.6702824, "z": 30.21571},
+                "comment": "扩音器·B 号插槽。同上,改用可见挪麦小盒作载体。接受共鸣核心 AmplifierCore,插入后置 AMP_SOCKET_B。与 A 槽相距约 1.2m,colliderRadius 0.75 不要再放大,否则两槽触发体会重叠。",
+                "path": "Comet_Body/Sector_CO/Sector_CometInterior/Props_CometInterior/Prefab_NOM_Box",
+                "rename": "B号插槽",
+                "position": {"x": -3.51632, "y": -1.944046, "z": 31.07833},
+                "scale": 0.35,
                 "alignRadial": true,
                 "itemSocket": {
                     "itemType": "AmplifierCore",
                     "isRelativeToParent": true,
-                    "position": {"x": 0, "y": 0, "z": 0},
+                    "position": {"x": 0, "y": 0.3, "z": 0},
                     "interactRange": 3,
-                    "colliderRadius": 0.6,
+                    "colliderRadius": 0.75,
                     "insertCondition": "AMP_SOCKET_B"
                 }
             }
@@ -265,7 +292,7 @@
             {
                 "comment": "损坏的扩音装置(音乐厅舞台后方)",
                 "xmlFile": "planets/dialogue/amplifier_dialogue.xml",
-                "position": {"x": -2.382755, "y": -0.9785807, "z": 30.00782},
+                "position": {"x": -4.244658, "y": -2.011732, "z": 30.97386},
                 "radius": 2,
                 "range": 4,
                 "alignRadial": true
@@ -276,6 +303,22 @@
                 "position": {"x": -6.719388, "y": 2.247597, "z": 29.43108},
                 "radius": 2,
                 "range": 5,
+                "alignRadial": true
+            }
+        ],
+        "warpTransmitters": [
+            {
+                "comment": "世末之城 → 神域之境。踩上即传送到量子卫星上名为 GodRealmPad 的接收台。位置贴近歌者身侧空地,需进游戏用 P 键微调避免与舞台重叠。",
+                "position": {"x": -63.83001, "y": -19.57564, "z": 35.43949},
+                "alignRadial": true,
+                "warpReceiver": "GodRealmPad"
+            }
+        ],
+        "warpReceivers": [
+            {
+                "comment": "从神域之境返回的落点。被 god_realm.json 里 warpReceiver=CityPad 的发射台指向。",
+                "rename": "CityPad",
+                "position": {"x": -69.52022, "y": -12.00511, "z": 23.86612},
                 "alignRadial": true
             }
         ]

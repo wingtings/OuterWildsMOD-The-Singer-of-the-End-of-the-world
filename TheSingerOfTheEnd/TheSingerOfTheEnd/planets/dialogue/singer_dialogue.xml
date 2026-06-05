@@ -5,34 +5,8 @@
          因此对话全部以括号内的"神态/动作描写"呈现,她本人不发一言。 -->
     <NameField>歌者</NameField>
 
-    <!-- True End 后:歌声已传遍全城,雨停,天依走到身旁 -->
-    <DialogueNode>
-        <Name>AfterSong</Name>
-        <EntryCondition>AMPLIFIER_REPAIRED</EntryCondition>
-        <Dialogue>
-            <Page>（歌声曾透过扩音器传遍整座城市的雨幕——而此刻，雨已经停了。）</Page>
-            <Page>（她望着终于走到身边的蓝发女孩，唇瓣轻颤，却依旧没有发出声音。）</Page>
-            <Page>（但她的眼泪落了下来。那是赎罪般的、也是解脱般的泪。）</Page>
-        </Dialogue>
-        <DialogueOptionsList>
-            <DialogueOption>
-                <Text>（轻声告诉她：有人听见你了。）</Text>
-                <DialogueTarget>SingerHeard</DialogueTarget>
-            </DialogueOption>
-            <DialogueOption>
-                <Text>（静静退后，把舞台留给她们两人。）</Text>
-            </DialogueOption>
-        </DialogueOptionsList>
-    </DialogueNode>
-
-    <DialogueNode>
-        <Name>SingerHeard</Name>
-        <Dialogue>
-            <Page>（她极轻、极郑重地，向你鞠了一躬。）</Page>
-            <Page>（随后转向身旁的女孩，无声地绽出一个释然的微笑。）</Page>
-            <Page>（缚住歌者多年的赌约枷锁，在这一刻，碎了。）</Page>
-        </Dialogue>
-    </DialogueNode>
+    <!-- 注意:真结局达成后的对话不再写在这里,而是由 DialogueSwapController 在 PlayTrueEnd()
+         时整体替换为 singer_dialogue_trueend.xml(见该文件)。本文件只保留"真结局前"的状态。 -->
 
     <!-- 默认:歌者无法言语 -->
     <DialogueNode>

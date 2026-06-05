@@ -123,6 +123,23 @@
                 "rotation": {"x": 350.6703, "y": 143.8429, "z": 1.822162},
                 "normal": {"x": -0.06992699, "y": 0.9862729, "z": 0.1495872}
             }
+        ],
+        "warpReceivers": [
+            {
+                "comment": "世末之城传送来的落点(神域之境)。被 singer_world.json 里 warpReceiver=GodRealmPad 的发射台指向。sectorPath 帮助落地时量子卫星扇区/道具加载。位置需进游戏用 P 键微调。",
+                "rename": "GodRealmPad",
+                "position": {"x": -2.0, "y": 70.0, "z": 4.0},
+                "alignRadial": true,
+                "sectorPath": "Sector_QuantumMoon"
+            }
+        ],
+        "warpTransmitters": [
+            {
+                "comment": "神域之境 → 世末之城。踩上即传送回废岩星上名为 CityPad 的接收台。",
+                "position": {"x": 2.0, "y": 70.0, "z": 4.0},
+                "alignRadial": true,
+                "warpReceiver": "CityPad"
+            }
         ]
     },
 

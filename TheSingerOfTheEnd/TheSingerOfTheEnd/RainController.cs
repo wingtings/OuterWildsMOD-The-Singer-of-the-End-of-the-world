@@ -338,10 +338,15 @@ namespace TheSingerOfTheEnd
                     mat.SetColor(Shader.PropertyToID("_SpecColor2"),       new Color(0.55f, 0.6f, 0.7f, 1f));
                     mat.SetFloat(Shader.PropertyToID("_PuddleRadius"),   2.0f);
                     mat.SetFloat(Shader.PropertyToID("_RippleBumpiness"),1.5f);
-                    mat.SetFloat(Shader.PropertyToID("_RippleDensity"),  10f);
+                    mat.SetFloat(Shader.PropertyToID("_RippleDensity"),  12f);   // 涟漪变小后用更多滴填满贴片
                     mat.SetFloat(Shader.PropertyToID("_EdgeFade"),       0f);
-                    mat.SetFloat(Shader.PropertyToID("_Wavelength"),     0.30f);
-                    mat.SetFloat(Shader.PropertyToID("_RippleRadius"),   1.0f);
+                    // —— 涟漪大小三个旋钮(都在这里改, 无需重打 shader bundle) ——
+                    // 单环屏幕直径 ≈ _RippleRadius × (贴片世界尺寸 / (2×_PuddleRadius))
+                    //              = _RippleRadius × (2 / (2×2)) = _RippleRadius × 0.5
+                    // 旧值 _RippleRadius=1.0/_Wavelength=0.30 → 环直径≈1m, 偏大;
+                    // 调小为下面的值 → 环直径≈0.4m, 波长更细, 呈"细密小水花"。
+                    mat.SetFloat(Shader.PropertyToID("_Wavelength"),     0.14f);
+                    mat.SetFloat(Shader.PropertyToID("_RippleRadius"),   0.4f);
                     float lifeJitter = (c.k % 7) / 7f * 0.4f - 0.2f;
                     mat.SetFloat(Shader.PropertyToID("_RippleLifetime"), 1.2f + lifeJitter);
                 }

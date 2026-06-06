@@ -281,6 +281,7 @@ bool inAtmosphere = Vector3.Distance(player.position, _planet.position)
 **效果展示。**
 
 ![体积雨 - 开启](/figs/rain_on.png)
+
 ![体积雨 - 关闭](/figs/rain_off.png)
 
 <p style="text-align:center;"><strong>图 4.1：开启 / 关闭体积雨着色器的对比</strong></p>
@@ -316,9 +317,11 @@ float fresnel = pow(1.0 - saturate(dot(N, V)), _FresnelPower);
 
 **效果展示：**
 
-![地面涟漪](图片占位：ripple.png)
+![地面涟漪](/figs/rainripple.png)
 
-<p style="text-align:center;"><strong>图 4.2：歌者舞台周围的程序化涟漪水洼</strong></p>
+![地面涟漪](/figs/rainripple2.png)
+
+<p style="text-align:center;"><strong>图 4.2：歌者舞台周围的涟漪水洼</strong></p>
 ---
 
 ### God Rays 神光 / 丁达尔效应（屏幕空间体积光散射，三 Pass 后处理）
@@ -344,7 +347,7 @@ for (int s = 0; s < _Samples; s++) {
 }
 ```
 
-**实现要点（叙事驱动的设计）：** 按剧情需要，神光**只在 True End 演出期间**出现。`GodRayController` 提供 `ForceRays` 强制模式：把天空阈值 `_DepthThreshold` 降为 0、在固定屏幕坐标合成一个"人造太阳盘"，于是胜利时无论玩家朝哪都能看到"阳光穿透乌云"的光柱，而不受太阳实际朝向限制。
+**实现要点（叙事驱动的设计）：** 按剧情需要，神光**只在 True End 演出期间**出现。`GodRayController` 提供 `ForceRays` 强制模式：把天空阈值 `_DepthThreshold` 降为 0、在固定屏幕坐标合成一个"人造太阳盘"，于是胜利时无论玩家朝哪都能看到，不受太阳实际朝向限制。
 
 ```csharp
 private void OnRenderImage(RenderTexture src, RenderTexture dst) {
@@ -392,6 +395,7 @@ return fixed4(scene * T + fog, 1.0);
 **效果展示：**
 
 ![体积雾开启](/figs/fog_on.png)
+
 ![体积雾 - 关闭](/figs/rain_off.png)
 
 <p style="text-align:center;"><strong>图 4.4：开启 / 关闭体积雾的大气透视对比</strong></p>
@@ -425,6 +429,7 @@ float3 p = v.vertex.xyz + normalize(v.normal) * disp;
 **效果展示：**
 
 ![声波可视化](/figs/audiowave.png)
+
 ![声波可视化2](/figs/audiowave2.png)
 
 <p style="text-align:center;"><strong>图 4.5：随歌声起伏的声波环</strong></p>
@@ -457,7 +462,9 @@ fixed3 col = lerp(_WaterColor.rgb, refl, saturate(_ReflStrength*(fres+0.15)));
 **效果展示。**
 
 ![水面反射](/figs/water.png)
+
 ![水面反射2](/figs/water2.png)
+
 ![水面反射3](/figs/water3.png)
 
 <p style="text-align:center;"><strong>图 4.6：歌者舞台前反射水池中的倒影</strong></p>
@@ -487,6 +494,8 @@ col = _HoloColor.rgb * tex.rgb * lerp(1.0, scan, _ScanStrength) + _RimColor.rgb 
 **效果展示。**
 
 ![全息投影](/figs/hologram.png)
+
+![全息投影2](/figs/hologram2.png)
 
 <p style="text-align:center;"><strong>图 4.7：神谕之境的全息面板</strong></p>
 

@@ -27,9 +27,13 @@ namespace TheSingerOfTheEnd
         private const float ScanCellSize = 0.5f;  // 网格分辨率 (m), 0.5m 给出 60×60 格
         private const float ScanRayUp    = 12f;   // 射线起点抬到切平面以上多少米
         private const float ScanRayLen   = 30f;   // 射线最大长度
-        private const float WaterLift    = 0.0f;  // 水面 = 低位地形海拔 + 这个偏移 (=水深露头)
+        private const float WaterLift    = -0.3f; // 水面 = 低位地形海拔 + 这个偏移 (负值 = 整体压低水位 → 歌者脚下变浅)
         private const int   MinHitsToBuild = 200; // 命中少于这个数视为地形未加载, 下帧重试
         private const int   ShoreFadeCells = 4;   // 岸边羽化嬽量 (格) - 0=水岸 → 1=足够深不透
+        // 球心沿径向反方向(从星心穿过 PoolLocal 的延长线再往下)平移多少米; 0=贴星球曲率, 越大水面越扁。
+        // 等效于把水面所在球的半径从 waterAlt 增大到 waterAlt+CurvatureBoost,
+        // 球面仍过 PoolLocal 但远端不再"塌"那么厉害 → 岸自然往外推, 歌者脚下水位不变。
+        private const float CurvatureBoost = 17.5f;
         private bool _meshBuilt;
 
         private static readonly int _PlanetCenterID  = Shader.PropertyToID("_PlanetCenter");
@@ -85,11 +89,13 @@ namespace TheSingerOfTheEnd
             if (_root != null) _root.SetActive(active);
         }
 
-        // 每帧把星球中心位置同步给 shader; 网格未生成时反复尝试 (等地形碰撞体加载)。
+        // 每帧把(虚拟)球心位置同步给 shader; 网格未生成时反复尝试 (等地形碰撞体加载)。
+        // 虚拟球心 = 星球中心沿"星心→PoolLocal"反方向移 CurvatureBoost 米 → 球面更扁。
         private void Update()
         {
             if (_mat == null || _planet == null) return;
-            _mat.SetVector(_PlanetCenterID, _planet.position);
+            Vector3 dWorld = _planet.TransformDirection(PoolLocal.normalized);
+            _mat.SetVector(_PlanetCenterID, _planet.position - dWorld * CurvatureBoost);
             if (!_meshBuilt) TryBuildTerrainMesh();
         }
 
@@ -219,29 +225,48 @@ namespace TheSingerOfTheEnd
             float p25 = sorted[sorted.Count / 4];
             float waterAlt = p25 + WaterLift;
 
+            // 球心下移 CurvatureBoost 后的新球半径; 球面仍过 PoolLocal (那里水位=waterAlt 不变),
+            // 切平面偏移 r 处水位提高 ≈ 0.5 * r² * (1/waterAlt - 1/R)。
+            float R        = waterAlt + CurvatureBoost;
+            float invDelta = 0.5f * (1f / waterAlt - 1f / R);
+
             var wet = new bool[n, n];
             int wetCount = 0;
             for (int j = 0; j < n; j++)
             for (int i = 0; i < n; i++)
-                if (hits[i, j] && altitudes[i, j] < waterAlt)
+            {
+                if (!hits[i, j]) continue;
+                float u = (i - half) * ScanCellSize;
+                float v = (j - half) * ScanCellSize;
+                float waterAltAtCell = waterAlt + (u * u + v * v) * invDelta;
+                if (altitudes[i, j] < waterAltAtCell)
                 {
                     wet[i, j] = true;
                     wetCount++;
                 }
+            }
 
             if (wetCount < 4)
             {
                 // 区域过于平坦 → 退一步, 取最低 15% 强制成池
                 float fallback = sorted[Mathf.Max(1, sorted.Count * 15 / 100)];
+                waterAlt = fallback + WaterLift;
+                R        = waterAlt + CurvatureBoost;
+                invDelta = 0.5f * (1f / waterAlt - 1f / R);
                 wetCount = 0;
                 for (int j = 0; j < n; j++)
                 for (int i = 0; i < n; i++)
-                    if (hits[i, j] && altitudes[i, j] <= fallback)
+                {
+                    if (!hits[i, j]) continue;
+                    float u = (i - half) * ScanCellSize;
+                    float v = (j - half) * ScanCellSize;
+                    float waterAltAtCell = waterAlt + (u * u + v * v) * invDelta;
+                    if (altitudes[i, j] <= waterAltAtCell)
                     {
                         wet[i, j] = true;
                         wetCount++;
                     }
-                waterAlt = fallback + WaterLift;
+                }
             }
 
             // 计算顶点到岸的 Chebyshev 距离 (格子数) → shader 里做平滑岸边透明度。
@@ -278,9 +303,46 @@ namespace TheSingerOfTheEnd
                 }
             }
 
+            // 对岸距离场做 5-tap 可分离高斯模糊 (1-4-6-4-1 / 16) → 软化 BFS 离散阶梯,
+            // 让真实地形岸的 UV 梯度更圆润, shader 端 smoothstep 出来近似高斯渐变。
+            var deepF = new float[n + 1, n + 1];
+            for (int j = 0; j <= n; j++)
+            for (int i = 0; i <= n; i++) deepF[i, j] = deep[i, j];
+
+            var tmp = new float[n + 1, n + 1];
+            // 横向
+            for (int j = 0; j <= n; j++)
+            for (int i = 0; i <= n; i++)
+            {
+                float s = 0f, w = 0f;
+                for (int k = -2; k <= 2; k++)
+                {
+                    int ii = i + k;
+                    if (ii < 0 || ii > n) continue;
+                    float kw = (k == 0) ? 6f : (Mathf.Abs(k) == 1 ? 4f : 1f);
+                    s += deepF[ii, j] * kw;
+                    w += kw;
+                }
+                tmp[i, j] = s / w;
+            }
+            // 纵向
+            for (int j = 0; j <= n; j++)
+            for (int i = 0; i <= n; i++)
+            {
+                float s = 0f, w = 0f;
+                for (int k = -2; k <= 2; k++)
+                {
+                    int jj = j + k;
+                    if (jj < 0 || jj > n) continue;
+                    float kw = (k == 0) ? 6f : (Mathf.Abs(k) == 1 ? 4f : 1f);
+                    s += tmp[i, jj] * kw;
+                    w += kw;
+                }
+                deepF[i, j] = s / w;
+            }
+
             // mesh-local 空间: +Y = 该点径向 (因为 GO 旋转把 +Y 对齐到 nrm), XZ = 切平面。
-            // 水面整体在 mesh-local Y = waterAlt - PoolLocal.magnitude (可正可负)。
-            float yLocal = waterAlt - PoolLocal.magnitude;
+            // 顶点 Y 按曲率水位算; shader 会按虚拟球再投影一次, 这里给近似 Y 让 mesh.bounds 不被 frustum 误剔除。
 
             var verts = new System.Collections.Generic.List<Vector3>();
             var nrms  = new System.Collections.Generic.List<Vector3>();
@@ -295,11 +357,13 @@ namespace TheSingerOfTheEnd
                 if (vIdx[i, j] >= 0) return vIdx[i, j];
                 float u = (i - half - 0.5f) * ScanCellSize;
                 float v = (j - half - 0.5f) * ScanCellSize;
-                verts.Add(new Vector3(u, yLocal, v));
+                float waterAltAtVert = waterAlt + (u * u + v * v) * invDelta;
+                float yLocalVert     = waterAltAtVert - PoolLocal.magnitude;
+                verts.Add(new Vector3(u, yLocalVert, v));
                 nrms .Add(Vector3.up);
-                // UV.x = 岸违距离 (0=岸 → 1=足够深), shader 用这个调 alpha 羽化。
+                // UV.x = 岸距离 (0=岸 → 1=足够深, 高斯平滑后), shader 用这个调 alpha 羽化。
                 // UV.y 未使用 (保留).
-                float shore = deep[i, j] / (float)ShoreFadeCells;
+                float shore = Mathf.Clamp01(deepF[i, j] / ShoreFadeCells);
                 uvs  .Add(new Vector2(shore, 0f));
                 return vIdx[i, j] = verts.Count - 1;
             }
@@ -327,16 +391,16 @@ namespace TheSingerOfTheEnd
             m.RecalculateBounds();
 
             GetComponent<MeshFilter>().mesh = m;
-            // 让 shader 把这些顶点投影到 waterAlt 半径球面上 → 水面随星球曲率贴近地面。
-            // (平面反射仅在 PoolLocal 切平面附近准确, 边缘会轻微偏离 —— 以几何贴地为优先)
-            _planetRadius = waterAlt;
-            _mat.SetFloat(_PlanetRadiusID, waterAlt);
+            // 让 shader 把这些顶点投影到 R 半径(虚拟扁球)上 → 水面在 PoolLocal 不变, 远端抬高。
+            // 球心已在 Update() 里每帧填到 _planet.position - dWorld*CurvatureBoost。
+            _planetRadius = R;
+            _mat.SetFloat(_PlanetRadiusID, R);
             // 岸边羽化跨越区间 (UV.x 单位): 0→_EdgeFade 是平滑过渡区。
             // 0.5 = 从岸边 → 中间深度 这段全部用于渐变。
             _mat.SetFloat("_EdgeFade", 0.5f);
             _meshBuilt = true;
 
-            Log($"水洼网格已生成: {wetCount} 格 / {n * n} 扫描点 (命中 {hitCount}), 水面海拔 {waterAlt:F2}m。", MessageType.Success);
+            Log($"水洼网格已生成: {wetCount} 格 / {n * n} 扫描点 (命中 {hitCount}), 中心水面海拔 {waterAlt:F2}m, 虚拟球半径 {R:F2}m。", MessageType.Success);
         }
 
         private static void BuildTangentBasis(Vector3 N, out Vector3 U, out Vector3 V)

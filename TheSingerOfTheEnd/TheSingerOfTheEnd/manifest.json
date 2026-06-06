@@ -4,7 +4,7 @@
   "author": "wingtings",
   "name": "The Singer Of The End",
   "uniqueName": "wingtings.TheSingerOfTheEnd",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "owmlVersion": "2.15.1",
   "dependencies": ["xen.NewHorizons"]
 }

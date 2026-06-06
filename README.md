@@ -2,9 +2,10 @@
 
 # Outer Wilds 世末歌者同人剧情 MOD 开发
 
-> Author：wingtings
->
 > 2026 USTC 计算机图形学期末大作业
+>
+> 安装与游玩步骤见 [**安装指南 guide.md**](/guide.md)。
+>
 
 ## 世末歌者原作背景
 
@@ -391,11 +392,10 @@ TheSingerOfTheEnd/                          # 解决方案根目录
 - **时间线管理**：22 分钟内 God Ray / 雨量随时间渐变；True End 触发三段演出（雨停→光束爆发→平静）
 - **结局演出**：True End（屏幕通知 + 飞船日志揭示 + 天依转向歌者）
 
-### 进行中（角色 TA 美术优化）
+### 角色 TA 美术（已完成）
 
-- **卡通渲染（UTS2）**：在 Unity 模板工程中引入 UnityChanToonShaderVer2（v2.0.9），把 MMD 模型的 Standard PBR 材质批量转为卡通三段色阶 + Rim Light + MatCap + 描边（批量脚本 `Assets/Editor/MmdToUTS2.cs`）。详见 `logs/5.30_Unity.md`、`logs/5.28_TA.md`。
-- **待机动画**：为歌者/天依 MMD 模型接入循环待机动作（Mixamo Humanoid 重定向 或 MMD 原生 VMD 两条路线），方案见 `logs/idle_animation_guide.md`。
-- **自发光联动 FFT**：计划把声波 FFT 频谱复用到歌者衣物/耳机的自发光材质，让角色随歌声律动（`EmissivePulseController` 思路见 `logs/5.30_Unity.md` §7）。
+- **卡通渲染（UTS2）**：在 Unity 模板工程中引入 UnityChanToonShaderVer2（v2.0.9），把 MMD 模型的 Standard PBR 材质批量转为卡通三段色阶 + Rim Light + MatCap + 描边（批量脚本 `Assets/Editor/MmdToUTS2.cs`），并处理了打包后的变体剥离/防"粉红"问题。详见 `logs/5.30_Unity.md`、`logs/5.28_TA.md`。
+- **待机动画**：歌者/天依 MMD 模型均已接入循环待机动作（歌者走 MMD 原生 VMD 路线，天依因高面数布料解算改用 Mixamo Humanoid 重定向），随 prefab 的 `Animator` 打进 bundle，由 NH 实例化后自动循环。方案见 `logs/idle_animation_guide.md`。
 
 ---
 
@@ -420,11 +420,11 @@ TheSingerOfTheEnd/                          # 解决方案根目录
 - [x] Day 12：实现第 2 个图形学效果（God Ray）
 - [x] 追加：体积雾 / 声波可视化 / 水面反射 / 全息投影（共 7 个自定义 shader）
 - [x] 追加：MMD 模型（歌者 + 天依）、自制舞台模型、自定义标题界面
-- [ ] 进行中：UTS2 卡通渲染、待机动画、FFT 自发光联动
-- [ ] 全流程测试 + bug 修复（涟漪朝向、water 反射仍在调）
-- [ ] 录制演示视频 + 整理文档提交
+- [x] UTS2 卡通渲染 + 歌者/天依待机动画
+- [x] 全流程测试 + bug 修复（涟漪朝向、water 反射、动画穿模等）
+- [x] 录制演示视频 + 整理文档提交
 
-> **当前进度（2026-06-04）**：剧情链路、谜题、7 个自定义着色器、双 MMD 角色、舞台与标题界面均已落地并可在游戏内运行；剩余工作集中在角色卡通渲染（TA 美术）、待机动画与最终调优。
+> **项目状态（2026-06-06）：已竣工。** 剧情链路、谜题、7 个自定义着色器、双 MMD 角色（卡通渲染 + 待机动画）、舞台与标题界面均已落地并在游戏内稳定运行。安装与游玩步骤见 [`guide.md`](/guide.md)，技术细节与效果截图见 [`report.md`](/report.md)。
 
 ---
 
